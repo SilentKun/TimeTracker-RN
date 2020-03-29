@@ -18,7 +18,6 @@ const App = () => {
                 barStyle="light-content"
                 translucent={true}
             />
-            <Text>Initial commit</Text>
         </SafeAreaProvider>
     );
 };
