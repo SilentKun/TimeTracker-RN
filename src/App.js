@@ -7,8 +7,10 @@
  */
 
 import React from 'react';
-import {Text, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import RootComponent from './Navigation';
+import ReduxApp from './Redux';
 
 const App = () => {
     return (
@@ -18,6 +20,9 @@ const App = () => {
                 barStyle="light-content"
                 translucent={true}
             />
+            <ReduxApp>
+                <RootComponent />
+            </ReduxApp>
         </SafeAreaProvider>
     );
 };
