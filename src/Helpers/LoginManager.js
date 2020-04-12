@@ -1,6 +1,6 @@
+import * as Keychain from 'react-native-keychain';
 import {store} from '../Redux';
 import {logInUser as saveUserRedux, logOutUser as deleteUserRedux, updateUser} from '../Redux/Actions';
-import * as Keychain from 'react-native-keychain';
 import {saveUser, readUser, clearUser} from './FileSystemHelper';
 import {signInRequest, signUpRequest} from '../Networking';
 // import {signUpUrl, signInUrl} from '../Constants';
@@ -17,7 +17,7 @@ class LoginManager {
     }
 
     async __restoreSession() {
-        const user = await readUser(user);
+        const user = await readUser();
         const credentials = await Keychain.getGenericPassword();
         if (user && credentials.password) {
             this._saveUserData(user, credentials.password);
@@ -56,34 +56,18 @@ class LoginManager {
     };
 
     signIn = (email, password, block) => {
-        const data = {
-            email,
-            password,
-        };
-        signInRequest(data, (error, response) => {
-            if (error) {
-                block(error, null);
-            } else {
-                this._saveTokenIntoKeychain(response.email, 'token', (err) => {
-                    if (err) {
-                        block(err, null);
-                    } else {
-                        this._saveUserIntoFile(response, block);
-                    }
-                });
-            }
-        });
+        signInRequest({email, password}, this._handleUserResponse(block));
     };
 
     signUp = (email, password, block) => {
-        const data = {
-            email,
-            password,
-        };
-        signUpRequest(data, (error, response) => {
+        signUpRequest({email, password}, this._handleUserResponse(block));
+    };
+
+    _handleUserResponse = (block) => {
+        return (error, response) => {
             if (error) {
                 block(error, null);
-            } else {
+            } else if (response) {
                 this._saveTokenIntoKeychain(response.email, 'token', (err) => {
                     if (err) {
                         block(err, null);
@@ -92,7 +76,7 @@ class LoginManager {
                     }
                 });
             }
-        });
+        };
     };
 
     _saveTokenIntoKeychain = (username, token, block) => {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
 import {LoginHelper} from '../Registration';
 import {LoginManager} from '../../Helpers';
@@ -28,12 +28,14 @@ class HomeScreen extends Component {
 
     render() {
         const email = this.props.currentUser?.email;
+        const {inProgress} = this.state;
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text>Hello {email}</Text>
-                <TouchableOpacity onPress={() => { this.props.navigation.navigate(routes.LoginScreen); }}>
+                <TouchableOpacity onPress={this.signOut}>
                     <Text>LogOut</Text>
                 </TouchableOpacity>
+                {inProgress && <ActivityIndicator style={{marginTop: 10}} />}
             </View>
         );
     }
