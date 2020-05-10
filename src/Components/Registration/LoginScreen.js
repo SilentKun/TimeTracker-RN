@@ -60,7 +60,7 @@ class LoginScreen extends Component {
                 <TouchableOpacity
                     disabled={inProgress}
                     onPress={() => {
-                        this.props.navigation.navigate(routes.SignUpScreen);
+                        this.props.navigation.navigate(routes.RegistrationScreen);
                     }}
                 >
                     <Text>SignUp</Text>

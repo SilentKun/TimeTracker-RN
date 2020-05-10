@@ -1,2 +1,3 @@
 export * from './Registration';
-export HomeScreen from './HomeScreen';
+export ProjectsScreen from './ProjectsScreen';
+export BaseScreen from './BaseScreen';

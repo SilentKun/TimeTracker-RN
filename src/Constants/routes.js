@@ -1,11 +1,12 @@
 const routes = {
     MainAppContent: 'MainAppContent',
-    HomeScreen: 'HomeScreen',
+    ProjectsScreen: 'ProjectsScreen',
     LoginScreen: 'LoginScreen',
-    SignUpScreen: 'SignUpScreen',
+    RegistrationScreen: 'RegistrationScreen',
     BaseScreen: 'BaseScreen',
-    LoginAppNavigator: 'LoginAppNavigator',
-    HomeAppNavigator: 'HomeAppNavigator',
+    LoginNavigator: 'LoginNavigator',
+    HomeNavigator: 'HomeNavigator',
+    MainAppDrawer: 'MainAppDrawer',
 };
 
 export default routes;

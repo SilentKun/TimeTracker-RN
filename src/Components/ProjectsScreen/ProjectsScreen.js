@@ -5,7 +5,7 @@ import {LoginHelper} from '../Registration';
 import {LoginManager} from '../../Helpers';
 import {routes} from '../../Constants';
 
-class HomeScreen extends Component {
+class ProjectsScreen extends Component {
     constructor(props) {
         super(props);
         this.loginHelper = new LoginHelper(
@@ -35,6 +35,9 @@ class HomeScreen extends Component {
                 <TouchableOpacity onPress={this.signOut}>
                     <Text>LogOut</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => { this.props.navigation.openDrawer(); }}>
+                    <Text>OpenDrawer</Text>
+                </TouchableOpacity>
                 {inProgress && <ActivityIndicator style={{marginTop: 10}} />}
             </View>
         );
@@ -47,4 +50,4 @@ const mapStateToProps = ({currentUser}) => {
     };
 };
 
-export default connect(mapStateToProps, null)(HomeScreen);
+export default connect(mapStateToProps, null)(ProjectsScreen);

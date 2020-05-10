@@ -24,7 +24,7 @@ class LoginHelper {
             } else {
                 this.setState({inProgress: false});
                 this.navigate({
-                    routeName: routes.HomeScreen,
+                    routeName: routes.HomeNavigator,
                     params: {login: response.email},
                 });
             }
@@ -41,7 +41,7 @@ class LoginHelper {
             } else {
                 this.setState({inProgress: false});
                 this.navigate({
-                    routeName: routes.HomeScreen,
+                    routeName: routes.HomeNavigator,
                     params: {login: response.email},
                 });
             }

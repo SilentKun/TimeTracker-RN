@@ -9,7 +9,8 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import RootComponent from './Navigation';
+import { NavigationContainer } from '@react-navigation/native';
+import RootStackScreen from './Navigation';
 import ReduxApp from './Redux';
 
 const App = () => {
@@ -21,7 +22,9 @@ const App = () => {
                 translucent={true}
             />
             <ReduxApp>
-                <RootComponent />
+                <NavigationContainer>
+                    <RootStackScreen />
+                </NavigationContainer>
             </ReduxApp>
         </SafeAreaProvider>
     );
