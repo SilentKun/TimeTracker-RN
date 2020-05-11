@@ -16,28 +16,12 @@ class ProjectsScreen extends Component {
         this.state = this.loginHelper.buildInitialState();
     }
 
-    signOut = () => {
-        this.setState({inProgress: true});
-        LoginManager.shared().signOut(() => {
-            this.setState({inProgress: false});
-            this.props.navigation.navigate({
-                routeName: routes.LoginScreen,
-            });
-        });
-    };
-
     render() {
         const email = this.props.currentUser?.email;
         const {inProgress} = this.state;
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text>Hello {email}</Text>
-                <TouchableOpacity onPress={this.signOut}>
-                    <Text>LogOut</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { this.props.navigation.openDrawer(); }}>
-                    <Text>OpenDrawer</Text>
-                </TouchableOpacity>
                 {inProgress && <ActivityIndicator style={{marginTop: 10}} />}
             </View>
         );

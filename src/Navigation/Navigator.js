@@ -9,6 +9,7 @@ import {
     RegistrationScreen,
     ProjectsScreen,
 } from '../Components';
+import SideMenu from './SideMenu';
 import {routes} from '../Constants';
 import BaseScreen from '../Components/BaseScreen';
 
@@ -29,6 +30,7 @@ const DrawerNavigator = createDrawerNavigator({
     [routes.HomeNavigator]: HomeStack,
 }, {
     initialRouteName: routes.HomeNavigator,
+    contentComponent: SideMenu,
 });
 
 const MainAppNavigator = createStackNavigator({
