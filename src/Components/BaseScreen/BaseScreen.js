@@ -7,7 +7,7 @@ class BaseScreen extends Component {
         super(props);
         LoginManager.build().then((loginManager) => {
             if (loginManager.isLoggedIn()) {
-                this.props.navigation.navigate(routes.HomeNavigator);
+                this.props.navigation.navigate(routes.HomeStack);
             } else {
                 this.props.navigation.navigate(routes.LoginScreen);
             }

@@ -8,10 +8,13 @@ import {
     LoginScreen,
     RegistrationScreen,
     ProjectsScreen,
+    ProjectDetailsScreen,
 } from '../Components';
 import SideMenu from './SideMenu';
 import {routes} from '../Constants';
 import BaseScreen from '../Components/BaseScreen';
+import AddProjectScreen from '../Components/ProjectsScreen/AddProjectScreen';
+import EditProjectScreen from '../Components/TasksScreen/EditProjectScreen';
 
 const LoginStack = createStackNavigator({
     [routes.LoginScreen]: LoginScreen,
@@ -20,16 +23,25 @@ const LoginStack = createStackNavigator({
     headerMode: 'none',
 });
 
+const TasksStack = createStackNavigator({
+    [routes.TasksScreen]: ProjectDetailsScreen,
+    [routes.EditProjectScreen]: EditProjectScreen,
+}, {
+    headerMode: 'none',
+});
+
 const HomeStack = createStackNavigator({
     [routes.ProjectsScreen]: ProjectsScreen,
+    [routes.AddProjectScreen]: AddProjectScreen,
+    [routes.TasksStack]: TasksStack,
 }, {
     headerMode: 'none',
 });
 
 const DrawerNavigator = createDrawerNavigator({
-    [routes.HomeNavigator]: HomeStack,
+    [routes.HomeStack]: HomeStack,
 }, {
-    initialRouteName: routes.HomeNavigator,
+    initialRouteName: routes.HomeStack,
     contentComponent: SideMenu,
 });
 
@@ -42,7 +54,7 @@ const MainAppNavigator = createStackNavigator({
 
 const MainNavigator = createSwitchNavigator({
     [routes.MainAppContent]: MainAppNavigator,
-    [routes.LoginNavigator]: LoginStack,
+    [routes.LoginStack]: LoginStack,
     [routes.BaseScreen]: BaseScreen,
 }, {
     initialRouteName: routes.BaseScreen,

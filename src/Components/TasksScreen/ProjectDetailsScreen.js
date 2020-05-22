@@ -1,37 +1,29 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
-import {DrawerActions} from 'react-navigation-drawer';
+import {StyleSheet, View, Text, Dimensions} from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 import {AppNavigationBar, AppTouchableIcon} from '../UIKit';
-import CurrentProjectsScreen from './CurrentProjectsScreen';
-import PendingProjectsScreen from './PendingProjectsScreen';
-import {routes} from '../../Constants';
+import routes from '../../Constants/routes';
+import PendingProjectsScreen from '../ProjectsScreen/PendingProjectsScreen';
+import TasksScreen from './TasksScreen';
 
-class ProjectsScreen extends Component {
+class ProjectDetailsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             index: 0,
             routes: [
-                {key: 'current', title: 'Current Projects'},
-                {key: 'pending', title: 'Pending Projects'},
+                {key: 'tasks', title: 'Tasks'},
+                {key: 'members', title: 'Members'},
             ],
+            title: '',
         };
     }
 
-    _onMenuPress = () => {
-        this.props.navigation.dispatch(DrawerActions.openDrawer());
-    };
-
-    _onAddProjectPress = () => {
-        this.props.navigation.navigate(routes.AddProjectScreen);
-    };
-
     _renderScene = ({ route }) => {
         switch (route.key) {
-        case 'current':
-            return <CurrentProjectsScreen navigation={this.props.navigation} />;
-        case 'pending':
+        case 'tasks':
+            return <TasksScreen navigation={this.props.navigation} />;
+        case 'members':
             return <PendingProjectsScreen />;
         default:
             return null;
@@ -47,23 +39,23 @@ class ProjectsScreen extends Component {
     );
 
     render() {
+        const {project} = this.props.navigation.state.params;
         return (
-            <View style={{flex: 1,}}>
+            <View style={{flex: 1}}>
                 <AppNavigationBar style={styles.navigationBar}>
                     <AppTouchableIcon
                         style={styles.menuIcon}
-                        icon="ios-menu"
-                        onPress={this._onMenuPress}
+                        icon="ios-arrow-back"
+                        onPress={() => this.props.navigation.navigate(routes.ProjectsScreen)}
                     />
                     <Text style={styles.title}>
-                        Projects
+                        Project: {project.title}
                     </Text>
                     <View style={styles.flexSpacing} />
                     <AppTouchableIcon
                         style={styles.addIcon}
-                        icon="ios-add"
-                        onPress={this._onAddProjectPress}
-                        fontSize={40}
+                        icon="ios-cog"
+                        onPress={() => this.props.navigation.navigate(routes.EditProjectScreen, {project})}
                     />
                 </AppNavigationBar>
                 <TabView
@@ -80,6 +72,10 @@ class ProjectsScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    contentContainer: {
+
+        alignItems: 'center',
+    },
     container: {
         flex: 1,
     },
@@ -104,6 +100,7 @@ const styles = StyleSheet.create({
     flexSpacing: {
         flex: 1,
     },
+
 });
 
-export default ProjectsScreen;
+export default ProjectDetailsScreen;

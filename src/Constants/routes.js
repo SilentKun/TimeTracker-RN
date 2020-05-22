@@ -4,9 +4,13 @@ const routes = {
     LoginScreen: 'LoginScreen',
     RegistrationScreen: 'RegistrationScreen',
     BaseScreen: 'BaseScreen',
-    LoginNavigator: 'LoginNavigator',
-    HomeNavigator: 'HomeNavigator',
+    LoginStack: 'LoginStack',
+    HomeStack: 'HomeStack',
     MainAppDrawer: 'MainAppDrawer',
+    AddProjectScreen: 'AddProjectScreen',
+    TasksScreen: 'TasksScreen',
+    TasksStack: 'TasksStack',
+    EditProjectScreen: 'EditProjectScreen',
 };
 
 export default routes;
