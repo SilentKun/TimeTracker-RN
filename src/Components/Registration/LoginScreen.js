@@ -31,7 +31,7 @@ class LoginScreen extends Component {
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <TextInput
                     style={{marginBottom: 10}}
-                    placeholder="Username"
+                    placeholder="Логин"
                     onChangeText={(text) => this.setState({login: text})}
                     autoFocus={true}
                     placeholderStyle={styles.placeholderStyle}
@@ -40,7 +40,7 @@ class LoginScreen extends Component {
                     autoCorrect={false}
                 />
                 <TextInput
-                    placeholder="Password"
+                    placeholder="Пароль"
                     placeholderStyle={styles.placeholderStyle}
                     onChangeText={(text) => this.setState({password: text})}
                     onSubmitEditing={this._signIn}

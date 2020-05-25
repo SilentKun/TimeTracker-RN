@@ -7,12 +7,12 @@ import {CommonCell} from '../UIKit';
 
 const actions = [
     {
-        text: 'Sort tasks by state',
+        text: 'Отсортировать задачи по состоянию',
         name: 'bt_sort_by_state',
         position: 1,
     },
     {
-        text: 'Default sorting',
+        text: 'Сортировка по умолчанию',
         name: 'bt_default_sort',
         position: 2,
     },
@@ -33,7 +33,6 @@ class TasksScreen extends Component {
 
     _loadTasks = () => {
         const {project} = this.props.navigation.state?.params;
-        console.log('LOG', project.id);
         loadTasks(project.id, (error, tasks) => {
             if (error) {
                 this.setState({loading: false});
@@ -52,7 +51,6 @@ class TasksScreen extends Component {
 
     render() {
         const {tasks, loading} = this.state;
-        console.log(this.props);
         if (loading) {
             return (
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -73,7 +71,7 @@ class TasksScreen extends Component {
                     data={tasks}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={this._renderItem}
-                    refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadProjects} />}
+                    refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadTasks} />}
                 />
                 <FloatingAction
                     actions={actions}

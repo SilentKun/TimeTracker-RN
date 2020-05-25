@@ -37,14 +37,14 @@ class SignUpScreen extends Component {
                 <ScrollView contentContainerStyle={{flex: 1,alignItems: 'center', justifyContent: 'center'}}>
                     <TextInput
                         style={{marginBottom: 10}}
-                        placeholder="Login"
+                        placeholder="Логин"
                         onChangeText={(text) => this.setState({login: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
                         onSubmitEditing={() => this.passwordInput.focus()}
                     />
                     <TextInput
-                        placeholder="Password"
+                        placeholder="Пароль"
                         onChangeText={(text) => this.setState({password: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -53,7 +53,7 @@ class SignUpScreen extends Component {
                         onSubmitEditing={() => this.repeatPasswordInput.focus()}
                     />
                     <TextInput
-                        placeholder="Repeat password"
+                        placeholder="Повторите пароль"
                         onChangeText={(text) => this.setState({repeatPassword: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -62,7 +62,7 @@ class SignUpScreen extends Component {
                         onSubmitEditing={() => this.nameInput.focus()}
                     />
                     <TextInput
-                        placeholder="Name"
+                        placeholder="Имя"
                         onChangeText={(text) => this.setState({name: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -70,7 +70,7 @@ class SignUpScreen extends Component {
                         onSubmitEditing={() => this.surnameInput.focus()}
                     />
                     <TextInput
-                        placeholder="Surname"
+                        placeholder="Фамилия"
                         onChangeText={(text) => this.setState({surname: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -78,7 +78,7 @@ class SignUpScreen extends Component {
                         onSubmitEditing={() => this.middlenameInput.focus()}
                     />
                     <TextInput
-                        placeholder="Patronymic"
+                        placeholder="Отчество"
                         onChangeText={(text) => this.setState({middlename: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -86,7 +86,7 @@ class SignUpScreen extends Component {
                         onSubmitEditing={() => this.emailInput.focus()}
                     />
                     <TextInput
-                        placeholder="E-mail"
+                        placeholder="Почта"
                         onChangeText={(text) => this.setState({email: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -94,7 +94,7 @@ class SignUpScreen extends Component {
                         onSubmitEditing={() => this.cityInput.focus()}
                     />
                     <TextInput
-                        placeholder="City"
+                        placeholder="Город"
                         onChangeText={(text) => this.setState({city: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -104,10 +104,10 @@ class SignUpScreen extends Component {
                         style={{width: 200}}
                         date={birthdate}
                         mode="date"
-                        placeholder="select date"
+                        placeholder="Дата рождения"
                         format="DD-MM-YYYY"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
+                        confirmBtnText="Подтвердить"
+                        cancelBtnText="Отменить"
                         customStyles={{
                             dateIcon: {
                                 position: 'absolute',
@@ -124,6 +124,7 @@ class SignUpScreen extends Component {
                     <TouchableOpacity
                         style={{marginTop: 10}}
                         onPress={this._signUp}
+                        // TODO: extend
                         disabled={inProgress || !login || !password}
                     >
                         <Text>Register</Text>

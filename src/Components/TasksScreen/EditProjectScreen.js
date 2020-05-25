@@ -64,7 +64,7 @@ class EditProjectScreen extends Component {
                         onPress={() => this.props.navigation.goBack()}
                     />
                     <Text style={styles.title}>
-                        Edit Project
+                        Редактирование проекта
                     </Text>
                 </AppNavigationBar>
                 <TextInput
@@ -74,7 +74,6 @@ class EditProjectScreen extends Component {
                     onChangeText={(text) => this.setState({title: text})}
                     autoFocus={true}
                     placeholderStyle={styles.placeholderStyle}
-                    onSubmitEditing={() => this.passwordInput.focus()}
                     autoCorrect={false}
                 />
                 <TextInput
@@ -82,8 +81,6 @@ class EditProjectScreen extends Component {
                     value={this.state.description}
                     placeholderStyle={styles.placeholderStyle}
                     onChangeText={(text) => this.setState({description: text})}
-                    onSubmitEditing={this._signIn}
-                    ref={(input) => this.passwordInput = input}
                 />
 
                 <TouchableOpacity

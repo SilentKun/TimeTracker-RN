@@ -46,7 +46,7 @@ class AddProjectScreen extends Component {
                 </AppNavigationBar>
                 <TextInput
                     style={{marginBottom: 10}}
-                    placeholder="Title"
+                    placeholder="Название"
                     onChangeText={(text) => this.setState({title: text})}
                     autoFocus={true}
                     placeholderStyle={styles.placeholderStyle}
@@ -54,7 +54,7 @@ class AddProjectScreen extends Component {
                     autoCorrect={false}
                 />
                 <TextInput
-                    placeholder="Description"
+                    placeholder="Описание"
                     placeholderStyle={styles.placeholderStyle}
                     onChangeText={(text) => this.setState({description: text})}
                     onSubmitEditing={this._signIn}

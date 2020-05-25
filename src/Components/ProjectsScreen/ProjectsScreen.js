@@ -13,8 +13,8 @@ class ProjectsScreen extends Component {
         this.state = {
             index: 0,
             routes: [
-                {key: 'current', title: 'Current Projects'},
-                {key: 'pending', title: 'Pending Projects'},
+                {key: 'current', title: 'Текущие проекты'},
+                {key: 'pending', title: 'Ожидающие проекты'},
             ],
         };
     }

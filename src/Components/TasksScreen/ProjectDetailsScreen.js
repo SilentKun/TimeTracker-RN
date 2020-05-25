@@ -3,8 +3,8 @@ import {StyleSheet, View, Text, Dimensions} from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 import {AppNavigationBar, AppTouchableIcon} from '../UIKit';
 import routes from '../../Constants/routes';
-import PendingProjectsScreen from '../ProjectsScreen/PendingProjectsScreen';
 import TasksScreen from './TasksScreen';
+import MembersScreen from './MembersScreen';
 
 class ProjectDetailsScreen extends Component {
     constructor(props) {
@@ -12,8 +12,8 @@ class ProjectDetailsScreen extends Component {
         this.state = {
             index: 0,
             routes: [
-                {key: 'tasks', title: 'Tasks'},
-                {key: 'members', title: 'Members'},
+                {key: 'tasks', title: 'Задачи'},
+                {key: 'members', title: 'Участники'},
             ],
             title: '',
         };
@@ -24,7 +24,7 @@ class ProjectDetailsScreen extends Component {
         case 'tasks':
             return <TasksScreen navigation={this.props.navigation} />;
         case 'members':
-            return <PendingProjectsScreen />;
+            return <MembersScreen navigation={this.props.navigation} />;
         default:
             return null;
         }
@@ -49,7 +49,7 @@ class ProjectDetailsScreen extends Component {
                         onPress={() => this.props.navigation.navigate(routes.ProjectsScreen)}
                     />
                     <Text style={styles.title}>
-                        Project: {project.title}
+                        Проект: {project.title}
                     </Text>
                     <View style={styles.flexSpacing} />
                     <AppTouchableIcon

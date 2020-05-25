@@ -1,13 +1,15 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-const CommonCell = ({style, title, description, onPress}) => {
+const CommonCell = ({style, title, description, onPress, login, onLongPress}) => {
     return (
         <TouchableOpacity
             style={{...styles.container, ...style}}
             onPress={onPress}
+            onLongPress={onLongPress}
         >
             <Text>{title}</Text>
+            <Text>{login}</Text>
             <Text>{description}</Text>
         </TouchableOpacity>
     );
