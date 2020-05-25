@@ -69,7 +69,7 @@ class SideMenu extends Component {
                                 resizeMode="cover"
                             />
                             <Text style={styles.userName}>
-                                {currentUser.email}
+                                {currentUser.login}
                             </Text>
                         </View>
                     </TouchableWithoutFeedback>

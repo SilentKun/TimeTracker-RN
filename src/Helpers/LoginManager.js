@@ -59,8 +59,9 @@ class LoginManager {
         signInRequest({email, password}, this._handleUserResponse(block));
     };
 
-    signUp = (email, password, block) => {
-        signUpRequest({email, password}, this._handleUserResponse(block));
+    signUp = (userModel, block) => {
+        const {email, password, name, surname, middlename, city, birthdate} = userModel
+        signUpRequest({email, password, name, surname, middlename, city, birthdate}, this._handleUserResponse(block));
     };
 
     _handleUserResponse = (block) => {

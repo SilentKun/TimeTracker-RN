@@ -11,6 +11,7 @@ class LoginHelper {
     buildInitialState = () => {
         return {
             inProgress: false,
+            birthdate: '',
         };
     };
 
@@ -24,7 +25,7 @@ class LoginHelper {
             } else {
                 this.setState({inProgress: false});
                 this.navigate({
-                    routeName: routes.HomeNavigator,
+                    routeName: routes.HomeStack,
                     params: {login: response.email},
                 });
             }
@@ -32,16 +33,25 @@ class LoginHelper {
     };
 
     signUp = () => {
-        const {login, password} = this.getState();
+        const {login, password, name, surname, middlename, city, birthdate} = this.getState();
         this.setState({inProgress: true});
-        LoginManager.shared().signUp(login, password, (error, response) => {
+        const userModel = {
+            login,
+            password,
+            name,
+            surname,
+            middlename,
+            city,
+            birthdate,
+        };
+        LoginManager.shared().signUp(userModel, (error, response) => {
             if (error) {
                 this.setState({inProgress: false});
                 alert(error);
             } else {
                 this.setState({inProgress: false});
                 this.navigate({
-                    routeName: routes.HomeNavigator,
+                    routeName: routes.HomeStack,
                     params: {login: response.email},
                 });
             }

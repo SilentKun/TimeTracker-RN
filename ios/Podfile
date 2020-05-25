@@ -56,6 +56,8 @@ target 'TimeTrackerRN' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+  pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
+
   target 'TimeTrackerRNTests' do
     inherit! :complete
     # Pods for testing
