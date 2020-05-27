@@ -16,35 +16,19 @@ class LoginHelper {
     };
 
     signIn = () => {
-        const {login, password} = this.getState();
+        const {login, password, email, name, surname, middlename, city, birthdate} = this.getState();
         this.setState({inProgress: true});
-        LoginManager.shared().signIn(login, password, (error, response) => {
-            if (error) {
-                this.setState({inProgress: false});
-                alert(error);
-            } else {
-                this.setState({inProgress: false});
-                this.navigate({
-                    routeName: routes.HomeStack,
-                    params: {login: response.email},
-                });
-            }
-        });
-    };
-
-    signUp = () => {
-        const {login, password, name, surname, middlename, city, birthdate} = this.getState();
-        this.setState({inProgress: true});
-        const userModel = {
+        const currentUser = {
             login,
             password,
+            email,
             name,
             surname,
             middlename,
             city,
             birthdate,
         };
-        LoginManager.shared().signUp(userModel, (error, response) => {
+        LoginManager.shared().signIn(currentUser, (error, response) => {
             if (error) {
                 this.setState({inProgress: false});
                 alert(error);
@@ -52,7 +36,34 @@ class LoginHelper {
                 this.setState({inProgress: false});
                 this.navigate({
                     routeName: routes.HomeStack,
-                    params: {login: response.email},
+                    params: {login: response.login, avatar: response.avatar},
+                });
+            }
+        });
+    };
+
+    signUp = () => {
+        const {login, password, email, name, surname, middlename, city, birthdate} = this.getState();
+        this.setState({inProgress: true});
+        const currentUser = {
+            login,
+            password,
+            email,
+            name,
+            surname,
+            middlename,
+            city,
+            birthdate,
+        };
+        LoginManager.shared().signUp(currentUser, (error, response) => {
+            if (error) {
+                this.setState({inProgress: false});
+                alert(error);
+            } else {
+                this.setState({inProgress: false});
+                this.navigate({
+                    routeName: routes.HomeStack,
+                    params: {login: response.login},
                 });
             }
         });

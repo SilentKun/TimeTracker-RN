@@ -12,18 +12,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {connect} from 'react-redux';
 import {routes} from '../../Constants';
 import MenuCell from './MenuCell';
-import {LoginManager} from '../../Helpers';
+import {LoginManager, buildImageSource} from '../../Helpers';
 
 const menuItems = [
     {
-        title: 'Projects',
+        title: 'Проекты',
         iconName: 'ios-paper',
         route: routes.ProjectsScreen,
     },
 ];
 
 const logoutButton = {
-    title: 'Logout',
+    title: 'Выход',
     iconName: 'md-exit',
     route: routes.LoginScreen,
 };
@@ -50,7 +50,7 @@ class SideMenu extends Component {
 
     render() {
         const {currentUser} = this.props;
-        const userImage = {source: require('./img/avatar.png')};
+        console.log(currentUser)
         return (
             <SafeAreaView>
                 <ScrollView
@@ -65,7 +65,7 @@ class SideMenu extends Component {
                         <View style={styles.userContainer}>
                             <Image
                                 style={styles.userImage}
-                                {...userImage}
+                                {...buildImageSource(currentUser.avatar)}
                                 resizeMode="cover"
                             />
                             <Text style={styles.userName}>

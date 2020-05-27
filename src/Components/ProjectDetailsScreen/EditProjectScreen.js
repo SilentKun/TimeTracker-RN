@@ -49,7 +49,7 @@ class EditProjectScreen extends Component {
                     title,
                     description,
                 };
-                this.props.navigation.navigate(routes.TasksScreen, {project});
+                this.props.navigation.navigate(routes.ProjectDetailsScreen, {project});
             }
         });
     };
@@ -113,7 +113,6 @@ const styles = StyleSheet.create({
         letterSpacing: 0.15,
         color: '#FFF',
     },
-
 });
 
 export default EditProjectScreen;

@@ -1,0 +1,45 @@
+const darkColor = '#161718';
+const redColor = '#eb186b';
+const orangeyYellow = '#f5a623';
+
+const colors = {
+    primary: '#0075FF',
+    create: '#6FBB26',
+    remove: '#EE2F30',
+    info: '#2CC397',
+    alerts: '#E81660',
+    light: '#FFFFFF',
+    gray: '#4C4C4D',
+    dark: darkColor,
+    dark_02: 'rgba(22, 23, 24, 0.2)',
+    dark_011: 'rgba(22, 23, 24, 0.11)',
+    black: '#000000',
+    red: '#FF4928',
+    light_07: 'rgba(255, 255, 255, 0.7)',
+    gradientEnd: '#FBFBFB',
+    gradientStart: '#E5E5E5',
+    deepSkyBlue: '#0080FF',
+    grayBlue: '#8E8E93',
+    brownGrey: '#979797',
+    inputGradientStart: '#252729',
+    inputGradientEnd: darkColor,
+    darkGray: '#303233',
+    gunmetal: '#4f555b',
+    black_02: 'rgba(0, 0, 0, 0.2)',
+    bellRed: redColor,
+    separatorGray: '#ededed',
+    light_03: 'rgba(255, 255, 255, 0.3)',
+    light_042: 'rgba(255, 255, 255, 0.42)',
+    extraDark: '#080808',
+    progressHigh: '#32caa1',
+    progressMedium: orangeyYellow,
+    progressLow: redColor,
+    greyishBrown: '#424242',
+    greenishTeal: '#32caa1',
+    black_03: 'rgba(0, 0, 0, 0.3)',
+    white_09: 'rgba(255, 255, 255, 0.9)',
+    black_089: 'rgba(0, 0, 0, 0.89)',
+    orangeyYellow,
+};
+
+export default colors;

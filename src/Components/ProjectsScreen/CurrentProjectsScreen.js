@@ -30,7 +30,6 @@ class CurrentProjectsScreen extends Component {
     };
 
     _renderItem = ({item}) => {
-        console.log(item)
         const project = {
             id: item.id,
             title: item.title,
@@ -40,7 +39,7 @@ class CurrentProjectsScreen extends Component {
             <CommonCell
                 key={item.id}
                 {...item}
-                onPress={() => this.props.navigation.navigate(routes.TasksStack, {project})}
+                onPress={() => this.props.navigation.navigate(routes.ProjectDetailsStack, {project})}
             />
         );
     };
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
     container: {
     },
     contentContainer: {
-
+        marginTop: 10,
         alignItems: 'center',
     },
 

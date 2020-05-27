@@ -56,7 +56,7 @@ class ProjectsScreen extends Component {
                         onPress={this._onMenuPress}
                     />
                     <Text style={styles.title}>
-                        Projects
+                        Проекты
                     </Text>
                     <View style={styles.flexSpacing} />
                     <AppTouchableIcon

@@ -55,13 +55,32 @@ class LoginManager {
             });
     };
 
-    signIn = (email, password, block) => {
-        signInRequest({email, password}, this._handleUserResponse(block));
+    signIn = (currentUser, block) => {
+        const {login, email, password, name, surname, middlename, city, birthdate} = currentUser;
+        signInRequest({
+            login,
+            email,
+            password,
+            name,
+            surname,
+            middlename,
+            city,
+            birthdate,
+        }, this._handleUserResponse(block));
     };
 
-    signUp = (userModel, block) => {
-        const {email, password, name, surname, middlename, city, birthdate} = userModel
-        signUpRequest({email, password, name, surname, middlename, city, birthdate}, this._handleUserResponse(block));
+    signUp = (currentUser, block) => {
+        const {login, email, password, name, surname, middlename, city, birthdate} = currentUser;
+        signUpRequest({
+            login,
+            email,
+            password,
+            name,
+            surname,
+            middlename,
+            city,
+            birthdate,
+        }, this._handleUserResponse(block));
     };
 
     _handleUserResponse = (block) => {

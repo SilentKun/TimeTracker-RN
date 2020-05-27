@@ -54,7 +54,8 @@ class ProjectDetailsScreen extends Component {
                     <View style={styles.flexSpacing} />
                     <AppTouchableIcon
                         style={styles.addIcon}
-                        icon="ios-cog"
+                        fontSize={28}
+                        icon="md-create"
                         onPress={() => this.props.navigation.navigate(routes.EditProjectScreen, {project})}
                     />
                 </AppNavigationBar>

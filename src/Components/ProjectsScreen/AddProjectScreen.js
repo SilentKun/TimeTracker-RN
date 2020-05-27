@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {addProject} from '../../Networking';
 import {AppNavigationBar, AppTouchableIcon} from '../UIKit';
+import AppButton from '../UIKit/AppButton';
 
 class AddProjectScreen extends Component {
     constructor(props) {
@@ -62,13 +63,12 @@ class AddProjectScreen extends Component {
                     ref={(input) => this.passwordInput = input}
                 />
 
-                <TouchableOpacity
-                    style={{marginTop: 10}}
+                <AppButton
+                    style={styles.button}
                     onPress={this._addProject}
-                    disabled={!title || !description}
-                >
-                    <Text>Login</Text>
-                </TouchableOpacity>
+                    text="Создать"
+                    disabled={!title}
+                />
             </View>
         );
     }
@@ -86,7 +86,9 @@ const styles = StyleSheet.create({
         letterSpacing: 0.15,
         color: '#FFF',
     },
-
+    button: {
+        marginHorizontal: 20,
+    },
 });
 
 export default AddProjectScreen;

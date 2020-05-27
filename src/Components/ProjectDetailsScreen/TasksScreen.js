@@ -2,19 +2,24 @@ import React, {Component} from 'react';
 import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { FloatingAction } from 'react-native-floating-action';
-import {loadTasks} from '../../Networking/Tasks';
-import {CommonCell} from '../UIKit';
+import {CommonCell, AppPopup} from '../UIKit';
+import {addTask, loadTasks} from '../../Networking';
 
 const actions = [
     {
         text: 'Отсортировать задачи по состоянию',
         name: 'bt_sort_by_state',
-        position: 1,
+        position: 2,
     },
     {
         text: 'Сортировка по умолчанию',
         name: 'bt_default_sort',
-        position: 2,
+        position: 3,
+    },
+    {
+        text: 'Добавить задачу',
+        name: 'bt_add_task',
+        position: 1,
     },
 ];
 
@@ -24,6 +29,8 @@ class TasksScreen extends Component {
         this.state = {
             tasks: [],
             loading: true,
+            isDialogVisible: false,
+            duration: '',
         };
     }
 
@@ -43,6 +50,51 @@ class TasksScreen extends Component {
         });
     };
 
+    _addTask = () => {
+        const {project} = this.props.navigation.state?.params;
+        const {title, description, duration} = this.state;
+        if ((!title || !title.trim()) && (!duration || !duration.trim())) {
+            alert('Заполните название и продолжительность задачи!');
+            return;
+        }
+        const task = {
+            title,
+            description,
+            duration,
+        };
+        addTask(project.id, {title, description, duration}, (error, response) => {
+            if (error) {
+                alert(error);
+            } else {
+                this._loadTasks();
+                this.setState((prevState) => {
+                    return {
+                        tasks: [...prevState.tasks, task],
+                        isDialogVisible: false,
+                        title: '',
+                        description: '',
+                        duration: '',
+                    };
+                });
+            }
+        });
+    };
+
+    _handleOptions = (button) => {
+        switch (button) {
+        case 'bt_add_task':
+            this.setState({isDialogVisible: true});
+            break;
+        case 'bt_sort_by_state':
+            console.log('sort by state');
+            break;
+        case 'bt_default_sort':
+            console.log('sort by default');
+            break;
+        default:
+        }
+    };
+
     _renderItem = ({item}) => {
         return (
             <CommonCell {...item} />
@@ -50,7 +102,7 @@ class TasksScreen extends Component {
     };
 
     render() {
-        const {tasks, loading} = this.state;
+        const {tasks, loading, isDialogVisible} = this.state;
         if (loading) {
             return (
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -73,10 +125,24 @@ class TasksScreen extends Component {
                     renderItem={this._renderItem}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadTasks} />}
                 />
+                <AppPopup
+                    isDialogVisible={isDialogVisible}
+                    title="Добавить задачу"
+                    hintInput="Никнейм"
+                    firstHintInput="Название"
+                    secondHintInput="Описание"
+                    thirdHintInput="Длительность"
+                    submit={(inputText) => { this._addTask(inputText); }}
+                    closeDialog={() => { this.setState({isDialogVisible: false}); }}
+                    onChangeFirstText={(title) => this.setState({title})}
+                    onChangeSecondText={(description) => this.setState({description})}
+                    onChangeThirdText={(duration) => this.setState({duration})}
+                    duration={this.state.duration}
+                />
                 <FloatingAction
                     actions={actions}
-                    onPressItem={(name) => {
-                        console.log(`selected button: ${name}`);
+                    onPressItem={(btn) => {
+                        this._handleOptions(btn);
                     }}
                 />
             </View>

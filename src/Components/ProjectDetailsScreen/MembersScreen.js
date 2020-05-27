@@ -1,17 +1,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl} from 'react-native';
-import { NavigationEvents } from 'react-navigation';
 import { FloatingAction } from 'react-native-floating-action';
-import DialogInput from 'react-native-dialog-input';
-import Modal, { ModalContent, ModalFooter, ModalButton, ModalTitle } from 'react-native-modals';
-import {addProject, addProjectMember, deleteProjectMember, loadProjectMembers} from '../../Networking/Projects';
-import {CommonCell} from '../UIKit';
+import {addProjectMember, deleteProjectMember, loadProjectMembers} from '../../Networking/Projects';
+import {CommonCell, AppPopup} from '../UIKit';
 
 const actions = [
     {
         text: 'Add member',
         name: 'bt_add_member',
-
         position: 1,
     },
 ];
@@ -43,8 +39,13 @@ class MembersScreen extends Component {
         });
     };
 
-    _addMember = (login) => {
+    _addMember = () => {
         const {project} = this.props.navigation.state?.params;
+        const {login} = this.state;
+        if (!login || !login.trim()) {
+            alert('Вы не ввели имя участника!');
+            return;
+        }
         const member = {
             login,
         };
@@ -57,6 +58,7 @@ class MembersScreen extends Component {
                     return {
                         members: [...prevState.members, member],
                         isDialogVisible: false,
+                        login: '',
                     };
                 });
             }
@@ -90,7 +92,6 @@ class MembersScreen extends Component {
 
     render() {
         const {members, loading, isDialogVisible, isModalVisible, currentUser} = this.state;
-        // console.log('MEMBERS', members);
         if (loading) {
             return (
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -108,46 +109,20 @@ class MembersScreen extends Component {
                     renderItem={this._renderItem}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadMembers} />}
                 />
-                <DialogInput
+                <AppPopup
                     isDialogVisible={isDialogVisible}
                     title="Добавить нового участника"
                     message="Введите никнейм участника, которого хотите пригласить в данный проект."
-                    hintInput="Никнейм"
-                    submitInput={(inputText) => { this._addMember(inputText); }}
+                    firstHintInput="Никнейм"
+                    submit={this._addMember}
                     closeDialog={() => { this.setState({isDialogVisible: false}); }}
+                    onChangeFirstText={(login) => this.setState({login})}
                 />
-                <Modal
-                    style={{paddingHorizontal: 20,}}
-                    visible={isModalVisible}
-                    onTouchOutside={() => {
-                        this.setState({ isModalVisible: false });
-                    }}
-                    modalTitle={
-                        <ModalTitle
-                            title="Вы действительно хотите исключить данного участника?"
-                            align="left"
-                        />
-                    }
-                    footer={
-                        <ModalFooter>
-                            <ModalButton
-                                text="ОТМЕНА"
-                                bordered={true}
-                                onPress={() => {
-                                    this.setState({ isModalVisible: false });
-                                }}
-                                key="button-1"
-                            />
-                            <ModalButton
-                                text="OK"
-                                bordered={true}
-                                onPress={() => {
-                                    this._removeMember(currentUser);
-                                }}
-                                key="button-2"
-                            />
-                        </ModalFooter>
-                    }
+                <AppPopup
+                    isDialogVisible={isModalVisible}
+                    title="Вы действительно хотите исключить данного участника?"
+                    submit={() => this._removeMember(currentUser)}
+                    closeDialog={() => { this.setState({isModalVisible: false}); }}
                 />
                 <FloatingAction
                     actions={actions}

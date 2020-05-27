@@ -8,9 +8,12 @@ const routes = {
     HomeStack: 'HomeStack',
     MainAppDrawer: 'MainAppDrawer',
     AddProjectScreen: 'AddProjectScreen',
-    TasksScreen: 'TasksScreen',
-    TasksStack: 'TasksStack',
+    ProjectDetailsScreen: 'ProjectDetailsScreen',
+    ProjectDetailsStack: 'ProjectDetailsStack',
     EditProjectScreen: 'EditProjectScreen',
+    TaskDetailsStack: 'TaskDetailsStack',
+    TaskDetailsScreen: 'TaskDetailsScreen',
+    EditTaskScreen: 'EditTaskScreen',
 };
 
 export default routes;
