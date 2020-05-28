@@ -1,5 +1,5 @@
 import {apiRequest} from './Base';
-import {tasksUrl} from '../Constants';
+import {tasksUrl, worktracksUrl} from '../Constants';
 
 const loadTasks = (id, block) => {
     const url = tasksUrl(id);
@@ -11,7 +11,13 @@ const addTask = (id, parameters, block) => {
     return apiRequest(url, 'POST', parameters, block);
 };
 
+const loadWorktracks = (projectId, taskId, block) => {
+    const url = worktracksUrl(projectId, taskId);
+    return apiRequest(url, 'GET', null, block);
+};
+
 export {
     loadTasks,
     addTask,
+    loadWorktracks,
 };

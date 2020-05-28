@@ -3,7 +3,6 @@ import {store} from '../Redux';
 import {logInUser as saveUserRedux, logOutUser as deleteUserRedux, updateUser} from '../Redux/Actions';
 import {saveUser, readUser, clearUser} from './FileSystemHelper';
 import {signInRequest, signUpRequest} from '../Networking';
-// import {signUpUrl, signInUrl} from '../Constants';
 
 class LoginManager {
     static __instance = null;
@@ -47,7 +46,7 @@ class LoginManager {
         saveUser(user)
             .then(() => {
                 store.dispatch(updateUser(user));
-                this._saveUserData(user, 'token');
+                this._saveUserData(user, user.access_token);
                 block(null, user);
             })
             .catch((error) => {
@@ -56,16 +55,11 @@ class LoginManager {
     };
 
     signIn = (currentUser, block) => {
-        const {login, email, password, name, surname, middlename, city, birthdate} = currentUser;
+        const {Login, Pass} = currentUser;
+        console.log('HUYYYY', Login)
         signInRequest({
-            login,
-            email,
-            password,
-            name,
-            surname,
-            middlename,
-            city,
-            birthdate,
+            Login,
+            Pass,
         }, this._handleUserResponse(block));
     };
 
@@ -85,10 +79,11 @@ class LoginManager {
 
     _handleUserResponse = (block) => {
         return (error, response) => {
+            const {user} = response;
             if (error) {
                 block(error, null);
             } else if (response) {
-                this._saveTokenIntoKeychain(response.email, 'token', (err) => {
+                this._saveTokenIntoKeychain(user.login, response.access_token, (err) => {
                     if (err) {
                         block(err, null);
                     } else {

@@ -7,7 +7,7 @@ class PendingProjectsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projects: [],
+            projectView: { SignedProjects: [], NotSignedProjects: [] },
             loading: true,
         };
     }
@@ -17,8 +17,8 @@ class PendingProjectsScreen extends Component {
     }
 
     _loadProjects = () => {
-        loadProjects((error, projects) => {
-            this.setState({projects, loading: false});
+        loadProjects((error, projectView) => {
+            this.setState({projectView, loading: false});
         });
     };
 
@@ -29,7 +29,7 @@ class PendingProjectsScreen extends Component {
     };
 
     render() {
-        const {projects, loading} = this.state;
+        const {projectView, loading} = this.state;
         if (loading) {
             return (
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -42,7 +42,7 @@ class PendingProjectsScreen extends Component {
                 <FlatList
                     style={styles.container}
                     contentContainerStyle={styles.contentContainer}
-                    data={projects[0]?.notSignedProjects}
+                    data={projectView?.NotSignedProjects}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={this._renderItem}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadProjects} />}

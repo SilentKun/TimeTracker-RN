@@ -16,17 +16,11 @@ class LoginHelper {
     };
 
     signIn = () => {
-        const {login, password, email, name, surname, middlename, city, birthdate} = this.getState();
+        const {Login, Pass} = this.getState();
         this.setState({inProgress: true});
         const currentUser = {
-            login,
-            password,
-            email,
-            name,
-            surname,
-            middlename,
-            city,
-            birthdate,
+            Login,
+            Pass,
         };
         LoginManager.shared().signIn(currentUser, (error, response) => {
             if (error) {

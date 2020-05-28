@@ -9,7 +9,7 @@ class CurrentProjectsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projects: [],
+            projectView: { SignedProjects: [], NotSignedProjects: [] },
             loading: true,
         };
     }
@@ -19,12 +19,13 @@ class CurrentProjectsScreen extends Component {
     }
 
     _loadProjects = () => {
-        loadProjects((error, projects) => {
+        loadProjects((error, projectView) => {
             if (error) {
                 this.setState({loading: false});
                 alert(error);
             } else {
-                this.setState({projects, loading: false});
+                console.log('HSSFEDSDFJOSN', projectView)
+                this.setState({projectView, loading: false});
             }
         });
     };
@@ -34,7 +35,7 @@ class CurrentProjectsScreen extends Component {
             id: item.id,
             title: item.title,
             description: item.description,
-        }
+        };
         return (
             <CommonCell
                 key={item.id}
@@ -45,7 +46,7 @@ class CurrentProjectsScreen extends Component {
     };
 
     render() {
-        const {projects, loading} = this.state;
+        const {projectView, loading} = this.state;
         if (loading) {
             return (
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -63,7 +64,7 @@ class CurrentProjectsScreen extends Component {
                 <FlatList
                     style={styles.container}
                     contentContainerStyle={styles.contentContainer}
-                    data={projects[0]?.signedProjects}
+                    data={projectView?.SignedProjects}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={this._renderItem}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadProjects} />}

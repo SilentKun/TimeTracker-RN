@@ -26,13 +26,13 @@ class LoginScreen extends Component {
     };
 
     render() {
-        const {login, password, inProgress} = this.state;
+        const {Login, Pass, inProgress} = this.state;
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <TextInput
                     style={{marginBottom: 10}}
                     placeholder="Логин"
-                    onChangeText={(text) => this.setState({login: text})}
+                    onChangeText={(text) => this.setState({Login: text})}
                     autoFocus={true}
                     placeholderStyle={styles.placeholderStyle}
                     onSubmitEditing={() => this.passwordInput.focus()}
@@ -42,7 +42,7 @@ class LoginScreen extends Component {
                 <TextInput
                     placeholder="Пароль"
                     placeholderStyle={styles.placeholderStyle}
-                    onChangeText={(text) => this.setState({password: text})}
+                    onChangeText={(text) => this.setState({Pass: text})}
                     onSubmitEditing={this._signIn}
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -53,7 +53,7 @@ class LoginScreen extends Component {
                 <TouchableOpacity
                     style={{marginTop: 10}}
                     onPress={this._signIn}
-                    disabled={inProgress || !login || !password}
+                    disabled={inProgress || !Login || !Pass}
                 >
                     <Text>Login</Text>
                 </TouchableOpacity>

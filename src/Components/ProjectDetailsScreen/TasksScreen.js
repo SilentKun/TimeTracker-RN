@@ -4,6 +4,7 @@ import { NavigationEvents } from 'react-navigation';
 import { FloatingAction } from 'react-native-floating-action';
 import {CommonCell, AppPopup} from '../UIKit';
 import {addTask, loadTasks} from '../../Networking';
+import routes from '../../Constants/routes';
 
 const actions = [
     {
@@ -96,8 +97,13 @@ class TasksScreen extends Component {
     };
 
     _renderItem = ({item}) => {
+        const {project} = this.props.navigation.state?.params;
         return (
-            <CommonCell {...item} />
+            <CommonCell
+                key={item.id}
+                {...item}
+                onPress={() => this.props.navigation.navigate(routes.TaskDetailsStack, {project, task: item})}
+            />
         );
     };
 

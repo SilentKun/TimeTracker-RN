@@ -15,6 +15,7 @@ import {routes} from '../Constants';
 import BaseScreen from '../Components/BaseScreen';
 import AddProjectScreen from '../Components/ProjectsScreen/AddProjectScreen';
 import EditProjectScreen from '../Components/ProjectDetailsScreen/EditProjectScreen';
+import TaskDetailsScreen from '../Components/TaskDetailsScreen';
 
 const LoginStack = createStackNavigator({
     [routes.LoginScreen]: LoginScreen,
@@ -23,17 +24,17 @@ const LoginStack = createStackNavigator({
     headerMode: 'none',
 });
 
-// const TaskDetailsStack = createStackNavigator({
-//     [routes.TaskDetailsScreen]: TaskDetailsScreen,
-//     [routes.EditTaskScreen]: EditTaskScreen,
-// }, {
-//     headerMode: 'none',
-// });
+const TaskDetailsStack = createStackNavigator({
+    [routes.TaskDetailsScreen]: TaskDetailsScreen,
+    // [routes.EditTaskScreen]: EditTaskScreen,
+}, {
+    headerMode: 'none',
+});
 
 const ProjectDetailsStack = createStackNavigator({
     [routes.ProjectDetailsScreen]: ProjectDetailsScreen,
     [routes.EditProjectScreen]: EditProjectScreen,
-    // [routes.TaskDetailsStack]: TaskDetailsStack,
+    [routes.TaskDetailsStack]: TaskDetailsStack,
 }, {
     headerMode: 'none',
 });
