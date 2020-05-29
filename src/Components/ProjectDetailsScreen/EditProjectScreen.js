@@ -7,21 +7,20 @@ import {
     TextInput,
 } from 'react-native';
 import {deleteProject, editProject} from '../../Networking';
-import {AppNavigationBar, AppTouchableIcon} from '../UIKit';
+import {AppButton, AppInput, AppNavigationBar, AppTouchableIcon} from '../UIKit';
 import routes from '../../Constants/routes';
 
 class EditProjectScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
-            description: '',
+
         };
     }
 
     componentDidMount() {
         const {project} = this.props.navigation.state.params;
-        this.setState({title: project.title, description: project.description});
+        this.setState({title: project.Title, description: project.Description});
     }
 
     _deleteProject = () => {
@@ -39,17 +38,13 @@ class EditProjectScreen extends Component {
     _editProject = () => {
         const {title, description} = this.state;
         const {project} = this.props.navigation.state.params;
-        const {id} = project;
-        editProject(id, {title, description}, (error, response) => {
+        console.log('FSFEFEF', project);
+        const body = {Project: {Id: project.Id, Title: title.trim(), Description: description.trim()}}
+        editProject(body, (error, response) => {
             if (error) {
                 alert(error);
             } else {
-                const project = {
-                    id,
-                    title,
-                    description,
-                };
-                this.props.navigation.navigate(routes.ProjectDetailsScreen, {project});
+                this.props.navigation.goBack();
             }
         });
     };
@@ -67,34 +62,32 @@ class EditProjectScreen extends Component {
                         Редактирование проекта
                     </Text>
                 </AppNavigationBar>
-                <TextInput
-                    style={{marginBottom: 10}}
+                <AppInput
+                    style={styles.input}
                     value={this.state.title}
-                    placeholder="Title"
+                    placeholder="Название"
                     onChangeText={(text) => this.setState({title: text})}
                     autoFocus={true}
                     placeholderStyle={styles.placeholderStyle}
                     autoCorrect={false}
                 />
-                <TextInput
-                    placeholder="Description"
+                <AppInput
+                    style={styles.input}
                     value={this.state.description}
                     placeholderStyle={styles.placeholderStyle}
                     onChangeText={(text) => this.setState({description: text})}
                 />
-
-                <TouchableOpacity
-                    style={{marginTop: 10}}
+                <AppButton
+                    style={styles.button}
                     onPress={this._editProject}
-                >
-                    <Text>Edit Project</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={{marginTop: 10}}
+                    text="Отредактировать"
+                />
+                <AppButton
+                    isDestructive={true}
+                    style={styles.button}
                     onPress={this._deleteProject}
-                >
-                    <Text style={{color: 'red'}}>Delete Project</Text>
-                </TouchableOpacity>
+                    text="Удалить проект"
+                />
             </View>
         );
     }
@@ -107,11 +100,19 @@ const styles = StyleSheet.create({
 
         alignItems: 'center',
     },
+    input: {
+        marginHorizontal: 20,
+        marginTop: 10,
+    },
     title: {
         marginLeft: 20,
         fontSize: 17,
         letterSpacing: 0.15,
         color: '#FFF',
+    },
+    button: {
+        marginTop: 10,
+        marginHorizontal: 20,
     },
 });
 

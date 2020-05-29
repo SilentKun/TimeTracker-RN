@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
     View,
     Text,
-    Image,
     TouchableWithoutFeedback,
     StyleSheet,
     ScrollView,
@@ -12,7 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {connect} from 'react-redux';
 import {routes} from '../../Constants';
 import MenuCell from './MenuCell';
-import {LoginManager, buildImageSource} from '../../Helpers';
+import {LoginManager} from '../../Helpers';
 
 const menuItems = [
     {
@@ -63,11 +62,6 @@ class SideMenu extends Component {
                         }}
                     >
                         <View style={styles.userContainer}>
-                            <Image
-                                style={styles.userImage}
-                                {...buildImageSource(currentUser.avatar)}
-                                resizeMode="cover"
-                            />
                             <Text style={styles.userName}>
                                 {currentUser.login}
                             </Text>

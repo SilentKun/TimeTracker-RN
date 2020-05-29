@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {DrawerActions} from 'react-navigation-drawer';
 import { TabView, TabBar } from 'react-native-tab-view';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {AppNavigationBar, AppTouchableIcon} from '../UIKit';
 import CurrentProjectsScreen from './CurrentProjectsScreen';
 import PendingProjectsScreen from './PendingProjectsScreen';
-import {routes} from '../../Constants';
+import {colors, routes} from '../../Constants';
 
 class ProjectsScreen extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class ProjectsScreen extends Component {
         case 'current':
             return <CurrentProjectsScreen navigation={this.props.navigation} />;
         case 'pending':
-            return <PendingProjectsScreen />;
+            return <PendingProjectsScreen navigation={this.props.navigation} />;
         default:
             return null;
         }
@@ -43,12 +44,19 @@ class ProjectsScreen extends Component {
             {...props}
             indicatorStyle={{ backgroundColor: 'white' }}
             style={{ backgroundColor: '#03bafc' }}
+            renderIcon={({ route, focused, color }) => (
+                <Icon
+                    name={route.key === 'current' ? 'ios-briefcase' : 'md-mail-unread'}
+                    size={25}
+                    color={color}
+                />
+            )}
         />
     );
 
     render() {
         return (
-            <View style={{flex: 1,}}>
+            <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
                 <AppNavigationBar style={styles.navigationBar}>
                     <AppTouchableIcon
                         style={styles.menuIcon}
@@ -69,7 +77,10 @@ class ProjectsScreen extends Component {
                 <TabView
                     navigationState={this.state}
                     renderScene={this._renderScene}
-                    onIndexChange={(index) => this.setState({ index })}
+                    onIndexChange={(index) => {
+                        this.setState({ index });
+                        this._
+                    }}
                     initialLayout={{width: Dimensions.get('window').width}}
                     style={{width: '100%'}}
                     renderTabBar={this._renderTabBar}

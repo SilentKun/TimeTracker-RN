@@ -4,11 +4,15 @@ import {
     Text,
     TouchableOpacity,
     TextInput,
+    KeyboardAvoidingView,
     ActivityIndicator,
-    ScrollView,
+    ScrollView, StyleSheet,
+    Platform
 } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import LoginHelper from './LoginHelper';
+import {AppInput, AppNavigationBar, AppTouchableIcon, AppButton} from '../UIKit';
+import {colors} from '../../Constants';
 
 class SignUpScreen extends Component {
     constructor(props) {
@@ -33,107 +37,137 @@ class SignUpScreen extends Component {
     render() {
         const {login, password, inProgress, birthdate} = this.state;
         return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <ScrollView contentContainerStyle={{flex: 1,alignItems: 'center', justifyContent: 'center'}}>
-                    <TextInput
-                        style={{marginBottom: 10}}
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.feedBackground}}>
+                <AppNavigationBar style={styles.navigationBar}>
+                    <AppTouchableIcon
+                        icon="ios-arrow-back"
+                        onPress={() => this.props.navigation.goBack()}
+                    />
+                    <Text style={styles.title}>
+                        Регистрация
+                    </Text>
+                </AppNavigationBar>
+                <ScrollView contentContainerStyle={{marginTop: 30, alignItems: 'center', justifyContent: 'center'}}>
+                    <AppInput
+                        style={styles.input}
                         placeholder="Логин"
                         onChangeText={(text) => this.setState({login: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
                         onSubmitEditing={() => this.passwordInput.focus()}
                     />
-                    <TextInput
+                    <AppInput
+                        style={styles.input}
                         placeholder="Пароль"
                         onChangeText={(text) => this.setState({password: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
                         secureTextEntry={true}
-                        ref={(input) => this.passwordInput = input}
+                        reference={(input) => this.passwordInput = input}
                         onSubmitEditing={() => this.repeatPasswordInput.focus()}
                     />
-                    <TextInput
+                    <AppInput
+                        style={styles.input}
                         placeholder="Повторите пароль"
                         onChangeText={(text) => this.setState({repeatPassword: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
                         secureTextEntry={true}
-                        ref={(input) => this.repeatPasswordInput = input}
+                        reference={(input) => this.repeatPasswordInput = input}
                         onSubmitEditing={() => this.nameInput.focus()}
                     />
-                    <TextInput
+                    <AppInput
+                        style={styles.input}
                         placeholder="Имя"
                         onChangeText={(text) => this.setState({name: text})}
-                        autoCapitalize="none"
                         autoCorrect={false}
-                        ref={(input) => this.nameInput = input}
+                        reference={(input) => this.nameInput = input}
                         onSubmitEditing={() => this.surnameInput.focus()}
                     />
-                    <TextInput
+                    <AppInput
+                        style={styles.input}
                         placeholder="Фамилия"
                         onChangeText={(text) => this.setState({surname: text})}
-                        autoCapitalize="none"
                         autoCorrect={false}
-                        ref={(input) => this.surnameInput = input}
+                        reference={(input) => this.surnameInput = input}
                         onSubmitEditing={() => this.middlenameInput.focus()}
                     />
-                    <TextInput
+                    <AppInput
+                        style={styles.input}
                         placeholder="Отчество"
                         onChangeText={(text) => this.setState({middlename: text})}
-                        autoCapitalize="none"
                         autoCorrect={false}
-                        ref={(input) => this.middlenameInput = input}
+                        reference={(input) => this.middlenameInput = input}
                         onSubmitEditing={() => this.emailInput.focus()}
                     />
-                    <TextInput
+                    <AppInput
+                        style={styles.input}
                         placeholder="Почта"
                         onChangeText={(text) => this.setState({email: text})}
                         autoCapitalize="none"
                         autoCorrect={false}
-                        ref={(input) => this.emailInput = input}
+                        reference={(input) => this.emailInput = input}
                         onSubmitEditing={() => this.cityInput.focus()}
                     />
-                    <TextInput
+                    <AppInput
+                        style={styles.input}
                         placeholder="Город"
                         onChangeText={(text) => this.setState({city: text})}
-                        autoCapitalize="none"
                         autoCorrect={false}
-                        ref={(input) => this.cityInput = input}
+                        reference={(input) => this.cityInput = input}
                     />
                     <DatePicker
-                        style={{width: 200}}
+                        style={{marginTop: 8, width: 230}}
                         date={birthdate}
                         mode="date"
                         placeholder="Дата рождения"
                         format="DD-MM-YYYY"
                         confirmBtnText="Подтвердить"
                         cancelBtnText="Отменить"
+                        showIcon={false}
                         customStyles={{
-                            dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 4,
-                                marginLeft: 0,
-                            },
                             dateInput: {
-                                marginLeft: 36,
+                                backgroundColor: colors.light,
+                                borderRadius: 10,
+                                height: 52,
+                                borderColor: colors.charcoalGrey10,
+                                alignItems: 'flex-start',
+                            },
+                            placeholderText: {
+                                color: '#9f9f9f',
+                                fontSize: 14,
+                                paddingHorizontal: 16,
                             },
                         }}
                         onDateChange={(birthdate) => { this.setState({birthdate}); }}
                     />
-                    <TouchableOpacity
-                        style={{marginTop: 10}}
+                    <AppButton
+                        style={{marginTop: 30, paddingHorizontal: 70}}
                         onPress={this._signUp}
-                        // TODO: extend
                         disabled={inProgress || !login || !password}
-                    >
-                        <Text>Register</Text>
-                    </TouchableOpacity>
+                        text="Зарегистрироваться"
+                    />
                     {this.state.inProgress && <ActivityIndicator style={{marginTop: 10}} />}
                 </ScrollView>
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    title: {
+        marginLeft: 20,
+        fontSize: 17,
+        letterSpacing: 0.15,
+        color: '#FFF',
+    },
+    navigationBar: {
+        width: '100%',
+    },
+    input: {
+        marginBottom: 10,
+        marginHorizontal: 80,
+    },
+});
 
 export default SignUpScreen;

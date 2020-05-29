@@ -1,8 +1,11 @@
+import LoginManager from '../Helpers/LoginManager';
+
 const apiRequest = (url, method, parameters, block, signal, headers = {}) => {
     fetchJSON(url, {
         method,
         headers: {
             Accept: 'application/json',
+            'Authorization': 'Bearer ' + LoginManager.shared().getToken(),
             'Content-Type': parameters instanceof FormData ? 'multipart/form-data' : 'application/json',
             ...headers,
         },
@@ -14,9 +17,13 @@ const apiRequest = (url, method, parameters, block, signal, headers = {}) => {
             block(null, responseJson);
         })
         .catch((error) => {
-            console.log('error', error);
-            block(error, null);
-        });
+            // console.log('error', error);
+            if ((error.message || '').includes('Network request failed')) {
+                block(new Error('Отсутствует соединение с сервером'), null);
+            } else {
+                block(error, null);
+            }
+        })
 };
 
 
@@ -27,7 +34,7 @@ const timeoutFetch = (url, {method, headers, body, signal}) => {
     const request = new Promise((resolve, reject) => {
         const timeout = setTimeout(() => {
             didTimeOut = true;
-            reject(new Error('Request timed out'));
+            reject(new Error('Истекло время ожидания ответа от сервера'));
         }, FETCH_TIMEOUT);
 
         fetch(url, {

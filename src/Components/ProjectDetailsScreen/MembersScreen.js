@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl} from 'react-native';
+import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl, TouchableOpacity} from 'react-native';
 import { FloatingAction } from 'react-native-floating-action';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {addProjectMember, deleteProjectMember, loadProjectMembers} from '../../Networking/Projects';
 import {CommonCell, AppPopup} from '../UIKit';
 
 const actions = [
     {
+        color: '#03bafc',
         text: 'Add member',
         name: 'bt_add_member',
         position: 1,
@@ -104,7 +106,7 @@ class MembersScreen extends Component {
                 <FlatList
                     style={styles.container}
                     contentContainerStyle={styles.contentContainer}
-                    data={members}
+                    data={[]}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={this._renderItem}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadMembers} />}
@@ -124,12 +126,15 @@ class MembersScreen extends Component {
                     submit={() => this._removeMember(currentUser)}
                     closeDialog={() => { this.setState({isModalVisible: false}); }}
                 />
+                {this.props.isAdmin &&
                 <FloatingAction
-                    actions={actions}
-                    onPressItem={() => {
+                    color="#03bafc"
+                    floatingIcon={<Icon name="md-person-add" size={30} color="#FFF" />}
+                    onPressMain={() => {
                         this.setState({isDialogVisible: true});
                     }}
-                />
+                    showBackground={false}
+                />}
             </View>
         );
     }

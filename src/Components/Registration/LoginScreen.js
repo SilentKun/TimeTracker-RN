@@ -8,7 +8,9 @@ import {
     ActivityIndicator,
 } from 'react-native';
 import LoginHelper from './LoginHelper';
-import {routes} from '../../Constants';
+import {routes, colors} from '../../Constants';
+import AppInput from '../UIKit/AppInput';
+import {AppButton} from '../UIKit';
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -26,45 +28,44 @@ class LoginScreen extends Component {
     };
 
     render() {
-        const {Login, Pass, inProgress} = this.state;
+        const {login, password, inProgress} = this.state;
         return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <TextInput
-                    style={{marginBottom: 10}}
+            <View style={{flex: 1,  justifyContent: 'center', backgroundColor: colors.feedBackground}}>
+                <AppInput
+                    style={styles.input}
                     placeholder="Логин"
-                    onChangeText={(text) => this.setState({Login: text})}
+                    onChangeText={(text) => this.setState({login: text})}
                     autoFocus={true}
                     placeholderStyle={styles.placeholderStyle}
                     onSubmitEditing={() => this.passwordInput.focus()}
                     autoCapitalize="none"
                     autoCorrect={false}
                 />
-                <TextInput
+                <AppInput
+                    style={styles.input}
                     placeholder="Пароль"
                     placeholderStyle={styles.placeholderStyle}
-                    onChangeText={(text) => this.setState({Pass: text})}
+                    onChangeText={(text) => this.setState({password: text})}
                     onSubmitEditing={this._signIn}
                     autoCapitalize="none"
                     autoCorrect={false}
                     secureTextEntry={true}
-                    ref={(input) => this.passwordInput = input}
+                    reference={(input) => this.passwordInput = input}
                 />
-
-                <TouchableOpacity
-                    style={{marginTop: 10}}
+                <AppButton
+                    style={styles.button}
                     onPress={this._signIn}
-                    disabled={inProgress || !Login || !Pass}
-                >
-                    <Text>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    disabled={inProgress}
+                    disabled={inProgress || !login || !password}
+                    text="Вход"
+                />
+                <AppButton
+                    style={styles.button}
                     onPress={() => {
                         this.props.navigation.navigate(routes.RegistrationScreen);
                     }}
-                >
-                    <Text>SignUp</Text>
-                </TouchableOpacity>
+                    disabled={inProgress}
+                    text="Регистрация"
+                />
                 {inProgress && <ActivityIndicator style={{marginTop: 10}} />}
             </View>
         );
@@ -86,6 +87,10 @@ const styles = StyleSheet.create(
         },
         text: {
             color: '#d3d3d3',
+        },
+        input: {
+            marginBottom: 10,
+            marginHorizontal: 80,
         },
     },
 );

@@ -3,13 +3,13 @@ import {StyleSheet, View, FlatList, RefreshControl, ActivityIndicator} from 'rea
 import { NavigationEvents } from 'react-navigation';
 import {loadProjects} from '../../Networking';
 import {CommonCell} from '../UIKit';
-import routes from '../../Constants/routes';
+import {routes, colors} from '../../Constants';
 
 class CurrentProjectsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            projectView: { SignedProjects: [], NotSignedProjects: [] },
+            projectView: { SignedProjects: [] },
             loading: true,
         };
     }
@@ -24,7 +24,6 @@ class CurrentProjectsScreen extends Component {
                 this.setState({loading: false});
                 alert(error);
             } else {
-                console.log('HSSFEDSDFJOSN', projectView)
                 this.setState({projectView, loading: false});
             }
         });
@@ -32,13 +31,13 @@ class CurrentProjectsScreen extends Component {
 
     _renderItem = ({item}) => {
         const project = {
-            id: item.id,
-            title: item.title,
-            description: item.description,
+            id: item.Id,
+            title: item.Title,
+            description: item.Description,
         };
         return (
             <CommonCell
-                key={item.id}
+                key={item.Id}
                 {...item}
                 onPress={() => this.props.navigation.navigate(routes.ProjectDetailsStack, {project})}
             />
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         marginTop: 10,
-        alignItems: 'center',
+        paddingBottom: 30,
     },
 
 

@@ -2,6 +2,8 @@ import React from 'react';
 import {StyleSheet, View, TextInput, Text} from 'react-native';
 import Modal from 'react-native-modal';
 import AppButton from './AppButton';
+import AppInput from './AppInput';
+import {colors} from '../../Constants';
 
 const AppPopup = ({
     isDialogVisible,
@@ -22,11 +24,11 @@ const AppPopup = ({
                 {title && <Text style={styles.title}>{title}</Text>}
                 {message && <Text style={styles.message}>{message}</Text>}
                 {onChangeFirstText &&
-                <TextInput
-                    placeholder={firstHintInput}
-                    onChangeText={onChangeFirstText}
-                    style={styles.input}
-                />}
+                    <AppInput
+                        placeholder={firstHintInput}
+                        onChangeText={onChangeFirstText}
+                        style={styles.input}
+                    />}
                 {onChangeSecondText &&
                 <TextInput
                     placeholder={secondHintInput}
@@ -51,12 +53,12 @@ const AppPopup = ({
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
+        // alignItems: 'center',
     },
     background: {
-        alignItems: 'center',
+        // alignItems: 'center',
         marginHorizontal: 30,
-        backgroundColor: '#FFF',
+        backgroundColor: colors.feedBackground,
         borderRadius: 20,
     },
     title: {
@@ -75,20 +77,18 @@ const styles = StyleSheet.create({
     },
     input: {
         marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#000',
-        paddingVertical: 1,
-        width: 200,
+        marginHorizontal: 20,
     },
     buttonsContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         marginBottom: 25,
         justifyContent: 'center',
-        paddingRight: 10,
     },
     button: {
+        marginTop: 25,
         marginLeft: 10,
+        paddingHorizontal: 35,
     },
 });
 

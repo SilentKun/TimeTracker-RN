@@ -7,8 +7,8 @@ import {
     TextInput,
 } from 'react-native';
 import {addProject} from '../../Networking';
-import {AppNavigationBar, AppTouchableIcon} from '../UIKit';
-import AppButton from '../UIKit/AppButton';
+import {AppNavigationBar, AppTouchableIcon, AppButton, AppInput} from '../UIKit';
+import {colors} from '../../Constants';
 
 class AddProjectScreen extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class AddProjectScreen extends Component {
 
     _addProject = () => {
         const {title, description} = this.state;
-        addProject({title, description}, (error, response) => {
+        addProject({Title: title, Description: description}, (error, response) => {
             if (error) {
                 alert(error);
             } else {
@@ -32,9 +32,9 @@ class AddProjectScreen extends Component {
     };
 
     render() {
-        const {title, description} = this.state;
+        const {title} = this.state;
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
                 <AppNavigationBar style={styles.navigationBar}>
                     <AppTouchableIcon
                         style={styles.menuIcon}
@@ -42,11 +42,11 @@ class AddProjectScreen extends Component {
                         onPress={() => this.props.navigation.goBack()}
                     />
                     <Text style={styles.title}>
-                        Add Project
+                        Создать проект
                     </Text>
                 </AppNavigationBar>
-                <TextInput
-                    style={{marginBottom: 10}}
+                <AppInput
+                    style={styles.input}
                     placeholder="Название"
                     onChangeText={(text) => this.setState({title: text})}
                     autoFocus={true}
@@ -54,15 +54,14 @@ class AddProjectScreen extends Component {
                     onSubmitEditing={() => this.passwordInput.focus()}
                     autoCorrect={false}
                 />
-                <TextInput
+                <AppInput
+                    style={styles.input}
                     placeholder="Описание"
                     placeholderStyle={styles.placeholderStyle}
                     onChangeText={(text) => this.setState({description: text})}
                     onSubmitEditing={this._signIn}
-                    secureTextEntry={true}
-                    ref={(input) => this.passwordInput = input}
+                    reference={(input) => this.passwordInput = input}
                 />
-
                 <AppButton
                     style={styles.button}
                     onPress={this._addProject}
@@ -80,6 +79,10 @@ const styles = StyleSheet.create({
     contentContainer: {
         alignItems: 'center',
     },
+    input: {
+        marginHorizontal: 20,
+        marginTop: 10,
+    },
     title: {
         marginLeft: 20,
         fontSize: 17,
@@ -87,6 +90,7 @@ const styles = StyleSheet.create({
         color: '#FFF',
     },
     button: {
+        marginTop: 10,
         marginHorizontal: 20,
     },
 });

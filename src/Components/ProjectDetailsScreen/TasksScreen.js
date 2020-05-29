@@ -8,16 +8,19 @@ import routes from '../../Constants/routes';
 
 const actions = [
     {
+        color: '#03bafc',
         text: 'Отсортировать задачи по состоянию',
         name: 'bt_sort_by_state',
         position: 2,
     },
     {
+        color: '#03bafc',
         text: 'Сортировка по умолчанию',
         name: 'bt_default_sort',
         position: 3,
     },
     {
+        color: '#03bafc',
         text: 'Добавить задачу',
         name: 'bt_add_task',
         position: 1,
@@ -41,12 +44,12 @@ class TasksScreen extends Component {
 
     _loadTasks = () => {
         const {project} = this.props.navigation.state?.params;
-        loadTasks(project.id, (error, tasks) => {
+        loadTasks(project.id, (error, response) => {
             if (error) {
                 this.setState({loading: false});
                 alert(error);
             } else {
-                this.setState({tasks, loading: false});
+                this.setState({tasks: response.tasks, isAdmin: response.isAdmin, loading: false});
             }
         });
     };
@@ -146,6 +149,7 @@ class TasksScreen extends Component {
                     duration={this.state.duration}
                 />
                 <FloatingAction
+                    color="#03bafc"
                     actions={actions}
                     onPressItem={(btn) => {
                         this._handleOptions(btn);
@@ -158,8 +162,7 @@ class TasksScreen extends Component {
 
 const styles = StyleSheet.create({
     contentContainer: {
-
-        alignItems: 'center',
+        marginTop: 10,
     },
     container: {
         flex: 1,

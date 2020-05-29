@@ -1,8 +1,8 @@
 import {apiRequest} from './Base';
-import {tasksUrl, worktracksUrl} from '../Constants';
+import {projectDetails, worktracksUrl} from '../Constants';
 
 const loadTasks = (id, block) => {
-    const url = tasksUrl(id);
+    const url = projectDetails(id);
     return apiRequest(url, 'GET', null, block);
 };
 

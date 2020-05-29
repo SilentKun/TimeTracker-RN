@@ -15,6 +15,10 @@ class LoginManager {
         return this.__user !== null && this.__token !== null;
     }
 
+    getToken() {
+        return this.__token;
+    }
+
     async __restoreSession() {
         const user = await readUser();
         const credentials = await Keychain.getGenericPassword();
@@ -42,11 +46,12 @@ class LoginManager {
         return this.__instance;
     }
 
-    _saveUserIntoFile = (user, block) => {
+    _saveUserIntoFile = (userModel, block) => {
+        const {user} = userModel;
         saveUser(user)
             .then(() => {
                 store.dispatch(updateUser(user));
-                this._saveUserData(user, user.access_token);
+                this._saveUserData(user, userModel.access_token);
                 block(null, user);
             })
             .catch((error) => {
@@ -55,34 +60,33 @@ class LoginManager {
     };
 
     signIn = (currentUser, block) => {
-        const {Login, Pass} = currentUser;
-        console.log('HUYYYY', Login)
+        const {login, password} = currentUser;
         signInRequest({
-            Login,
-            Pass,
+            Login: login,
+            Pass: password,
         }, this._handleUserResponse(block));
     };
 
     signUp = (currentUser, block) => {
         const {login, email, password, name, surname, middlename, city, birthdate} = currentUser;
         signUpRequest({
-            login,
-            email,
-            password,
-            name,
-            surname,
-            middlename,
-            city,
-            birthdate,
-        }, this._handleUserResponse(block));
+            Login: login,
+            Email: email,
+            Pass: password,
+            FirstName: name,
+            Surname: surname,
+            MiddleName: middlename,
+            City: city,
+            BirthDate: birthdate,
+        }, block);
     };
 
     _handleUserResponse = (block) => {
         return (error, response) => {
-            const {user} = response;
             if (error) {
                 block(error, null);
             } else if (response) {
+                const {user} = response;
                 this._saveTokenIntoKeychain(user.login, response.access_token, (err) => {
                     if (err) {
                         block(err, null);

@@ -1,17 +1,24 @@
 import {apiRequest} from './Base';
-import {projectsUrl, signedProjectsUrl, updateProjectUrl, membersUrl, updateMembersUrl} from '../Constants';
+import {
+    projectsUrl,
+    signedProjectsUrl,
+    updateProjectUrl,
+    membersUrl,
+    updateMembersUrl,
+    acceptInviteUrl,
+    addProjectUrl
+} from '../Constants';
 
 const loadProjects = (block) => {
     return apiRequest(projectsUrl, 'GET', null, block);
 };
 
 const addProject = (parameters, block) => {
-    return apiRequest(signedProjectsUrl, 'POST', parameters, block);
+    return apiRequest(addProjectUrl, 'POST', parameters, block);
 };
 
-const editProject = (id, parameters, block) => {
-    const url = updateProjectUrl(id);
-    return apiRequest(url, 'PUT', parameters, block);
+const editProject = (parameters, block) => {
+    return apiRequest(updateProjectUrl, 'POST', parameters, block);
 };
 
 const deleteProject = (id, block) => {
@@ -34,6 +41,10 @@ const deleteProjectMember = (projectId, memberId, block) => {
     return apiRequest(url, 'DELETE', null, block);
 };
 
+const acceptInvite = (parameters, block) => {
+    return apiRequest(acceptInviteUrl, 'POST', parameters, block);
+};
+
 export {
     loadProjects,
     addProject,
@@ -42,4 +53,5 @@ export {
     loadProjectMembers,
     addProjectMember,
     deleteProjectMember,
+    acceptInvite,
 };

@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, Dimensions} from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {NavigationEvents} from 'react-navigation';
 import {AppNavigationBar, AppTouchableIcon} from '../UIKit';
 import routes from '../../Constants/routes';
 import TasksScreen from './TasksScreen';
 import MembersScreen from './MembersScreen';
+import {loadTasks} from '../../Networking';
+import {colors} from '../../Constants';
 
 class ProjectDetailsScreen extends Component {
     constructor(props) {
@@ -15,16 +19,30 @@ class ProjectDetailsScreen extends Component {
                 {key: 'tasks', title: 'Задачи'},
                 {key: 'members', title: 'Участники'},
             ],
-            title: '',
         };
     }
+
+    componentDidMount() {
+        this._loadTasks();
+    }
+
+    _loadTasks = () => {
+        const {project} = this.props.navigation.state?.params;
+        loadTasks(project.id, (error, response) => {
+            if (error) {
+                alert(error);
+            } else {
+                this.setState({isAdmin: response.isAdmin, project: response.project});
+            }
+        });
+    };
 
     _renderScene = ({ route }) => {
         switch (route.key) {
         case 'tasks':
             return <TasksScreen navigation={this.props.navigation} />;
         case 'members':
-            return <MembersScreen navigation={this.props.navigation} />;
+            return <MembersScreen isAdmin={this.state.isAdmin} navigation={this.props.navigation} />;
         default:
             return null;
         }
@@ -35,13 +53,25 @@ class ProjectDetailsScreen extends Component {
             {...props}
             indicatorStyle={{ backgroundColor: 'white' }}
             style={{ backgroundColor: '#03bafc' }}
+            renderIcon={({ route, focused, color }) => (
+                <Icon
+                    name={route.key === 'tasks' ? 'ios-paper' : 'md-people'}
+                    size={25}
+                    color={color}
+                />
+            )}
         />
     );
 
     render() {
-        const {project} = this.props.navigation.state.params;
+        const {project} = this.state;
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
+                <NavigationEvents
+                    onWillFocus={() => {
+                        this._loadTasks();
+                    }}
+                />
                 <AppNavigationBar style={styles.navigationBar}>
                     <AppTouchableIcon
                         style={styles.menuIcon}
@@ -49,15 +79,16 @@ class ProjectDetailsScreen extends Component {
                         onPress={() => this.props.navigation.navigate(routes.ProjectsScreen)}
                     />
                     <Text style={styles.title}>
-                        Проект: {project.title}
+                        Проект: {project?.Title}
                     </Text>
                     <View style={styles.flexSpacing} />
+                    {this.state.isAdmin &&
                     <AppTouchableIcon
                         style={styles.addIcon}
                         fontSize={28}
                         icon="md-create"
                         onPress={() => this.props.navigation.navigate(routes.EditProjectScreen, {project})}
-                    />
+                    />}
                 </AppNavigationBar>
                 <TabView
                     navigationState={this.state}

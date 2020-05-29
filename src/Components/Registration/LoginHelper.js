@@ -11,16 +11,15 @@ class LoginHelper {
     buildInitialState = () => {
         return {
             inProgress: false,
-            birthdate: '',
         };
     };
 
     signIn = () => {
-        const {Login, Pass} = this.getState();
+        const {login, password} = this.getState();
         this.setState({inProgress: true});
         const currentUser = {
-            Login,
-            Pass,
+            login,
+            password,
         };
         LoginManager.shared().signIn(currentUser, (error, response) => {
             if (error) {
@@ -30,7 +29,7 @@ class LoginHelper {
                 this.setState({inProgress: false});
                 this.navigate({
                     routeName: routes.HomeStack,
-                    params: {login: response.login, avatar: response.avatar},
+                    params: {login},
                 });
             }
         });
@@ -56,8 +55,7 @@ class LoginHelper {
             } else {
                 this.setState({inProgress: false});
                 this.navigate({
-                    routeName: routes.HomeStack,
-                    params: {login: response.login},
+                    routeName: routes.LoginScreen,
                 });
             }
         });
