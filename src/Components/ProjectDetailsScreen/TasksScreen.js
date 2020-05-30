@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl} from 'react-native';
+import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl, Text} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { FloatingAction } from 'react-native-floating-action';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {CommonCell, AppPopup} from '../UIKit';
 import {addTask, loadTasks} from '../../Networking';
 import routes from '../../Constants/routes';
@@ -11,11 +12,13 @@ const actions = [
         color: '#03bafc',
         text: 'Отсортировать задачи по состоянию',
         name: 'bt_sort_by_state',
+        icon: require('./img/sortIcon.png'),
         position: 2,
     },
     {
         color: '#03bafc',
         text: 'Сортировка по умолчанию',
+        icon: require('./img/defaultSortIcon.png'),
         name: 'bt_default_sort',
         position: 3,
     },
@@ -23,6 +26,7 @@ const actions = [
         color: '#03bafc',
         text: 'Добавить задачу',
         name: 'bt_add_task',
+        icon: require('./img/addIcon.png'),
         position: 1,
     },
 ];

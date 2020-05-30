@@ -71,7 +71,6 @@ class UserPageScreen extends Component {
             BirthDate: birthDate,
             Email: email,
         };
-        console.log('BODYBAG', body)
         updateUserData(body, (error, response) => {
             if (error) {
                 alert(error);
@@ -82,7 +81,6 @@ class UserPageScreen extends Component {
     };
 
     render() {
-        const {login, password, inProgress, birthdate} = this.state;
         return (
             <View style={styles.container}>
                 <AppNavigationBar style={styles.navigationBar}>

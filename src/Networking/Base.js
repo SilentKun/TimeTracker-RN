@@ -23,7 +23,7 @@ const apiRequest = (url, method, parameters, block, signal, headers = {}) => {
             } else {
                 block(error, null);
             }
-        })
+        });
 };
 
 

@@ -19,7 +19,10 @@ const AppPopup = ({
     thirdHintInput,
 }) => {
     return (
-        <Modal isVisible={isDialogVisible} style={styles.container}>
+        <Modal
+            isVisible={isDialogVisible}
+            style={styles.container}
+        >
             <View style={styles.background}>
                 {title && <Text style={styles.title}>{title}</Text>}
                 {message && <Text style={styles.message}>{message}</Text>}
@@ -30,13 +33,13 @@ const AppPopup = ({
                         style={styles.input}
                     />}
                 {onChangeSecondText &&
-                <TextInput
+                <AppInput
                     placeholder={secondHintInput}
                     onChangeText={onChangeSecondText}
                     style={styles.input}
                 />}
                 {onChangeThirdText &&
-                <TextInput
+                <AppInput
                     placeholder={thirdHintInput}
                     onChangeText={onChangeThirdText}
                     style={styles.input}
