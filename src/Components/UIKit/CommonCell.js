@@ -11,6 +11,7 @@ const CommonCell = ({style, Title, Description, onPress, login, onLongPress, isP
                 onPress={onPress}
                 onLongPress={onLongPress}
             >
+                {isPending && <Icon style={styles.icon} name="ios-add-circle" size={30} color={colors.freshGreen} />}
                 <View style={styles.containerText}>
                     <Text style={styles.text}>{Title}</Text>
                 </View>
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 5,
         right: 5,
-    }
+    },
 });
 
 export default CommonCell;

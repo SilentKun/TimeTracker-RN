@@ -15,7 +15,7 @@ class ProjectsScreen extends Component {
             index: 0,
             routes: [
                 {key: 'current', title: 'Текущие проекты'},
-                {key: 'pending', title: 'Ожидающие проекты'},
+                {key: 'pending', title: 'Приглашения'},
             ],
         };
     }

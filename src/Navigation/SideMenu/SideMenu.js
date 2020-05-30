@@ -4,7 +4,7 @@ import {
     Text,
     TouchableWithoutFeedback,
     StyleSheet,
-    ScrollView,
+    ScrollView, TouchableOpacity,
 } from 'react-native';
 import {DrawerActions} from 'react-navigation-drawer';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,6 +12,7 @@ import {connect} from 'react-redux';
 import {routes} from '../../Constants';
 import MenuCell from './MenuCell';
 import {LoginManager} from '../../Helpers';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const menuItems = [
     {
@@ -23,7 +24,7 @@ const menuItems = [
 
 const logoutButton = {
     title: 'Выход',
-    iconName: 'md-exit',
+    iconName: 'ios-log-out',
     route: routes.LoginScreen,
 };
 
@@ -58,10 +59,11 @@ class SideMenu extends Component {
                 >
                     <TouchableWithoutFeedback
                         onPress={() => {
-                            console.log('UserProfile:', currentUser);
+                            this.openScreen(routes.UserPageScreen, {currentUser});
                         }}
                     >
                         <View style={styles.userContainer}>
+                            <Icon style={styles.icon} name={'ios-home'} size={40} color="#03bafc" />
                             <Text style={styles.userName}>
                                 {currentUser.login}
                             </Text>
@@ -110,24 +112,24 @@ const styles = StyleSheet.create({
     },
     userContainer: {
         width: '100%',
-    },
-    userImage: {
-        marginTop: 19,
-        marginLeft: 15,
-        width: 48,
-        height: 48,
-        borderRadius: 24,
+        // flexDirection: 'c',
+        // alignItems: 'center',
+        marginVertical: 10,
     },
     userName: {
-        marginLeft: 15,
-        marginTop: 16,
+        marginLeft: 10,
+        // marginTop: 16,
         marginRight: 10,
-        marginBottom: 22,
+        // marginBottom: 22,
         fontSize: 17,
         lineHeight: 20,
         letterSpacing: 0.15,
         // color: colors.white,
         flexShrink: 1,
+    },
+    icon: {
+        marginLeft: 10,
+        marginBottom: 5,
     },
     sectionContainer: {
         paddingVertical: 6,

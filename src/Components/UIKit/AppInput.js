@@ -2,10 +2,11 @@ import React from 'react';
 import {View, TextInput, StyleSheet, Text} from 'react-native';
 import {colors} from '../../Constants';
 
-const AppInput = ({style, value, placeholder, reference, onChangeText, onSubmitEditing, secureTextEntry, autoFocus}) => {
+const AppInput = ({style, value, placeholder, autoCapitalize, reference, onChangeText, onSubmitEditing, secureTextEntry, autoFocus, editable, caretHidden}) => {
     return (
         <View style={{...styles.container, ...style}}>
             <TextInput
+                autoCapitalize={autoCapitalize}
                 value={value}
                 onChangeText={onChangeText}
                 placeholder={placeholder}
@@ -14,6 +15,7 @@ const AppInput = ({style, value, placeholder, reference, onChangeText, onSubmitE
                 autoCorrect={false}
                 onSubmitEditing={onSubmitEditing}
                 style={styles.input}
+                editable={editable}
                 autoFocus={autoFocus}
             />
         </View>

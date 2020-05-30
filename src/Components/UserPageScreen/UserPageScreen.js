@@ -6,9 +6,10 @@ import {
     ScrollView, StyleSheet,
 } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import LoginHelper from './LoginHelper';
+import {DrawerActions} from 'react-navigation-drawer';
 import {AppInput, AppNavigationBar, AppTouchableIcon, AppButton} from '../UIKit';
 import {colors} from '../../Constants';
+import {updateUserData} from '../../Networking';
 
 const datePickerStyle = {
     dateInput: {
@@ -28,24 +29,56 @@ const datePickerStyle = {
     },
 };
 
-class SignUpScreen extends Component {
+class UserPageScreen extends Component {
     constructor(props) {
         super(props);
-        this.loginHelper = new LoginHelper(
-            (stateUpdate) => this.setState(stateUpdate),
-            () => this.state,
-            (params) => this.props.navigation.navigate(params),
-        );
-        this.state = this.loginHelper.buildInitialState();
+        this.state = {
+            editable: false,
+
+        };
     }
 
-    _signUp = () => {
-        const {password, repeatPassword} = this.state;
+    componentDidMount() {
+        const {currentUser} = this.props.navigation.state.params;
+        this.setState({
+            login: currentUser.login,
+            firstName: currentUser.firstName,
+            middleName: currentUser.middleName,
+            surname: currentUser.surname,
+            email: currentUser.email,
+            city: currentUser.city,
+            birthDate: currentUser.birthDate,
+        });
+        setTimeout(() => { this.setState({ editable: true }); }, 100);
+    }
+
+    _onMenuPress = () => {
+        this.props.navigation.dispatch(DrawerActions.openDrawer());
+    };
+
+    _updateUserPage = () => {
+        const {password, repeatPassword, firstName, surname, middleName, email, birthDate, city} = this.state;
         if (password !== repeatPassword) {
             alert('Пароли не совпадают!');
             return;
         }
-        this.loginHelper.signUp();
+        const body = {
+            Pass: password,
+            FirstName: firstName,
+            Surname: surname,
+            MiddleName: middleName,
+            City: city,
+            BirthDate: birthDate,
+            Email: email,
+        };
+        console.log('BODYBAG', body)
+        updateUserData(body, (error, response) => {
+            if (error) {
+                alert(error);
+            } else {
+                console.log(response);
+            }
+        });
     };
 
     render() {
@@ -54,16 +87,18 @@ class SignUpScreen extends Component {
             <View style={styles.container}>
                 <AppNavigationBar style={styles.navigationBar}>
                     <AppTouchableIcon
-                        icon="ios-arrow-back"
-                        onPress={() => this.props.navigation.goBack()}
+                        icon="ios-menu"
+                        onPress={this._onMenuPress}
                     />
                     <Text style={styles.title}>
-                        Регистрация
+                        Моя страница
                     </Text>
                 </AppNavigationBar>
                 <ScrollView contentContainerStyle={styles.contentContainer}>
                     <AppInput
                         style={styles.input}
+                        value={this.state.login}
+                        editable={false}
                         placeholder="Логин"
                         onChangeText={(text) => this.setState({login: text})}
                         autoCapitalize="none"
@@ -92,14 +127,16 @@ class SignUpScreen extends Component {
                     />
                     <AppInput
                         style={styles.input}
+                        value={this.state.firstName}
                         placeholder="Имя"
-                        onChangeText={(text) => this.setState({name: text})}
+                        onChangeText={(text) => this.setState({firstName: text})}
                         autoCorrect={false}
                         reference={(input) => this.nameInput = input}
                         onSubmitEditing={() => this.surnameInput.focus()}
                     />
                     <AppInput
                         style={styles.input}
+                        value={this.state.surname}
                         placeholder="Фамилия"
                         onChangeText={(text) => this.setState({surname: text})}
                         autoCorrect={false}
@@ -108,23 +145,26 @@ class SignUpScreen extends Component {
                     />
                     <AppInput
                         style={styles.input}
+                        value={this.state.middleName}
                         placeholder="Отчество"
-                        onChangeText={(text) => this.setState({middlename: text})}
+                        onChangeText={(text) => this.setState({middleName: text})}
                         autoCorrect={false}
                         reference={(input) => this.middlenameInput = input}
                         onSubmitEditing={() => this.emailInput.focus()}
                     />
                     <AppInput
                         style={styles.input}
+                        value={this.state.email}
+                        editable={this.state.editable}
                         placeholder="Почта"
                         onChangeText={(text) => this.setState({email: text})}
-                        autoCapitalize="none"
                         autoCorrect={false}
                         reference={(input) => this.emailInput = input}
                         onSubmitEditing={() => this.cityInput.focus()}
                     />
                     <AppInput
                         style={styles.input}
+                        value={this.state.city}
                         placeholder="Город"
                         onChangeText={(text) => this.setState({city: text})}
                         autoCorrect={false}
@@ -132,7 +172,7 @@ class SignUpScreen extends Component {
                     />
                     <DatePicker
                         style={styles.datePicker}
-                        date={birthdate}
+                        date={this.state.birthDate}
                         mode="date"
                         placeholder="Дата рождения"
                         format="DD-MM-YYYY"
@@ -140,13 +180,12 @@ class SignUpScreen extends Component {
                         cancelBtnText="Отменить"
                         showIcon={false}
                         customStyles={datePickerStyle}
-                        onDateChange={(birthdate) => { this.setState({birthdate}); }}
+                        onDateChange={(birthDate) => { this.setState({birthDate}); }}
                     />
                     <AppButton
                         style={styles.button}
-                        onPress={this._signUp}
-                        disabled={inProgress || !login || !password}
-                        text="Зарегистрироваться"
+                        onPress={this._updateUserPage}
+                        text="Изменить"
                     />
                     {this.state.inProgress && <ActivityIndicator style={{marginTop: 10}} />}
                 </ScrollView>
@@ -191,4 +230,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SignUpScreen;
+export default UserPageScreen;

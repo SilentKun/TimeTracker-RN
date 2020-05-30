@@ -16,6 +16,7 @@ import BaseScreen from '../Components/BaseScreen';
 import AddProjectScreen from '../Components/ProjectsScreen/AddProjectScreen';
 import EditProjectScreen from '../Components/ProjectDetailsScreen/EditProjectScreen';
 import TaskDetailsScreen from '../Components/TaskDetailsScreen';
+import UserPageScreen from '../Components/UserPageScreen';
 
 const LoginStack = createStackNavigator({
     [routes.LoginScreen]: LoginScreen,
@@ -49,6 +50,7 @@ const HomeStack = createStackNavigator({
 
 const DrawerNavigator = createDrawerNavigator({
     [routes.HomeStack]: HomeStack,
+    [routes.UserPageScreen]: UserPageScreen,
 }, {
     initialRouteName: routes.HomeStack,
     contentComponent: SideMenu,

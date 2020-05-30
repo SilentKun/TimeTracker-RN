@@ -30,7 +30,7 @@ class LoginScreen extends Component {
     render() {
         const {login, password, inProgress} = this.state;
         return (
-            <View style={{flex: 1,  justifyContent: 'center', backgroundColor: colors.feedBackground}}>
+            <View style={{flex: 1, justifyContent: 'center', backgroundColor: colors.feedBackground}}>
                 <AppInput
                     style={styles.input}
                     placeholder="Логин"
@@ -73,26 +73,28 @@ class LoginScreen extends Component {
 }
 
 
-const styles = StyleSheet.create(
-    {
-        placeholderStyle: {
-            color: '#ABABAB',
-            fontSize: 15,
-            paddingBottom: 10,
-        },
-        inputStyle: {
-            color: 'rgba(0, 0, 0, 0.87)',
-            fontSize: 15,
-            paddingBottom: 10,
-        },
-        text: {
-            color: '#d3d3d3',
-        },
-        input: {
-            marginBottom: 10,
-            marginHorizontal: 80,
-        },
+const styles = StyleSheet.create({
+    placeholderStyle: {
+        color: '#ABABAB',
+        fontSize: 15,
+        paddingBottom: 10,
     },
-);
+    inputStyle: {
+        color: 'rgba(0, 0, 0, 0.87)',
+        fontSize: 15,
+        paddingBottom: 10,
+    },
+    text: {
+        color: '#d3d3d3',
+    },
+    input: {
+        marginBottom: 10,
+        marginHorizontal: 80,
+    },
+    button: {
+        marginHorizontal: 80,
+        marginBottom: 10,
+    },
+});
 
 export default LoginScreen;
