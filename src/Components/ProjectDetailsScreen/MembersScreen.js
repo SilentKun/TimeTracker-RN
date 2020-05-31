@@ -4,6 +4,7 @@ import { FloatingAction } from 'react-native-floating-action';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {addProjectMember, deleteProjectMember, loadProjectMembers} from '../../Networking/Projects';
 import {CommonCell, AppPopup} from '../UIKit';
+import {loadTasks} from '../../Networking';
 
 const actions = [
     {
@@ -18,7 +19,7 @@ class MembersScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            members: [],
+            users: [],
             isDialogVisible: false,
             isModalVisible: false,
         };
@@ -30,13 +31,12 @@ class MembersScreen extends Component {
 
     _loadMembers = () => {
         const {project} = this.props.navigation.state?.params;
-        console.log('LOG', project.id);
-        loadProjectMembers(project.id, (error, members) => {
+        loadTasks(project.id, (error, response) => {
             if (error) {
                 this.setState({loading: false});
                 alert(error);
             } else {
-                this.setState({members, loading: false});
+                this.setState({users: response.users, isAdmin: response.isAdmin, loading: false});
             }
         });
     };
@@ -93,10 +93,10 @@ class MembersScreen extends Component {
     };
 
     render() {
-        const {members, loading, isDialogVisible, isModalVisible, currentUser} = this.state;
+        const {users, loading, isDialogVisible, isModalVisible, currentUser} = this.state;
         if (loading) {
             return (
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <View style={styles.loadingIndicator}>
                     <ActivityIndicator size="large" color="#03bafc" />
                 </View>
             );
@@ -106,7 +106,7 @@ class MembersScreen extends Component {
                 <FlatList
                     style={styles.container}
                     contentContainerStyle={styles.contentContainer}
-                    data={[]}
+                    data={users}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={this._renderItem}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadMembers} />}
@@ -142,8 +142,7 @@ class MembersScreen extends Component {
 
 const styles = StyleSheet.create({
     contentContainer: {
-
-        alignItems: 'center',
+        marginTop: 10,
     },
     container: {
         flex: 1,
@@ -159,6 +158,11 @@ const styles = StyleSheet.create({
         fontSize: 17,
         letterSpacing: 0.15,
         color: '#FFF',
+    },
+    loadingIndicator: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     menuIcon: {
 

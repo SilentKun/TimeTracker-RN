@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl, Text} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { FloatingAction } from 'react-native-floating-action';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {CommonCell, AppPopup} from '../UIKit';
 import {addTask, loadTasks} from '../../Networking';
 import routes from '../../Constants/routes';
@@ -39,6 +38,7 @@ class TasksScreen extends Component {
             loading: true,
             isDialogVisible: false,
             duration: '',
+            orderTasksFunc: (tasks) => tasks,
         };
     }
 
@@ -56,6 +56,14 @@ class TasksScreen extends Component {
                 this.setState({tasks: response.tasks, isAdmin: response.isAdmin, loading: false});
             }
         });
+    };
+
+    _sortTasks = () => {
+        this.setState({ orderTasksFunc: (tasks) => tasks.sort((a, b) => (a.StateId >= b.StateId ? 1 : -1)) });
+    };
+
+    _defaultSortTasks = () => {
+        this.setState({ orderTasksFunc: (tasks) => tasks });
     };
 
     _addTask = () => {
@@ -94,10 +102,10 @@ class TasksScreen extends Component {
             this.setState({isDialogVisible: true});
             break;
         case 'bt_sort_by_state':
-            console.log('sort by state');
+            this.setState({ orderTasksFunc: (tasks) => tasks.sort((a, b) => (a.StateId >= b.StateId ? 1 : -1)) });
             break;
         case 'bt_default_sort':
-            console.log('sort by default');
+            this.setState({ orderTasksFunc: (tasks) => tasks });
             break;
         default:
         }
@@ -105,6 +113,7 @@ class TasksScreen extends Component {
 
     _renderItem = ({item}) => {
         const {project} = this.props.navigation.state?.params;
+        console.log('STATE', item.State);
         return (
             <CommonCell
                 key={item.id}
@@ -116,9 +125,10 @@ class TasksScreen extends Component {
 
     render() {
         const {tasks, loading, isDialogVisible} = this.state;
+        console.log(this.state.tasks);
         if (loading) {
             return (
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <View style={styles.loadingIndicator}>
                     <ActivityIndicator size="large" color="#03bafc" />
                 </View>
             );
@@ -133,7 +143,7 @@ class TasksScreen extends Component {
                 <FlatList
                     style={styles.container}
                     contentContainerStyle={styles.contentContainer}
-                    data={tasks}
+                    data={this.state.orderTasksFunc(this.state.tasks.slice())}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={this._renderItem}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadTasks} />}
@@ -176,6 +186,11 @@ const styles = StyleSheet.create({
     },
     scene: {
         flex: 1,
+    },
+    loadingIndicator: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     title: {
         marginLeft: 20,

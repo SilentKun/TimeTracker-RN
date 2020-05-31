@@ -25,8 +25,7 @@ class EditProjectScreen extends Component {
 
     _deleteProject = () => {
         const {project} = this.props.navigation.state.params;
-        const {id} = project;
-        deleteProject(id, (error, response) => {
+        deleteProject(project.Id, (error, response) => {
             if (error) {
                 alert(error);
             } else {
@@ -73,6 +72,7 @@ class EditProjectScreen extends Component {
                 />
                 <AppInput
                     style={styles.input}
+                    placeholder="Описание"
                     value={this.state.description}
                     placeholderStyle={styles.placeholderStyle}
                     onChangeText={(text) => this.setState({description: text})}

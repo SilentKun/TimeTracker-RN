@@ -4,6 +4,7 @@ import {
     signedProjectsUrl,
     updateProjectUrl,
     membersUrl,
+    deleteProjectUrl,
     updateMembersUrl,
     acceptInviteUrl,
     addProjectUrl
@@ -22,7 +23,7 @@ const editProject = (parameters, block) => {
 };
 
 const deleteProject = (id, block) => {
-    const url = updateProjectUrl(id);
+    const url = deleteProjectUrl(id);
     return apiRequest(url, 'DELETE', null, block);
 };
 

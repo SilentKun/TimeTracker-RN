@@ -7,6 +7,7 @@ const addProjectUrl = `${baseUrl}/api/project/add`;
 const signedProjectsUrl = `${projectsUrl}/1/signedProjects`;
 const projectDetails = (id) => `${baseUrl}/api/project/get?id=${id}`;
 const updateProjectUrl = `${baseUrl}/api/project/update`;
+const deleteProjectUrl = (id) => `${baseUrl}/api/project/delete?Id=${id}`;
 const updateUserPage = `${baseUrl}/api/mypage/update`;
 const membersUrl = (id) => `${signedProjectsUrl}/${id}/members`;
 const updateMembersUrl = (projectId, memberId) => `${signedProjectsUrl}/${projectId}/members/${memberId}`;
@@ -26,4 +27,5 @@ export {
     worktracksUrl,
     acceptInviteUrl,
     updateUserPage,
+    deleteProjectUrl,
 };
