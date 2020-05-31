@@ -58,14 +58,6 @@ class TasksScreen extends Component {
         });
     };
 
-    _sortTasks = () => {
-        this.setState({ orderTasksFunc: (tasks) => tasks.sort((a, b) => (a.StateId >= b.StateId ? 1 : -1)) });
-    };
-
-    _defaultSortTasks = () => {
-        this.setState({ orderTasksFunc: (tasks) => tasks });
-    };
-
     _addTask = () => {
         const {project} = this.props.navigation.state?.params;
         const {title, description, duration} = this.state;
@@ -74,11 +66,14 @@ class TasksScreen extends Component {
             return;
         }
         const task = {
-            title,
-            description,
-            duration,
+            Title: title,
+            Description: description,
+            Duration: parseInt(duration, 10),
+            StateId: 1,
+            ProjectId: parseInt(project.id, 10),
+            CreatedDate: new Date(),
         };
-        addTask(project.id, {title, description, duration}, (error, response) => {
+        addTask({worktask: task}, (error, response) => {
             if (error) {
                 alert(error);
             } else {
