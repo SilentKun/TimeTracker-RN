@@ -13,8 +13,12 @@ const addTaskUrl = `${baseUrl}/api/task/add`;
 const updateUserUrl = `${baseUrl}/api/project/UpdateUser`;
 const deleteUser = `${baseUrl}/api/project/RemoveUserFromProject`;
 const membersUrl = `${baseUrl}/api/project/addUserToProject`;
+const worktracksUrl = (id) => `${baseUrl}/api/worktrack/getall?id=${id}`;
+const taskUrl = (id) => `${baseUrl}/api/task/get?id=${id}`;
+const statesUrl = `${baseUrl}/api/state/getall`;
+const updateStateUrl = `${baseUrl}/api/task/UpdateState`;
 const updateMembersUrl = (projectId, memberId) => `${signedProjectsUrl}/${projectId}/members/${memberId}`;
-const worktracksUrl = (projectId, taskId) => `${signedProjectsUrl}/${projectId}/tasks/${taskId}/worktracks`;
+// const worktracksUrl = (projectId, taskId) => `${signedProjectsUrl}/${projectId}/tasks/${taskId}/worktracks`;
 
 export {
     baseUrl,
@@ -29,9 +33,12 @@ export {
     updateMembersUrl,
     worktracksUrl,
     acceptInviteUrl,
+    taskUrl,
     updateUserPage,
     deleteProjectUrl,
     deleteUser,
     addTaskUrl,
     updateUserUrl,
+    statesUrl,
+    updateStateUrl,
 };

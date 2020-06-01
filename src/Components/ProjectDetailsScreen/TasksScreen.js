@@ -113,7 +113,7 @@ class TasksScreen extends Component {
             <CommonCell
                 key={item.id}
                 {...item}
-                onPress={() => this.props.navigation.navigate(routes.TaskDetailsStack, {project, task: item})}
+                onPress={() => this.props.navigation.navigate(routes.TaskDetailsStack, {task: item})}
             />
         );
     };
