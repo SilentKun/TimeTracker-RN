@@ -1,6 +1,15 @@
 import {apiRequest} from './Base';
-import {updateUserPage} from '../Constants';
+import {updateUserPage, updateUserUrl} from '../Constants';
 
-export const updateUserData = (parameters, block) => {
+const updateUserData = (parameters, block) => {
     return apiRequest(updateUserPage, 'POST', parameters, block);
+};
+
+const updateUser = (parameters, block) => {
+    return apiRequest(updateUserUrl, 'POST', parameters, block);
+};
+
+export {
+    updateUserData,
+    updateUser,
 };

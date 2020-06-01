@@ -3,25 +3,23 @@ import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl, Touchable
 import { FloatingAction } from 'react-native-floating-action';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {addProjectMember, deleteProjectMember, loadProjectMembers} from '../../Networking/Projects';
-import {CommonCell, AppPopup} from '../UIKit';
-import {loadTasks} from '../../Networking';
-
-const actions = [
-    {
-        color: '#03bafc',
-        text: 'Add member',
-        name: 'bt_add_member',
-        position: 1,
-    },
-];
+import {AppPopup} from '../UIKit';
+import {loadTasks, updateUser} from '../../Networking';
+import MembersCell from './MembersCell';
+import LoginManager from '../../Helpers/LoginManager';
 
 class MembersScreen extends Component {
     constructor(props) {
         super(props);
+        this.user = LoginManager.shared().getUser();
+        console.log('YSER', this.user);
         this.state = {
             users: [],
+            loading: true,
             isDialogVisible: false,
             isModalVisible: false,
+            isRightModalVisible: false,
+            right: '',
         };
     }
 
@@ -48,17 +46,13 @@ class MembersScreen extends Component {
             alert('Вы не ввели имя участника!');
             return;
         }
-        const member = {
-            login,
-        };
-        addProjectMember(project.id, member, (error, response) => {
+        addProjectMember({ProjectId: project.id.toString(), UserName: login}, (error, response) => {
             if (error) {
                 alert(error);
             } else {
                 this._loadMembers();
                 this.setState((prevState) => {
                     return {
-                        members: [...prevState.members, member],
                         isDialogVisible: false,
                         login: '',
                     };
@@ -69,23 +63,46 @@ class MembersScreen extends Component {
 
     _removeMember = (currentUser) => {
         const {project} = this.props.navigation.state?.params;
-        const filteredMembers = this.state.members.filter((item) => item.login !== currentUser.login);
+        const filteredMembers = this.state.users.filter((item) => item.Id !== currentUser.Id);
         this.setState({ isModalVisible: false });
-        deleteProjectMember(project.id, currentUser.id, (error, response) => {
+        deleteProjectMember({ProjectId: project.id.toString(), UserId: currentUser.Id}, (error, response) => {
             if (error) {
                 this.setState({loading: false});
                 alert(error);
             } else {
-                this.setState({ members: filteredMembers });
+                this.setState({ users: filteredMembers });
             }
         });
     };
 
+    _changeUserRight = (index, user) => {
+        const {project} = this.props.navigation.state?.params;
+        updateUser(
+            {userLogin: user.login, rightId: index.toString(), projectId: project.id.toString()},
+            (error, response) => {
+                if (error) {
+                    this.setState({loading: false});
+                    alert(error);
+                } else {
+                    this._loadMembers();
+                    this.setState({ isRightModalVisible: false });
+                }
+            },
+        );
+    };
+
     _renderItem = ({item}) => {
         return (
-            <CommonCell
+            <MembersCell
                 {...item}
-                onLongPress={() => {
+                currentUser={this.user}
+                isAdmin={this.state.isAdmin}
+                selectedValue={this.state.right}
+                value={this.state.right}
+                onPressRight={() => {
+                    this.setState({isRightModalVisible: true, currentUser: item});
+                }}
+                onPressDelete={() => {
                     this.setState({isModalVisible: true, currentUser: item});
                 }}
             />
@@ -93,7 +110,8 @@ class MembersScreen extends Component {
     };
 
     render() {
-        const {users, loading, isDialogVisible, isModalVisible, currentUser} = this.state;
+        const {users, loading, isDialogVisible, isModalVisible, currentUser, isRightModalVisible} = this.state;
+
         if (loading) {
             return (
                 <View style={styles.loadingIndicator}>
@@ -125,6 +143,13 @@ class MembersScreen extends Component {
                     title="Вы действительно хотите исключить данного участника?"
                     submit={() => this._removeMember(currentUser)}
                     closeDialog={() => { this.setState({isModalVisible: false}); }}
+                />
+                <AppPopup
+                    isDialogVisible={isRightModalVisible}
+                    title={`Изменить права пользователя ${currentUser?.login}`}
+                    onChangeRight={(item, index) => this.setState({right: index})}
+                    submit={() => this._changeUserRight(this.state.right, currentUser)}
+                    closeDialog={() => { this.setState({isRightModalVisible: false}); }}
                 />
                 {this.props.isAdmin &&
                 <FloatingAction

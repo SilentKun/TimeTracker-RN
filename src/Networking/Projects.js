@@ -1,13 +1,12 @@
 import {apiRequest} from './Base';
 import {
     projectsUrl,
-    signedProjectsUrl,
     updateProjectUrl,
     membersUrl,
     deleteProjectUrl,
-    updateMembersUrl,
     acceptInviteUrl,
-    addProjectUrl
+    addProjectUrl,
+    deleteUser,
 } from '../Constants';
 
 const loadProjects = (block) => {
@@ -32,14 +31,12 @@ const loadProjectMembers = (id, block) => {
     return apiRequest(url, 'GET', null, block);
 };
 
-const addProjectMember = (id, parameters, block) => {
-    const url = membersUrl(id);
-    return apiRequest(url, 'POST', parameters, block);
+const addProjectMember = (parameters, block) => {
+    return apiRequest(membersUrl, 'POST', parameters, block);
 };
 
-const deleteProjectMember = (projectId, memberId, block) => {
-    const url = updateMembersUrl(projectId, memberId);
-    return apiRequest(url, 'DELETE', null, block);
+const deleteProjectMember = (parameters, block) => {
+    return apiRequest(deleteUser, 'POST', parameters, block);
 };
 
 const acceptInvite = (parameters, block) => {

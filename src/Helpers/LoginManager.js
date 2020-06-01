@@ -19,6 +19,10 @@ class LoginManager {
         return this.__token;
     }
 
+    getUser() {
+        return this.__user;
+    }
+
     async __restoreSession() {
         const user = await readUser();
         const credentials = await Keychain.getGenericPassword();

@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, TextInput, Text} from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 import Modal from 'react-native-modal';
 import AppButton from './AppButton';
 import AppInput from './AppInput';
@@ -17,6 +18,8 @@ const AppPopup = ({
     firstHintInput,
     secondHintInput,
     thirdHintInput,
+    onChangeRight,
+    rightValue,
 }) => {
     return (
         <Modal
@@ -43,6 +46,16 @@ const AppPopup = ({
                     placeholder={thirdHintInput}
                     onChangeText={onChangeThirdText}
                     style={styles.input}
+                />
+                }
+                {onChangeRight &&
+                <RNPickerSelect
+                    value={rightValue}
+                    onValueChange={onChangeRight}
+                    items={[
+                        { label: 'Администратор', value: 'Администратор' },
+                        { label: 'Пользователь', value: 'Пользователь' },
+                    ]}
                 />
                 }
                 <View style={styles.buttonsContainer}>

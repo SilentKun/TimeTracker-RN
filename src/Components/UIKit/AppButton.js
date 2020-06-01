@@ -2,14 +2,14 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {colors} from '../../Constants';
 
-const AppButton = ({style, text, onPress, disabled, isDestructive}) => {
+const AppButton = ({style, text, onPress, disabled, isDestructive, textStyle}) => {
     return (
         <TouchableOpacity
             style={{...style, ...styles.button, backgroundColor: isDestructive ? colors.danger : '#03bafc'}}
             disabled={disabled}
             onPress={onPress}
         >
-            <Text style={styles.buttonText}>{text}</Text>
+            <Text style={{...styles.buttonText, ...textStyle}}>{text}</Text>
         </TouchableOpacity>
     );
 };
