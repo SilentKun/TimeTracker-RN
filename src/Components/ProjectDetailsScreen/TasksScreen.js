@@ -108,7 +108,6 @@ class TasksScreen extends Component {
 
     _renderItem = ({item}) => {
         const {project} = this.props.navigation.state?.params;
-        console.log('STATE', item.State);
         return (
             <CommonCell
                 key={item.id}
@@ -120,7 +119,6 @@ class TasksScreen extends Component {
 
     render() {
         const {tasks, loading, isDialogVisible} = this.state;
-        console.log(this.state.tasks);
         if (loading) {
             return (
                 <View style={styles.loadingIndicator}>

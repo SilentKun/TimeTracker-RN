@@ -37,7 +37,6 @@ class EditProjectScreen extends Component {
     _editProject = () => {
         const {title, description} = this.state;
         const {project} = this.props.navigation.state.params;
-        console.log('FSFEFEF', project);
         const body = {Project: {Id: project.Id, Title: title.trim(), Description: description.trim()}}
         editProject(body, (error, response) => {
             if (error) {

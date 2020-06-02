@@ -12,7 +12,6 @@ class MembersScreen extends Component {
     constructor(props) {
         super(props);
         this.user = LoginManager.shared().getUser();
-        console.log('YSER', this.user);
         this.state = {
             users: [],
             loading: true,

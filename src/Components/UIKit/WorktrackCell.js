@@ -1,14 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from '../../Constants';
-import moment from 'moment';
-import {color} from 'react-native-reanimated';
 
-const offset = moment().utcOffset();
-
-const WorktrackCell = ({style, User, onLongPress, StartedTime, StoppedTime, TotalTime}) => {
-    const startedTime = moment(StartedTime).add(offset, 'm').format('HH:mm:ss');
-    const stop = moment(StoppedTime).add(offset, 'm').format('HH:mm:ss');
+const WorktrackCell = ({style, User, onLongPress, startedTime, stoppedTime, TotalTime}) => {
     return (
         <View
             style={{...styles.container, ...style}}
@@ -25,7 +19,7 @@ const WorktrackCell = ({style, User, onLongPress, StartedTime, StoppedTime, Tota
                 </View>
                 <View style={{...styles.timeContainer, ...styles.timeStyle}}>
                     <Text style={styles.timeLabel}>Время конца</Text>
-                    <Text style={styles.time}>{stop}</Text>
+                    <Text style={styles.time}>{stoppedTime}</Text>
                 </View>
                 <View style={{...styles.timeContainer, ...styles.timeStyle}}>
                     <Text style={styles.timeLabel}>Затраченное время</Text>

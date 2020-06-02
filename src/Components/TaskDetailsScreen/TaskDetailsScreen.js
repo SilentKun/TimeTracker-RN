@@ -7,6 +7,8 @@ import {colors, routes} from '../../Constants';
 import TaskHeader from './TaskHeader';
 import {loadWorktracks, loadWorkTask, loadTaskStates, updateTaskState} from '../../Networking';
 
+const offset = moment().utcOffset();
+
 class TaskDetailsScreen extends Component {
     constructor(props) {
         super(props);
@@ -17,18 +19,23 @@ class TaskDetailsScreen extends Component {
             project: {},
             loading: true,
             value: null,
+            taskLoading: true,
         };
+        this.createdDate = null
     }
 
     componentDidMount() {
         this._loadWorktracks();
         this._loadTask();
-        this._loadStates();
     }
 
     _renderItem = ({item}) => {
+        const startedTime = moment(item.StartedTime).add(offset, 'm').format('HH:mm:ss');
+        const stoppedTime = moment(item.StoppedTime).add(offset, 'm').format('HH:mm:ss');
         return (
             <WorktrackCell
+                startedTime={startedTime}
+                stoppedTime={stoppedTime}
                 key={item.id}
                 {...item}
             />
@@ -36,7 +43,8 @@ class TaskDetailsScreen extends Component {
     };
 
     _onStateChange = (value) => {
-        this.setState({value})
+        this.setState({value});
+
         updateTaskState({
             taskId: this.state.worktask.Id.toString(),
             stateId: value.toString(),
@@ -49,11 +57,15 @@ class TaskDetailsScreen extends Component {
     };
 
     _renderHeader = () => {
+        const {worktask, taskLoading} = this.state
+        const createdDate = moment(worktask.CreatedDate).add(offset, 'm').format('L');
+
         return (
             <TaskHeader
                 valueTask={this.state.value}
                 states={this.state.taskStates}
-                worktask={this.state.worktask}
+                createdDate={createdDate}
+                worktask={worktask}
                 project={this.state.project}
                 onValueChange={this._onStateChange}
             />
@@ -86,6 +98,7 @@ class TaskDetailsScreen extends Component {
                     loading: false,
                     value: response.worktask.StateId,
                 });
+                this._loadStates();
             }
         });
     };
@@ -102,13 +115,37 @@ class TaskDetailsScreen extends Component {
                         label: state.Title,
                     };
                 });
-                this.setState({taskStates, loading: false});
+                this.setState({taskStates, taskLoading: false});
             }
         });
     };
 
     render() {
-        const {worktracks, loading, worktask} = this.state;
+        const {worktracks, loading, taskLoading,worktask} = this.state;
+        if (taskLoading) {
+            return (
+                <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
+                    <AppNavigationBar style={styles.navigationBar}>
+                        <AppTouchableIcon
+                            style={styles.menuIcon}
+                            icon="ios-arrow-back"
+                            onPress={() => this.props.navigation.navigate(routes.ProjectDetailsScreen)}
+                        />
+                        <Text style={styles.title}>
+                            Задача: {worktask.Title}
+                        </Text>
+                        <View style={styles.flexSpacing} />
+                        <AppTouchableIcon
+                            style={styles.addIcon}
+                            fontSize={28}
+                            icon="md-create"
+                            onPress={this._onAddProjectPress}
+                        />
+                    </AppNavigationBar>
+                    <ActivityIndicator size="large" color="#03bafc" style={{flex: 1}} />
+                </View>
+            );
+        }
         return (
             <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
                 <AppNavigationBar style={styles.navigationBar}>

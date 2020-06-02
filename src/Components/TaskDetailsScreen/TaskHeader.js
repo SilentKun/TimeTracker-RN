@@ -1,16 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import moment from 'moment';
-import RNPickerSelect from 'react-native-picker-select';
 import {Picker} from '@react-native-community/picker';
 
 import {colors} from '../../Constants';
 
-const offset = moment().utcOffset();
-
-const TaskHeader = ({worktask, project, states, valueTask, onValueChange}) => {
-    const createdDate = moment(worktask.CreatedDate).add(offset, 'm').format('L');
-    console.log('STAFDSFTE', states);
+const TaskHeader = ({worktask, project, states, valueTask, onValueChange, createdDate}) => {
     return (
         <View style={styles.container}>
             <View style={styles.rowContainer}>
