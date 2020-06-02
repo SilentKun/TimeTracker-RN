@@ -4,6 +4,10 @@ import {
 } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
+import {connect} from 'react-redux';
+import React from 'react';
+import {ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+
 import {
     LoginScreen,
     RegistrationScreen,
@@ -17,6 +21,7 @@ import AddProjectScreen from '../Components/ProjectsScreen/AddProjectScreen';
 import EditProjectScreen from '../Components/ProjectDetailsScreen/EditProjectScreen';
 import TaskDetailsScreen from '../Components/TaskDetailsScreen';
 import UserPageScreen from '../Components/UserPageScreen';
+import TaskTrackingScreen from '../Components/TaskTrackingScreen/TaskTrackingScreen';
 
 const LoginStack = createStackNavigator({
     [routes.LoginScreen]: LoginScreen,
@@ -74,4 +79,29 @@ const MainNavigator = createSwitchNavigator({
     },
 });
 
-export default createAppContainer(MainNavigator);
+class MainNavigatorWithCustomView extends React.Component {
+    static router = MainNavigator.router;
+
+    render() {
+        const {isTracking, task} = this.props;
+        console.log('REDIX', task);
+        return (
+            <View style={{flex: 1}}>
+                <MainNavigator {...this.props} />
+                {isTracking &&
+                <TaskTrackingScreen task={task} />}
+            </View>
+        );
+    }
+}
+
+const AppContainer = createAppContainer(MainNavigatorWithCustomView);
+
+const mapStateToProps = ({isTracking, task}) => {
+    return {
+        isTracking,
+        task,
+    };
+};
+
+export default connect(mapStateToProps, null)(AppContainer);

@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import RootStackScreen from './Navigation';
 import ReduxApp from './Redux';

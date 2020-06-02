@@ -1,1 +1,1 @@
-export {logInUser, logOutUser, updateUser} from './LoginActions';
+export {logInUser, logOutUser, updateUser, trackingOn, trackingOff} from './LoginActions';

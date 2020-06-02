@@ -9,6 +9,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@microsoft/signalr": "^3.1.4",
     "@react-native-community/datetimepicker": "^2.4.0",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-native-community/picker": "^1.6.1",

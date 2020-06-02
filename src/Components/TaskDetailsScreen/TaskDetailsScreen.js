@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NavigationEvents} from 'react-navigation';
+import {store} from '../../Redux';
+import {trackingOn, trackingOff} from '../../Redux/Actions';
 import moment from 'moment';
 import {AppNavigationBar, AppTouchableIcon, WorktrackCell} from '../UIKit';
 import {colors, routes} from '../../Constants';
@@ -20,6 +22,7 @@ class TaskDetailsScreen extends Component {
             loading: true,
             value: null,
             taskLoading: true,
+            isTracking: false,
         };
         this.createdDate = null
     }
@@ -72,6 +75,18 @@ class TaskDetailsScreen extends Component {
         );
     };
 
+    _runTask = () => {
+        this.setState({isTracking: true}, () => {
+            store.dispatch(trackingOn(this.state.worktask));
+        });
+    };
+
+    _stopTask = () => {
+        this.setState({isTracking: false}, () => {
+            store.dispatch(trackingOff());
+        });
+    };
+
     _loadWorktracks = () => {
         const {task} = this.props.navigation.state?.params;
         loadWorktracks(task.Id, (error, worktracks) => {
@@ -121,7 +136,7 @@ class TaskDetailsScreen extends Component {
     };
 
     render() {
-        const {worktracks, loading, taskLoading,worktask} = this.state;
+        const {worktracks, loading, taskLoading, worktask, isTracking} = this.state;
         if (taskLoading) {
             return (
                 <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
@@ -136,10 +151,16 @@ class TaskDetailsScreen extends Component {
                         </Text>
                         <View style={styles.flexSpacing} />
                         <AppTouchableIcon
-                            style={styles.addIcon}
+                            style={{paddingRight:  10}}
                             fontSize={28}
                             icon="md-create"
-                            onPress={this._onAddProjectPress}
+                            onPress={this._stopTask}
+                        />
+                        <AppTouchableIcon
+                            style={styles.addIcon}
+                            fontSize={30}
+                            icon={isTracking ? 'ios-square' : 'ios-play'}
+                            onPress={this._runTask}
                         />
                     </AppNavigationBar>
                     <ActivityIndicator size="large" color="#03bafc" style={{flex: 1}} />
@@ -159,10 +180,16 @@ class TaskDetailsScreen extends Component {
                     </Text>
                     <View style={styles.flexSpacing} />
                     <AppTouchableIcon
-                        style={styles.addIcon}
+                        style={{paddingRight:  10}}
                         fontSize={28}
                         icon="md-create"
-                        onPress={this._onAddProjectPress}
+                        onPress={this._stopTask}
+                    />
+                    <AppTouchableIcon
+                        style={styles.addIcon}
+                        fontSize={30}
+                        icon="ios-play"
+                        onPress={this._runTask}
                     />
                 </AppNavigationBar>
                 <FlatList
@@ -196,14 +223,14 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     addIcon: {
-        paddingHorizontal: 16,
+        width: 55,
     },
     title: {
         marginLeft: 20,
         fontSize: 17,
         letterSpacing: 0.15,
         color: '#FFF',
-        width: '70%',
+        // width: '70%',
     },
 });
 
