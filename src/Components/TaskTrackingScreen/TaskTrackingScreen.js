@@ -7,10 +7,13 @@ import {
     StyleSheet,
     ActivityIndicator,
 } from 'react-native';
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { HubConnectionBuilder, LogLevel} from '@microsoft/signalr';
+import moment from 'moment';
 import LoginManager from '../../Helpers/LoginManager';
 import {store} from '../../Redux';
 import {trackingOn, trackingOff} from '../../Redux/Actions';
+import Timer from './Timer';
+import {SignalRHelper} from '../../Helpers';
 
 class TaskTrackingScreen extends Component {
     constructor(props) {
@@ -19,6 +22,9 @@ class TaskTrackingScreen extends Component {
         this.state = {
             hubConnection: null,
             buttonToggle: true,
+            time: undefined,
+            isTracked: false,
+            offset: moment().utcOffset(),
         };
     }
 
@@ -26,33 +32,63 @@ class TaskTrackingScreen extends Component {
         if (text.trim() !== '') {
             alert(text);
         }
+    };
+
+    async start() {
+        const { hubConnection } = this.state;
+
+        try {
+            await hubConnection.start();
+        } catch (err) {
+            console.log(err);
+            setTimeout(() => this.start(), 5000);
+        }
     }
+
+    onClose = async (error) => {
+        await this.start();
+    };
+
+    componentWillUnmount() {
+        this.state.hubConnection.off('getActiveTracking');
+    }
+
+    onActiveTrackingReceive = (istracking, worktask, started, message) => {
+        if (!istracking) {
+            this.setState({
+                isTracked: false,
+                worktask: {},
+                time: {},
+            });
+            return;
+        }
+
+        let startTime;
+        if (started) {
+            startTime = moment(worktask.startedTime).utcOffset(this.state.offset);
+        } else {
+            startTime = moment(worktask.startedTime).add(this.state.offset, 'm');
+        }
+
+        this.setState({
+            isTracked: istracking,
+            worktask,
+            time: startTime,
+        });
+    };
 
     componentDidMount() {
         const token = LoginManager.shared().getToken();
-        const hubConnection = new HubConnectionBuilder()
-            .withUrl('http://silentkunz-001-site1.dtempurl.com/trackingHub', { accessTokenFactory: () => token })
-            .withAutomaticReconnect()
-            .configureLogging(LogLevel.Information)
-            .build();
+        const connectionData = {
+            token,
+            onClose: this.onClose,
+            onActiveTrackingReceive: this.onActiveTrackingReceive,
+        };
+
+        const hubConnection = SignalRHelper.getConnection(connectionData);
 
         this.setState({ hubConnection }, () => {
-            this.state.hubConnection.start()
-                .catch((err) => console.log(err));
-
-            this.state.hubConnection.on('startTracking', (message, status, obj) => {
-                // this.setState({ buttonToggle: false });
-                this.showMessage(message);
-            });
-
-            this.state.hubConnection.on('stopTracking', (receivedMessage, status) => {
-                this.setState({ buttonToggle: true });
-                this.showMessage(receivedMessage);
-            });
-
-            this.state.hubConnection.on('getActiveTracking', (istracking, worktask, time) => {
-                this.setState({ buttonToggle: !istracking });
-            });
+            this.start();
         });
     }
 
@@ -65,33 +101,30 @@ class TaskTrackingScreen extends Component {
             });
     };
 
-    invokeFunctionArg = (name, arg) => {
-        this.state.hubConnection
-            .invoke(name, arg)
-            .catch(err => {
-                console.error(err);
-                this.setState({ buttonToggle: true });
-            });
-    }
-
-    startTracking = () => {
+    startTracking = (event) => {
         this.state.hubConnection
             .invoke('StartTracking', this.props.task.Id)
+            .catch((err) => {
+                console.error(err);
+                this.setState({ buttonToggle: false });
+            });
+    };
+
+    stopTracking = (event) => {
+        this.state.hubConnection
+            .invoke('StopTracking')
             .catch((err) => {
                 console.error(err);
                 this.setState({ buttonToggle: true });
             });
     };
 
-    stopTracking = () => {
-        this.invokeFunction('StopTracking');
-    };
-
     render() {
         const {task} = this.props;
         return (
-            <View style={{height: 80, width: '100%', backgroundColor: '#FFF' }}>
+            <View style={styles.container}>
                 <Text>{task?.Title}</Text>
+                <Timer start={this.state.time} />
                 <TouchableOpacity onPress={this.startTracking}>
                     <Text>Start</Text>
                 </TouchableOpacity>
@@ -102,5 +135,35 @@ class TaskTrackingScreen extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        height: 80,
+        width: '100%',
+        backgroundColor: '#FFF',
+    },
+    listHeaderComponent: {
+        // height: '20%',
+        marginHorizontal: 10,
+        marginTop: 10,
+    },
+    contentContainer: {
+        paddingBottom: 30,
+
+    },
+    flexSpacing: {
+        flex: 1,
+    },
+    addIcon: {
+        width: 55,
+    },
+    title: {
+        marginLeft: 20,
+        fontSize: 17,
+        letterSpacing: 0.15,
+        color: '#FFF',
+        // width: '70%',
+    },
+});
 
 export default TaskTrackingScreen;

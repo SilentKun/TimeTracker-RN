@@ -24,7 +24,6 @@ class TaskDetailsScreen extends Component {
             taskLoading: true,
             isTracking: false,
         };
-        this.createdDate = null
     }
 
     componentDidMount() {
@@ -49,8 +48,8 @@ class TaskDetailsScreen extends Component {
         this.setState({value});
 
         updateTaskState({
-            taskId: this.state.worktask.Id.toString(),
-            stateId: value.toString(),
+            taskId: this.state.worktask.Id,
+            stateId: value,
         }, (error, response) => {
             if (error) {
                 alert(error);
