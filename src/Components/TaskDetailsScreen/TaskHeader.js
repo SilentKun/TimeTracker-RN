@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Picker} from '@react-native-community/picker';
+import RNPickerSelect from 'react-native-picker-select';
 
 import {colors} from '../../Constants';
 
@@ -30,15 +30,12 @@ const TaskHeader = ({worktask, project, states, valueTask, onValueChange, create
             <View style={{...styles.rowContainer, borderBottomWidth: 0}}>
                 <Text style={styles.label}>Состояние</Text>
             </View>
-            <Picker
-                selectedValue={valueTask}
-                style={{height: 40}}
-                onValueChange={onValueChange}
-            >
-                {states.map((item, index) => (
-                    <Picker.Item key={index} label={item.label} value={item.value} />
-                ))}
-            </Picker>
+            <RNPickerSelect
+                    placeholder={{}}
+                    value={valueTask}
+                    onValueChange={onValueChange}
+                    items={states}
+            />
         </View>
     );
 };
