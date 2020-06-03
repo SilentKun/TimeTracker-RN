@@ -50,6 +50,7 @@ const AppPopup = ({
                 }
                 {onChangeRight &&
                 <RNPickerSelect
+                    placeholder={{label: 'Выберите роль', value: null}}
                     value={rightValue}
                     onValueChange={onChangeRight}
                     items={[

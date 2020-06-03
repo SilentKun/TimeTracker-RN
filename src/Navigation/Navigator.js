@@ -22,6 +22,7 @@ import EditProjectScreen from '../Components/ProjectDetailsScreen/EditProjectScr
 import TaskDetailsScreen from '../Components/TaskDetailsScreen';
 import UserPageScreen from '../Components/UserPageScreen';
 import TaskTrackingScreen from '../Components/TaskTrackingScreen/TaskTrackingScreen';
+import EditTaskScreen from '../Components/TaskDetailsScreen/EditTaskScreen';
 
 const LoginStack = createStackNavigator({
     [routes.LoginScreen]: LoginScreen,
@@ -32,7 +33,7 @@ const LoginStack = createStackNavigator({
 
 const TaskDetailsStack = createStackNavigator({
     [routes.TaskDetailsScreen]: TaskDetailsScreen,
-    // [routes.EditTaskScreen]: EditTaskScreen,
+    [routes.EditTaskScreen]: EditTaskScreen,
 }, {
     headerMode: 'none',
 });

@@ -135,10 +135,15 @@ class TaskDetailsScreen extends Component {
     };
 
     render() {
-        const {worktracks, loading, taskLoading, worktask, isTracking} = this.state;
+        const {worktracks, loading, taskLoading, worktask, isTracking, isAdmin} = this.state;
         if (taskLoading) {
             return (
                 <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
+                    <NavigationEvents
+                        onWillFocus={() => {
+                            this._loadTask();
+                        }}
+                    />
                     <AppNavigationBar style={styles.navigationBar}>
                         <AppTouchableIcon
                             style={styles.menuIcon}
@@ -149,12 +154,13 @@ class TaskDetailsScreen extends Component {
                             Задача: {worktask.Title}
                         </Text>
                         <View style={styles.flexSpacing} />
+                        {isAdmin === 1 &&
                         <AppTouchableIcon
                             style={{paddingRight:  10}}
                             fontSize={28}
                             icon="md-create"
-                            onPress={this._stopTask}
-                        />
+                            onPress={() => this.props.navigation.navigate(routes.EditTaskScreen, {worktask})}
+                        />}
                         <AppTouchableIcon
                             style={styles.addIcon}
                             fontSize={30}
@@ -178,12 +184,13 @@ class TaskDetailsScreen extends Component {
                         Задача: {worktask.Title}
                     </Text>
                     <View style={styles.flexSpacing} />
+                    {isAdmin === 1 &&
                     <AppTouchableIcon
                         style={{paddingRight:  10}}
                         fontSize={28}
                         icon="md-create"
-                        onPress={this._stopTask}
-                    />
+                        onPress={() => this.props.navigation.navigate(routes.EditTaskScreen, {worktask})}
+                    />}
                     <AppTouchableIcon
                         style={styles.addIcon}
                         fontSize={30}

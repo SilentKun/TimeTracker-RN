@@ -31,10 +31,10 @@ const TaskHeader = ({worktask, project, states, valueTask, onValueChange, create
                 <Text style={styles.label}>Состояние</Text>
             </View>
             <RNPickerSelect
-                    placeholder={{}}
-                    value={valueTask}
-                    onValueChange={onValueChange}
-                    items={states}
+                placeholder={{}}
+                value={valueTask}
+                onValueChange={onValueChange}
+                items={states}
             />
         </View>
     );

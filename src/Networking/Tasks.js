@@ -1,5 +1,14 @@
 import {apiRequest} from './Base';
-import {projectDetails, worktracksUrl, addTaskUrl, taskUrl, statesUrl, updateStateUrl} from '../Constants';
+import {
+    projectDetails,
+    worktracksUrl,
+    addTaskUrl,
+    taskUrl,
+    statesUrl,
+    updateStateUrl,
+    updateProjectUrl,
+    deleteTaskUrl, updateTaskUrl,
+} from '../Constants';
 
 const loadTasks = (id, block) => {
     const url = projectDetails(id);
@@ -28,6 +37,15 @@ const updateTaskState = (parameters, block) => {
     return apiRequest(updateStateUrl, 'POST', parameters, block);
 };
 
+const deleteTask = (id, block) => {
+    const url = deleteTaskUrl(id);
+    return apiRequest(url, 'DELETE', null, block);
+};
+
+const editTask = (parameters, block) => {
+    return apiRequest(updateTaskUrl, 'POST', parameters, block);
+};
+
 export {
     loadTasks,
     addTask,
@@ -35,4 +53,6 @@ export {
     loadWorkTask,
     loadTaskStates,
     updateTaskState,
+    deleteTask,
+    editTask,
 };
