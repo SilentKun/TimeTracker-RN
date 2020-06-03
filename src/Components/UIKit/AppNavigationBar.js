@@ -1,11 +1,11 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import SafeAreaView from 'react-native-safe-area-view';
+import AppSafeAreaView from './AppSafeAreaView';
 
 const AppNavigationBar = ({style, children}) => {
     return (
         <View style={{...styles.container, ...style}}>
-            <SafeAreaView style={styles.statusBar} />
+            <AppSafeAreaView style={styles.statusBar} />
             <View style={styles.contentContainer}>
 
                 {children}
