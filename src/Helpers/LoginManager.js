@@ -1,6 +1,6 @@
 import * as Keychain from 'react-native-keychain';
 import {store} from '../Redux';
-import {logInUser as saveUserRedux, logOutUser as deleteUserRedux, updateUser} from '../Redux/Actions';
+import {logInUser as saveUserRedux, logOutUser as deleteUserRedux, trackingOff, updateUser} from '../Redux/Actions';
 import {saveUser, readUser, clearUser} from './FileSystemHelper';
 import {signInRequest, signUpRequest} from '../Networking';
 
@@ -135,6 +135,7 @@ class LoginManager {
                 alert(error);
             }
             block();
+            store.dispatch(trackingOff());
         });
     };
 

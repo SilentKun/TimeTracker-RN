@@ -9,6 +9,8 @@ import {
 import {deleteProject, deleteTask, editProject, editTask, loadWorkTask} from '../../Networking';
 import {AppButton, AppInput, AppNavigationBar, AppTouchableIcon} from '../UIKit';
 import routes from '../../Constants/routes';
+import {store} from '../../Redux';
+import {trackingOn, trackingOff} from '../../Redux/Actions';
 
 class EditTaskScreen extends Component {
     constructor(props) {
@@ -60,6 +62,7 @@ class EditTaskScreen extends Component {
             if (error) {
                 alert(error);
             } else {
+                store.dispatch(trackingOn(worktask));
                 this.props.navigation.goBack();
             }
         });

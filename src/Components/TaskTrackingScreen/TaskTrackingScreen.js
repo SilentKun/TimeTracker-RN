@@ -14,6 +14,7 @@ import LoginManager from '../../Helpers/LoginManager';
 import {store} from '../../Redux';
 import {trackingOn, trackingOff} from '../../Redux/Actions';
 import Timer from './Timer';
+import {colors} from '../../Constants';
 import {SignalRHelper} from '../../Helpers';
 import AppTouchableIcon from '../UIKit/AppTouchableIcon';
 
@@ -99,7 +100,6 @@ class TaskTrackingScreen extends Component {
             .invoke('StartTracking', this.props.task.Id)
             .catch((err) => {
                 console.error(err);
-                this.setState({ buttonToggle: false });
             });
     };
 
@@ -108,22 +108,37 @@ class TaskTrackingScreen extends Component {
             .invoke('StopTracking')
             .catch((err) => {
                 console.error(err);
-                this.setState({ buttonToggle: true });
             });
-        // store.dispatch(trackingOff());
     };
 
     render() {
         const {task} = this.props;
         return (
             <View style={styles.container}>
-                <Text>{task?.Title}</Text>
-                {this.state.isTracked ?
-                    <Timer isTracked={this.state.isTracked} start={this.state.time} /> : <Text>00:00:00</Text>}
-                <View style={{alignItems: 'flex-end', justifyContent: 'center', flex: 1, marginRight: 25}}>
+                <View style={{flexDirection: 'column', marginLeft: 25}}>
+                    <Text style={{fontSize: 16}}>Задача: {task?.Title}</Text>
+                    {this.state.isTracked ?
+                        <Timer
+                            style={styles.timer}
+                            isTracked={this.state.isTracked}
+                            start={this.state.time}
+                        /> : <Text style={styles.timer}>00:00:00</Text>}
+                </View>
+                <View style={{alignItems: 'center', flexDirection: 'row', marginRight: 25}}>
+                    <TouchableOpacity onPress={() => {
+                        if (this.state.isTracked) {
+                            this.stopTracking();
+                        }
+                        setTimeout(() => {
+                            store.dispatch(trackingOff());
+                        }, 300);
+                    }}
+                    >
+                        <Text style={{paddingVertical: 30, color: '#03bafc'}}>Закрыть</Text>
+                    </TouchableOpacity>
                     {this.state.isTracked ?
                         <TouchableOpacity onPress={this.stopTracking}>
-                            <Icon style={{marginLeft: 17}} name={'stop-circle'} size={62} color="#03bafc" />
+                            <Icon style={{marginLeft: 17}} name="stop-circle" size={62} color="#f44236" />
                         </TouchableOpacity>
                         :
                         <AppTouchableIcon
@@ -131,12 +146,14 @@ class TaskTrackingScreen extends Component {
                             tintColor="#03bafc"
                             style={styles.icon}
                             icon="ios-play-circle"
-                            onPress={this.startTracking}
+                            onPress={() => {
+                                setTimeout(() => {
+                                    this.startTracking();
+                                }, 500);
+                            }}
                         />
                     }
                 </View>
-
-
             </View>
         );
     }
@@ -148,6 +165,12 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#FFF',
         flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        elevation: 15,
+    },
+    timer: {
+        fontSize: 34,
     },
     listHeaderComponent: {
         // height: '20%',

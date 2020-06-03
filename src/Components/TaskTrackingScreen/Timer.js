@@ -30,9 +30,7 @@ class Timer extends Component {
     render() {
         const displayTime = moment(this.state.elapsed).utc();
         return (
-            <View>
-                <Text style={styles.timer}>{displayTime.format('HH:mm:ss')}</Text>
-            </View>
+            <Text style={{...styles.timer, ...this.props.style}}>{displayTime.format('HH:mm:ss')}</Text>
         );
     }
 }
