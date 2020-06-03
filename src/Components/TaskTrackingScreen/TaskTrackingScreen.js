@@ -116,7 +116,10 @@ class TaskTrackingScreen extends Component {
         return (
             <View style={styles.container}>
                 <View style={{flexDirection: 'column', marginLeft: 25}}>
-                    <Text style={{fontSize: 16}}>Задача: {task?.Title}</Text>
+                    <View style={{flexDirection: 'row'}}>
+                        <Text style={{fontSize: 16}}>Задача: </Text>
+                        <Text style={{fontSize: 16, fontWeight: 'bold'}}>{task?.Title}</Text>
+                    </View>
                     {this.state.isTracked ?
                         <Timer
                             style={styles.timer}
@@ -168,6 +171,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         elevation: 15,
+        borderTopWidth: 1,
+        borderColor: colors.charcoalGrey10,
     },
     timer: {
         fontSize: 34,

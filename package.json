@@ -34,14 +34,14 @@
     "react-native-picker-select": "^7.0.0",
     "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "^0.7.3",
+    "react-native-safe-area-view": "latest",
     "react-native-screens": "^2.4.0",
     "react-native-tab-view": "^2.14.0",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation-drawer": "^2.4.13",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
-    "rn-viewpager": "^1.2.9",
-    "react-native-safe-area-view": "latest"
+    "rn-viewpager": "^1.2.9"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
