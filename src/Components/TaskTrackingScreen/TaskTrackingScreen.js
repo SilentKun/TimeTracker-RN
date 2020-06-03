@@ -54,6 +54,7 @@ class TaskTrackingScreen extends Component {
     }
 
     onActiveTrackingReceive = (istracking, worktask, started, message) => {
+        this.showMessage(message);
         if (!istracking) {
             this.setState({
                 isTracked: false,
@@ -66,8 +67,6 @@ class TaskTrackingScreen extends Component {
         let startTime;
         if (started) {
             startTime = moment(worktask.startedTime).utcOffset(this.state.offset);
-        } else {
-            startTime = moment(worktask.startedTime).add(this.state.offset, 'm');
         }
 
         this.setState({
@@ -75,6 +74,7 @@ class TaskTrackingScreen extends Component {
             worktask,
             time: startTime,
         });
+
     };
 
     componentDidMount() {
@@ -92,16 +92,7 @@ class TaskTrackingScreen extends Component {
         });
     }
 
-    invokeFunction = (name) => {
-        this.state.hubConnection
-            .invoke(name)
-            .catch((err) => {
-                console.error(err);
-                this.setState({ buttonToggle: true });
-            });
-    };
-
-    startTracking = (event) => {
+    startTracking = () => {
         this.state.hubConnection
             .invoke('StartTracking', this.props.task.Id)
             .catch((err) => {
@@ -110,13 +101,14 @@ class TaskTrackingScreen extends Component {
             });
     };
 
-    stopTracking = (event) => {
+    stopTracking = () => {
         this.state.hubConnection
             .invoke('StopTracking')
             .catch((err) => {
                 console.error(err);
                 this.setState({ buttonToggle: true });
             });
+        // store.dispatch(trackingOff());
     };
 
     render() {
@@ -124,7 +116,8 @@ class TaskTrackingScreen extends Component {
         return (
             <View style={styles.container}>
                 <Text>{task?.Title}</Text>
-                <Timer start={this.state.time} />
+                {this.state.isTracked &&
+                <Timer start={this.state.time} />}
                 <TouchableOpacity onPress={this.startTracking}>
                     <Text>Start</Text>
                 </TouchableOpacity>
