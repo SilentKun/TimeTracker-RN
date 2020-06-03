@@ -2,6 +2,7 @@
 import {
     View,
     Text,
+    StyleSheet,
 } from 'react-native';
 import moment from 'moment';
 
@@ -30,10 +31,25 @@ class Timer extends Component {
         const displayTime = moment(this.state.elapsed).utc();
         return (
             <View>
-                <Text>{displayTime.format('HH:mm:ss')}</Text>
+                <Text style={styles.timer}>{displayTime.format('HH:mm:ss')}</Text>
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#03bafc',
+    },
+    contentContainer: {
+        flexDirection: 'row',
+        height: 56,
+        alignItems: 'center',
+    },
+    timer: {
+        fontSize: 32,
+    },
+    statusBar: {},
+});
 
 export default Timer;

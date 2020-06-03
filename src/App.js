@@ -13,6 +13,7 @@ import RootStackScreen from './Navigation';
 import ReduxApp from './Redux';
 
 const App = () => {
+    console.disableYellowBox = true;
     return (
         <SafeAreaProvider>
             <StatusBar

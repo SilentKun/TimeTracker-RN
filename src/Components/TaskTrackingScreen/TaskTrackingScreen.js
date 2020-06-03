@@ -9,11 +9,13 @@ import {
 } from 'react-native';
 import { HubConnectionBuilder, LogLevel} from '@microsoft/signalr';
 import moment from 'moment';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import LoginManager from '../../Helpers/LoginManager';
 import {store} from '../../Redux';
 import {trackingOn, trackingOff} from '../../Redux/Actions';
 import Timer from './Timer';
 import {SignalRHelper} from '../../Helpers';
+import AppTouchableIcon from '../UIKit/AppTouchableIcon';
 
 class TaskTrackingScreen extends Component {
     constructor(props) {
@@ -67,14 +69,14 @@ class TaskTrackingScreen extends Component {
         let startTime;
         if (started) {
             startTime = moment(worktask.startedTime).utcOffset(this.state.offset);
+        } else {
+            startTime = moment(worktask.startedTime).add(this.state.offset, 'm');
         }
-
         this.setState({
             isTracked: istracking,
             worktask,
             time: startTime,
         });
-
     };
 
     componentDidMount() {
@@ -116,14 +118,25 @@ class TaskTrackingScreen extends Component {
         return (
             <View style={styles.container}>
                 <Text>{task?.Title}</Text>
-                {this.state.isTracked &&
-                <Timer start={this.state.time} />}
-                <TouchableOpacity onPress={this.startTracking}>
-                    <Text>Start</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.stopTracking}>
-                    <Text>Stop</Text>
-                </TouchableOpacity>
+                {this.state.isTracked ?
+                    <Timer isTracked={this.state.isTracked} start={this.state.time} /> : <Text>00:00:00</Text>}
+                <View style={{alignItems: 'flex-end', justifyContent: 'center', flex: 1, marginRight: 25}}>
+                    {this.state.isTracked ?
+                        <TouchableOpacity onPress={this.stopTracking}>
+                            <Icon style={{marginLeft: 17}} name={'stop-circle'} size={62} color="#03bafc" />
+                        </TouchableOpacity>
+                        :
+                        <AppTouchableIcon
+                            fontSize={66}
+                            tintColor="#03bafc"
+                            style={styles.icon}
+                            icon="ios-play-circle"
+                            onPress={this.startTracking}
+                        />
+                    }
+                </View>
+
+
             </View>
         );
     }
@@ -134,6 +147,7 @@ const styles = StyleSheet.create({
         height: 80,
         width: '100%',
         backgroundColor: '#FFF',
+        flexDirection: 'row',
     },
     listHeaderComponent: {
         // height: '20%',
@@ -142,6 +156,9 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         paddingBottom: 30,
+
+    },
+    icon: {
 
     },
     flexSpacing: {

@@ -139,11 +139,6 @@ class TaskDetailsScreen extends Component {
         if (taskLoading) {
             return (
                 <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
-                    <NavigationEvents
-                        onWillFocus={() => {
-                            this._loadTask();
-                        }}
-                    />
                     <AppNavigationBar style={styles.navigationBar}>
                         <AppTouchableIcon
                             style={styles.menuIcon}
@@ -175,6 +170,11 @@ class TaskDetailsScreen extends Component {
         return (
             <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
                 <AppNavigationBar style={styles.navigationBar}>
+                    <NavigationEvents
+                        onWillFocus={() => {
+                            this._loadTask();
+                        }}
+                    />
                     <AppTouchableIcon
                         style={styles.menuIcon}
                         icon="ios-arrow-back"

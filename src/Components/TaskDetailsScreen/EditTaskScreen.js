@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     TextInput,
 } from 'react-native';
-import {deleteProject, deleteTask, editProject, editTask} from '../../Networking';
+import {deleteProject, deleteTask, editProject, editTask, loadWorkTask} from '../../Networking';
 import {AppButton, AppInput, AppNavigationBar, AppTouchableIcon} from '../UIKit';
 import routes from '../../Constants/routes';
 
@@ -19,9 +19,7 @@ class EditTaskScreen extends Component {
     }
 
     componentDidMount() {
-        const {worktask} = this.props.navigation.state.params;
-        console.log('TASDSADADAD', worktask.Duration)
-        this.setState({title: worktask.Title, description: worktask.Description, duration: worktask.Duration.toString()});
+        this._loadTask();
     }
 
     _deleteTask = () => {
@@ -35,11 +33,30 @@ class EditTaskScreen extends Component {
         });
     };
 
+    _loadTask = () => {
+        const {worktask} = this.props.navigation.state?.params;
+        loadWorkTask(worktask.Id, (error, response) => {
+            if (error) {
+                this.setState({loading: false});
+                alert(error);
+            } else {
+                this.setState({
+                    worktask: response.worktask,
+                    title: response.worktask.Title,
+                    description: response.worktask.Description,
+                    duration: response.worktask.Duration.toString(),
+                });
+            }
+        });
+    };
+
     _editTask = () => {
-        const {title, description, duration} = this.state;
-        const {worktask} = this.props.navigation.state.params;
-        const body = {worktask: {Id: worktask.Id, Title: title.trim(), Description: description.trim(), Duration: parseInt(duration, 10)}};
-        editTask(body, (error, response) => {
+        const {title, description, duration, worktask} = this.state;
+
+        worktask.Title = title;
+        worktask.Description = description;
+        worktask.Duration = parseInt(duration);
+        editTask({worktask}, (error, response) => {
             if (error) {
                 alert(error);
             } else {
