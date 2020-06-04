@@ -165,7 +165,10 @@ class StatisticScreen extends Component {
             <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
                 <NavigationEvents
                     onWillFocus={() => {
-                        this._loadProjects();
+                        if (!this.state.worktracks) {
+                            this._loadProjects();
+
+                        }
                     }}
                 />
                 <AppNavigationBar style={styles.navigationBar}>
