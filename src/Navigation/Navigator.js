@@ -16,6 +16,7 @@ import {
 } from '../Components';
 import SideMenu from './SideMenu';
 import {routes} from '../Constants';
+import {AppSafeAreaView} from '../Components/UIKit';
 import BaseScreen from '../Components/BaseScreen';
 import AddProjectScreen from '../Components/ProjectsScreen/AddProjectScreen';
 import EditProjectScreen from '../Components/ProjectDetailsScreen/EditProjectScreen';
@@ -93,6 +94,7 @@ class MainNavigatorWithCustomView extends React.Component {
                 <MainNavigator {...this.props} />
                 {isTracking &&
                 <TaskTrackingScreen task={task} />}
+                <AppSafeAreaView onlyBottom={true} />
             </View>
         );
     }

@@ -22,6 +22,7 @@ const datePickerStyle = {
         color: '#9f9f9f',
         fontSize: 14,
         paddingHorizontal: 16,
+        opacity: 0.5
     },
     dateText: {
         marginLeft: 15,
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
     datePicker: {
         marginTop: 8,
         marginLeft: 80,
-        width: 235,
+        width: 255,
     },
 });
 

@@ -1,9 +1,7 @@
 import React, {PureComponent} from 'react';
 import {View, StatusBar, Keyboard, Platform} from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
-
-export const isIos = Platform.OS === 'ios';
-export const OSVersion = isIos ? parseInt(Platform.Version, 10) : Platform.Version;
+import {isIos, OSVersion} from '../../Constants';
 
 class AppSafeAreaView extends PureComponent {
     render() {

@@ -161,13 +161,13 @@ class StatisticScreen extends Component {
 
     render() {
         const {worktracks, loading} = this.state;
+        console.log('WER', worktracks)
         return (
             <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
                 <NavigationEvents
                     onWillFocus={() => {
-                        if (!this.state.worktracks) {
+                        if (!worktracks || worktracks.length === 0) {
                             this._loadProjects();
-
                         }
                     }}
                 />

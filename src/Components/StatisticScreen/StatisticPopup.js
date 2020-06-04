@@ -49,6 +49,7 @@ const StatisticPopup = ({
         >
             <View style={styles.background}>
                 <Text style={styles.title}>Заполните поля</Text>
+                <View style={{marginLeft: 20, marginVertical: 10}}>
                 <RNPickerSelect
                     placeholder={{label: 'Выберите проект', value: null}}
                     value={projectValue}
@@ -68,6 +69,7 @@ const StatisticPopup = ({
                     onValueChange={onChangeTask}
                     items={tasks}
                 />
+                </View>
                 <DatePicker
                     style={styles.datePicker}
                     date={fromDate}
@@ -80,6 +82,7 @@ const StatisticPopup = ({
                     customStyles={datePickerStyle}
                     onDateChange={onFromDateChange}
                 />
+                
                 <DatePicker
                     style={styles.datePicker}
                     date={endDate}
@@ -127,8 +130,7 @@ const styles = StyleSheet.create({
     },
     datePicker: {
         marginTop: 15,
-        marginLeft: 80,
-        // width: 235,
+        alignSelf: 'center',
     },
     input: {
         marginTop: 10,
