@@ -47,11 +47,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         flex: 1,
         paddingHorizontal: 10,
-        // width: '100%',
-        // height: '20%',
         borderRadius: 5,
-        // borderBottomLeftRadius: 10,
-        // borderBottomRightRadius: 10,
         flexDirection: 'column',
     },
     rowContainer: {

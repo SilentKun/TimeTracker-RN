@@ -23,6 +23,7 @@ import TaskDetailsScreen from '../Components/TaskDetailsScreen';
 import UserPageScreen from '../Components/UserPageScreen';
 import TaskTrackingScreen from '../Components/TaskTrackingScreen/TaskTrackingScreen';
 import EditTaskScreen from '../Components/TaskDetailsScreen/EditTaskScreen';
+import StatisticScreen from '../Components/StatisticScreen/StatisticScreen';
 
 const LoginStack = createStackNavigator({
     [routes.LoginScreen]: LoginScreen,
@@ -57,6 +58,7 @@ const HomeStack = createStackNavigator({
 const DrawerNavigator = createDrawerNavigator({
     [routes.HomeStack]: HomeStack,
     [routes.UserPageScreen]: UserPageScreen,
+    [routes.StatisticScreen]: StatisticScreen,
 }, {
     initialRouteName: routes.HomeStack,
     contentComponent: SideMenu,

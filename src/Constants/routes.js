@@ -15,6 +15,7 @@ const routes = {
     TaskDetailsScreen: 'TaskDetailsScreen',
     EditTaskScreen: 'EditTaskScreen',
     UserPageScreen: 'UserPageScreen',
+    StatisticScreen: 'StatisticScreen',
 };
 
 export default routes;

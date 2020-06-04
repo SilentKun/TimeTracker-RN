@@ -20,6 +20,11 @@ const menuItems = [
         iconName: 'ios-paper',
         route: routes.ProjectsScreen,
     },
+    {
+        title: 'Статистика',
+        iconName: 'md-journal',
+        route: routes.StatisticScreen,
+    },
 ];
 
 const logoutButton = {

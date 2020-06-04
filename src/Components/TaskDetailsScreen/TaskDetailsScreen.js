@@ -80,12 +80,6 @@ class TaskDetailsScreen extends Component {
         });
     };
 
-    _stopTask = () => {
-        this.setState({isTracking: false}, () => {
-            store.dispatch(trackingOff());
-        });
-    };
-
     _loadWorktracks = () => {
         const {task} = this.props.navigation.state?.params;
         loadWorktracks(task.Id, (error, worktracks) => {

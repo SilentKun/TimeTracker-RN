@@ -134,7 +134,7 @@ class TaskTrackingScreen extends Component {
                         }
                         setTimeout(() => {
                             store.dispatch(trackingOff());
-                        }, 300);
+                        }, 500);
                     }}
                     >
                         <Text style={{paddingVertical: 30, color: '#03bafc'}}>Закрыть</Text>

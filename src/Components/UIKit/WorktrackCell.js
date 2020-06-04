@@ -2,15 +2,22 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from '../../Constants';
 
-const WorktrackCell = ({style, User, onLongPress, startedTime, stoppedTime, TotalTime}) => {
+const WorktrackCell = ({style, User, onLongPress, startedTime, stoppedTime, TotalTime, Task}) => {
     return (
         <View
             style={{...styles.container, ...style}}
             onLongPress={onLongPress}
         >
             <View style={styles.userContainer}>
-                <Text style={styles.userLabel}>Пользователь</Text>
-                <Text style={styles.text}>{User}</Text>
+                <View style={{flexDirection: 'column', }}>
+                    <Text style={styles.userLabel}>Пользователь</Text>
+                    <Text style={styles.text}>{User}</Text>
+                </View>
+                {Task &&
+                <View style={{flexDirection: 'column', borderLeftWidth: 1, borderColor: colors.charcoalGrey10, paddingLeft: 5}}>
+                    <Text style={styles.userLabel}>Задача</Text>
+                    <Text style={styles.text}>{Task}</Text>
+                </View>}
             </View>
             <View style={styles.bottomContainer}>
                 <View>
@@ -62,8 +69,10 @@ const styles = StyleSheet.create({
     },
     userContainer: {
         // marginHorizontal: 10,
+        flexDirection: 'row',
         borderColor: colors.charcoalGrey10,
         borderBottomWidth: 1,
+        justifyContent: 'space-between'
     },
     timeContainer: {
         // width: '50%',
