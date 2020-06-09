@@ -8,7 +8,7 @@ const MenuCell = ({style, title, iconName, onPress}) => {
             onPress={onPress}
             style={{...styles.container, ...style}}
         >
-            <Icon style={{marginLeft: 17}} name={iconName} size={30} color="#03bafc" />
+            <Icon style={styles.icon} name={iconName} size={30} color="#03bafc" />
             <Text style={styles.text}>
                 {title}
             </Text>
@@ -21,6 +21,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginVertical: 2,
+    },
+    icon: {
+        marginLeft: 17,
+        width: 25,
     },
     text: {
         marginLeft: 33,

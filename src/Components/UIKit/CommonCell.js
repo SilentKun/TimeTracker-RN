@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
         elevation: 3,
         marginHorizontal: 10,
         paddingHorizontal: 10,
-        // paddingBottom: 10,
         borderRadius: 5,
         flexDirection: 'column',
     },
@@ -64,13 +63,10 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     containerText: {
-        // marginHorizontal: 10,
         borderColor: colors.charcoalGrey10,
         borderBottomWidth: 1,
     },
     descriptionContainer: {
-        // width: '50%',
-        // marginHorizontal: 10,
         marginBottom: 10,
     },
     description: {

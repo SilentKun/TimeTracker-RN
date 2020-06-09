@@ -21,7 +21,7 @@ const menuItems = [
         route: routes.ProjectsScreen,
     },
     {
-        title: 'Статистика',
+        title: 'Отчёты',
         iconName: 'md-journal',
         route: routes.StatisticScreen,
     },

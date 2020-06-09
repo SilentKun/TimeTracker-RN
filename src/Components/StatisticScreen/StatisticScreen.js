@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, FlatList, RefreshControl} from 'react-native';
 import moment from 'moment';
 import {DrawerActions} from 'react-navigation-drawer';
+import {NavigationEvents} from 'react-navigation';
 import {loadProjects, loadUsers, loadCurrentUser, loadUserStats, loadTasks} from '../../Networking';
 import {colors} from '../../Constants';
 import {AppNavigationBar, AppTouchableIcon, WorktrackCell} from '../UIKit';
 import StatisticPopup from './StatisticPopup';
-import {NavigationEvents} from 'react-navigation';
 
 class StatisticScreen extends Component {
     constructor(props) {
@@ -161,7 +161,7 @@ class StatisticScreen extends Component {
 
     render() {
         const {worktracks, loading} = this.state;
-        console.log('WER', worktracks)
+        console.log('WER', this.state.startDate);
         return (
             <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
                 <NavigationEvents
@@ -180,7 +180,7 @@ class StatisticScreen extends Component {
                         }}
                     />
                     <Text style={styles.title}>
-                        Статистика
+                        Отчёты
                     </Text>
                     <View style={styles.flexSpacing} />
                     <AppTouchableIcon
@@ -201,6 +201,7 @@ class StatisticScreen extends Component {
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadProjects} />}
                 />
                 <StatisticPopup
+                    disabled={this.state.startDate === '' && this.state.endDate === ''}
                     tasks={this.state.tasks}
                     projects={this.state.projects}
                     users={this.state.users}

@@ -41,6 +41,7 @@ const StatisticPopup = ({
     onEndDateChange,
     fromDate,
     endDate,
+    disabled,
 }) => {
     return (
         <Modal
@@ -50,25 +51,25 @@ const StatisticPopup = ({
             <View style={styles.background}>
                 <Text style={styles.title}>Заполните поля</Text>
                 <View style={{marginLeft: 20, marginVertical: 10}}>
-                <RNPickerSelect
-                    placeholder={{label: 'Выберите проект', value: null}}
-                    value={projectValue}
-                    onValueChange={onChangeProject}
-                    items={projects}
-                />
-                <RNPickerSelect
-                    placeholder={{label: 'Выберите пользователя', value: null}}
-                    value={userValue}
-                    onValueChange={onChangeUser}
-                    items={users}
-                />
-                <RNPickerSelect
-                    style={styles.picker}
-                    placeholder={{label: 'Выберите задачу', value: null}}
-                    value={taskValue}
-                    onValueChange={onChangeTask}
-                    items={tasks}
-                />
+                    <RNPickerSelect
+                        placeholder={{label: 'Выберите проект', value: null}}
+                        value={projectValue}
+                        onValueChange={onChangeProject}
+                        items={projects}
+                    />
+                    <RNPickerSelect
+                        placeholder={{label: 'Выберите пользователя', value: null}}
+                        value={userValue}
+                        onValueChange={onChangeUser}
+                        items={users}
+                    />
+                    <RNPickerSelect
+                        style={styles.picker}
+                        placeholder={{label: 'Выберите задачу', value: null}}
+                        value={taskValue}
+                        onValueChange={onChangeTask}
+                        items={tasks}
+                    />
                 </View>
                 <DatePicker
                     style={styles.datePicker}
@@ -82,7 +83,7 @@ const StatisticPopup = ({
                     customStyles={datePickerStyle}
                     onDateChange={onFromDateChange}
                 />
-                
+
                 <DatePicker
                     style={styles.datePicker}
                     date={endDate}
@@ -96,7 +97,7 @@ const StatisticPopup = ({
                     onDateChange={onEndDateChange}
                 />
                 <View style={styles.buttonsContainer}>
-                    <AppButton style={styles.button} text="OK" onPress={submit} />
+                    <AppButton style={styles.button} text="OK" onPress={submit} disabled={disabled} />
                     <AppButton style={styles.button} text="ОТМЕНА" onPress={closeDialog} />
                 </View>
             </View>

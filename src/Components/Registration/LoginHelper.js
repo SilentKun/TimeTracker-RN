@@ -53,6 +53,7 @@ class LoginHelper {
                 this.setState({inProgress: false});
                 alert(error);
             } else {
+                alert(response.text)
                 this.setState({inProgress: false});
                 this.navigate({
                     routeName: routes.LoginScreen,

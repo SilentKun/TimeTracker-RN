@@ -1,5 +1,5 @@
 import {apiRequest} from './Base';
-import {updateUserPage, updateUserUrl, usersUrl, currentUserUrl, statsUrl} from '../Constants';
+import {updateUserPage, updateUserUrl, usersUrl, currentUserUrl, statsUrl, userInfoUrl} from '../Constants';
 
 const updateUserData = (parameters, block) => {
     return apiRequest(updateUserPage, 'POST', parameters, block);
@@ -22,10 +22,15 @@ const loadUserStats = (parameters, block) => {
     return apiRequest(statsUrl, 'POST', parameters, block);
 };
 
+const loadUserInfo = (block) => {
+    return apiRequest(userInfoUrl, 'GET', null, block);
+};
+
 export {
     updateUserData,
     updateUser,
     loadUsers,
     loadCurrentUser,
     loadUserStats,
+    loadUserInfo,
 };

@@ -24,7 +24,6 @@ const AppPopup = ({
     return (
         <Modal
             isVisible={isDialogVisible}
-            style={styles.container}
         >
             <View style={styles.background}>
                 {title && <Text style={styles.title}>{title}</Text>}
@@ -69,11 +68,7 @@ const AppPopup = ({
 };
 
 const styles = StyleSheet.create({
-    container: {
-        // alignItems: 'center',
-    },
     background: {
-        // alignItems: 'center',
         marginHorizontal: 30,
         backgroundColor: colors.feedBackground,
         borderRadius: 20,

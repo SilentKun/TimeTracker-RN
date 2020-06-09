@@ -72,16 +72,15 @@ class LoginManager {
     };
 
     signUp = (currentUser, block) => {
-        const {login, email, password, name, surname, middlename, city, birthdate} = currentUser;
         signUpRequest({
-            Login: login,
-            Email: email,
-            Pass: password,
-            FirstName: name,
-            Surname: surname,
-            MiddleName: middlename,
-            City: city,
-            BirthDate: birthdate,
+            Login: currentUser.login,
+            Email: currentUser.email,
+            Pass: currentUser.password,
+            FirstName: currentUser.name,
+            Surname: currentUser.surname,
+            MiddleName: currentUser.middlename,
+            City: currentUser.city,
+            BirthDate: currentUser.birthdate,
         }, block);
     };
 

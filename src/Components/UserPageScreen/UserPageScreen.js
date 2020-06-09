@@ -7,9 +7,10 @@ import {
 } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import {DrawerActions} from 'react-navigation-drawer';
+import {NavigationEvents} from 'react-navigation';
 import {AppInput, AppNavigationBar, AppTouchableIcon, AppButton} from '../UIKit';
 import {colors} from '../../Constants';
-import {updateUserData} from '../../Networking';
+import {updateUserData, loadUserInfo} from '../../Networking';
 
 const datePickerStyle = {
     dateInput: {
@@ -39,30 +40,51 @@ class UserPageScreen extends Component {
     }
 
     componentDidMount() {
+        this._loadUserInfo();
+    }
+
+    _loadUserInfo = () => {
         const {currentUser} = this.props.navigation.state.params;
-        this.setState({
-            login: currentUser.login,
-            firstName: currentUser.firstName,
-            middleName: currentUser.middleName,
-            surname: currentUser.surname,
-            email: currentUser.email,
-            city: currentUser.city,
-            birthDate: currentUser.birthDate,
+        loadUserInfo((error, response) => {
+            if (error) {
+                alert(error);
+            } else {
+                this.setState({
+                    login: currentUser.login,
+                    firstName: response.user.FirstName,
+                    middleName: response.user.MiddleName,
+                    surname: response.user.Surname,
+                    email: response.user.Email,
+                    city: response.user.City,
+                    birthDate: response.user.BirthDate,
+                });
+            }
         });
         setTimeout(() => { this.setState({ editable: true }); }, 100);
-    }
+    };
 
     _onMenuPress = () => {
         this.props.navigation.dispatch(DrawerActions.openDrawer());
     };
 
     _updateUserPage = () => {
-        const {password, repeatPassword, firstName, surname, middleName, email, birthDate, city} = this.state;
+        const {
+            password,
+            repeatPassword,
+            firstName,
+            surname,
+            middleName,
+            email,
+            birthDate,
+            city,
+            currentPass,
+        } = this.state;
         if (password !== repeatPassword) {
             alert('Пароли не совпадают!');
             return;
         }
         const body = {
+            CurrentPass: currentPass,
             Pass: password,
             FirstName: firstName,
             Surname: surname,
@@ -102,6 +124,14 @@ class UserPageScreen extends Component {
                         autoCapitalize="none"
                         autoCorrect={false}
                         onSubmitEditing={() => this.passwordInput.focus()}
+                    />
+                    <AppInput
+                        style={styles.input}
+                        placeholder="Текущий пароль"
+                        onChangeText={(text) => this.setState({currentPass: text})}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        secureTextEntry={true}
                     />
                     <AppInput
                         style={styles.input}

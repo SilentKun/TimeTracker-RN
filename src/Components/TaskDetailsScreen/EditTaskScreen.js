@@ -62,7 +62,6 @@ class EditTaskScreen extends Component {
             if (error) {
                 alert(error);
             } else {
-                store.dispatch(trackingOn(worktask));
                 this.props.navigation.goBack();
             }
         });

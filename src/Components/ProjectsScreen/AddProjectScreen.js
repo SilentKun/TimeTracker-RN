@@ -42,7 +42,7 @@ class AddProjectScreen extends Component {
                         onPress={() => this.props.navigation.goBack()}
                     />
                     <Text style={styles.title}>
-                        Создать проект
+                        Добавить проект
                     </Text>
                 </AppNavigationBar>
                 <AppInput
@@ -65,7 +65,7 @@ class AddProjectScreen extends Component {
                 <AppButton
                     style={styles.button}
                     onPress={this._addProject}
-                    text="Создать"
+                    text="Добавить"
                     disabled={!title}
                 />
             </View>

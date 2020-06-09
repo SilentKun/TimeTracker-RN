@@ -9,12 +9,12 @@ const WorktrackCell = ({style, User, onLongPress, startedTime, stoppedTime, Tota
             onLongPress={onLongPress}
         >
             <View style={styles.userContainer}>
-                <View style={{flexDirection: 'column', }}>
+                <View style={{flexDirection: 'column'}}>
                     <Text style={styles.userLabel}>Пользователь</Text>
                     <Text style={styles.text}>{User}</Text>
                 </View>
                 {Task &&
-                <View style={{flexDirection: 'column', borderLeftWidth: 1, borderColor: colors.charcoalGrey10, paddingLeft: 5}}>
+                <View style={styles.taskContainer}>
                     <Text style={styles.userLabel}>Задача</Text>
                     <Text style={styles.text}>{Task}</Text>
                 </View>}
@@ -49,6 +49,12 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 5,
     },
+    taskContainer: {
+        flexDirection: 'column',
+        borderLeftWidth: 1,
+        borderColor: colors.charcoalGrey10,
+        paddingLeft: 5,
+    },
     bottomContainer: {
         flexDirection: 'row',
     },
@@ -58,25 +64,20 @@ const styles = StyleSheet.create({
         elevation: 3,
         marginHorizontal: 10,
         paddingHorizontal: 10,
-        // paddingBottom: 10,
         borderRadius: 5,
         flexDirection: 'column',
     },
     text: {
         fontSize: 16,
-        // marginTop: 10,
         marginBottom: 5,
     },
     userContainer: {
-        // marginHorizontal: 10,
         flexDirection: 'row',
         borderColor: colors.charcoalGrey10,
         borderBottomWidth: 1,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     timeContainer: {
-        // width: '50%',
-        // marginHorizontal: 10,
     },
     time: {
         fontSize: 16,

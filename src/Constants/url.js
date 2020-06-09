@@ -22,6 +22,7 @@ const updateTaskUrl = `${baseUrl}/api/task/update`;
 const usersUrl = (id) => `${baseUrl}/api/project/GetUsers?id=${id}`;
 const currentUserUrl = `${baseUrl}/api/account/GetCurrentUser`;
 const statsUrl = `${baseUrl}/api/worktrack/GetStat`;
+const userInfoUrl = `${baseUrl}/api/mypage/get`;
 const updateMembersUrl = (projectId, memberId) => `${signedProjectsUrl}/${projectId}/members/${memberId}`;
 // const worktracksUrl = (projectId, taskId) => `${signedProjectsUrl}/${projectId}/tasks/${taskId}/worktracks`;
 
@@ -51,4 +52,5 @@ export {
     usersUrl,
     currentUserUrl,
     statsUrl,
+    userInfoUrl,
 };

@@ -1,10 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-// import {Picker} from '@react-native-community/picker';
-import RNPickerSelect from 'react-native-picker-select';
+import {View, StyleSheet, Text} from 'react-native';
 import {colors} from '../../Constants';
 import AppButton from '../UIKit/AppButton';
-import LoginManager from '../../Helpers/LoginManager';
 
 const MembersCell = ({style, login, right, onPress, onValueChange, selectedValue, onPressDelete, onPressRight, isAdmin, currentUser}) => {
     return (
