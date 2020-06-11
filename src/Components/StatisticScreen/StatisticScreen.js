@@ -101,7 +101,6 @@ class StatisticScreen extends Component {
     };
 
     _onProjectChange = (value) => {
-        console.log('CHANGE', value);
         loadTasks(value, (error, response) => {
             if (error) {
                 alert(error);
@@ -161,7 +160,6 @@ class StatisticScreen extends Component {
 
     render() {
         const {worktracks, loading} = this.state;
-        console.log('WER', this.state.startDate);
         return (
             <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
                 <NavigationEvents

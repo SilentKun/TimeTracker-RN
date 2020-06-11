@@ -68,7 +68,6 @@ class EditTaskScreen extends Component {
     };
 
     render() {
-        console.log('STATE', this.state.duration)
         return (
             <View style={{flex: 1}}>
                 <AppNavigationBar style={styles.navigationBar}>

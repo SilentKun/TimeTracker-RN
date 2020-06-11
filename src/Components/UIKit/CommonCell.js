@@ -3,7 +3,15 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import colors from '../../Constants/colors';
 
-const CommonCell = ({style, Title, Description, onPress, login, onLongPress, isPending, State}) => {
+const CommonCell = ({
+    style,
+    Title,
+    Description,
+    onPress,
+    onLongPress,
+    isPending,
+    State,
+}) => {
     return (
         <TouchableOpacity
             style={{...styles.container, ...style}}

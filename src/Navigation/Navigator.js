@@ -88,7 +88,6 @@ class MainNavigatorWithCustomView extends React.Component {
 
     render() {
         const {isTracking, task} = this.props;
-        console.log('REDIX', task);
         return (
             <View style={{flex: 1}}>
                 <MainNavigator {...this.props} />

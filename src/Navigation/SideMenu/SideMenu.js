@@ -55,7 +55,6 @@ class SideMenu extends Component {
 
     render() {
         const {currentUser} = this.props;
-        console.log(currentUser)
         return (
             <SafeAreaView>
                 <ScrollView
