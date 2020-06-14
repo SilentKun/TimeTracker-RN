@@ -2,23 +2,25 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import colors from '../../Constants/colors';
+import AppButton from './AppButton';
 
 const CommonCell = ({
     style,
     Title,
     Description,
-    onPress,
+    onPressAccept,
     onLongPress,
     isPending,
+    onPressDecline,
     State,
+    onPress,
 }) => {
     return (
         <TouchableOpacity
-            style={{...styles.container, ...style}}
             onPress={onPress}
+            style={{...styles.container, ...style}}
             onLongPress={onLongPress}
         >
-            {isPending && <Icon style={styles.icon} name="ios-add-circle" size={30} color={colors.freshGreen} />}
             <View style={styles.containerText}>
                 <Text style={styles.text}>{Title}</Text>
             </View>
@@ -33,6 +35,22 @@ const CommonCell = ({
                     <Text style={{...styles.description, marginLeft: 5}}>{State.Title}</Text>
                 </View>}
             </View>
+            {isPending &&
+            <View>
+                <AppButton
+                    textStyle={{marginVertical: 10, marginHorizontal: 10}}
+                    onPress={onPressAccept}
+                    style={{position: 'absolute', right: 105, bottom: 5}}
+                    text="Принять"
+                />
+                <AppButton
+                    textStyle={{marginVertical: 10, marginHorizontal: 10}}
+                    isDestructive={true}
+                    style={{position: 'absolute', right: 0, bottom: 5}}
+                    onPress={onPressDecline}
+                    text="Отклонить"
+                />
+            </View>}
         </TouchableOpacity>
     );
 };
@@ -54,6 +72,12 @@ const styles = StyleSheet.create({
     },
     bottomContainer: {
         flexDirection: 'row',
+    },
+    buttonContainer: {
+        position: 'absolute',
+        flexDirection: 'row',
+        right: 10,
+        bottom: 0,
     },
     container: {
         marginBottom: 10,

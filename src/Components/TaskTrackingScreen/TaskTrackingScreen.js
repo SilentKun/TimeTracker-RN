@@ -66,7 +66,6 @@ class TaskTrackingScreen extends Component {
             });
             return;
         }
-
         let startTime;
         if (started) {
             startTime = moment(worktask.startedTime).utcOffset(this.state.offset);
@@ -87,9 +86,7 @@ class TaskTrackingScreen extends Component {
             onClose: this.onClose,
             onActiveTrackingReceive: this.onActiveTrackingReceive,
         };
-
         const hubConnection = SignalRHelper.getConnection(connectionData);
-
         this.setState({ hubConnection }, () => {
             this.start();
         });

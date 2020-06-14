@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, FlatList, RefreshControl, ActivityIndicator} from 'react-native';
-import {loadProjects, acceptInvite} from '../../Networking';
+import {loadProjects, acceptInvite, declineInvite} from '../../Networking';
 import {AppPopup, CommonCell} from '../UIKit';
 
 class PendingProjectsScreen extends Component {
@@ -23,7 +23,18 @@ class PendingProjectsScreen extends Component {
                 alert(error);
             } else {
                 this._loadProjects();
-                this.setState({isModalVisible: false,});
+                this.setState({isModalVisible: false});
+            }
+        });
+    };
+
+    _declineInvite = (projectId) => {
+        declineInvite(projectId, (error, response) => {
+            if (error) {
+                alert(error);
+            } else {
+                this._loadProjects();
+                this.setState({isModalVisible: false});
             }
         });
     };
@@ -45,7 +56,8 @@ class PendingProjectsScreen extends Component {
                 isPending={true}
                 key={item.Id}
                 {...item}
-                onPress={() => this.setState({isModalVisible: true, projectId: item.Id})}
+                onPressAccept={() => this._acceptInvite(item.Id)}
+                onPressDecline={() => this.setState({isModalVisible: true, projectId: item.Id})}
             />
         );
     };
@@ -64,7 +76,7 @@ class PendingProjectsScreen extends Component {
                 <FlatList
                     style={styles.container}
                     contentContainerStyle={styles.contentContainer}
-                    data={projectView?.NotSignedProjects}
+                    data={projectView?.notAcceptedProjects}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={this._renderItem}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadProjects} />}
@@ -72,8 +84,8 @@ class PendingProjectsScreen extends Component {
                 <AppPopup
                     style={styles.button}
                     isDialogVisible={isModalVisible}
-                    title="Присоединиться к данному проекту?"
-                    submit={() => this._acceptInvite(this.state.projectId)}
+                    title="Отклонить приглашение в проект?"
+                    submit={() => this._declineInvite(this.state.projectId)}
                     closeDialog={() => { this.setState({isModalVisible: false}); }}
                 />
             </View>

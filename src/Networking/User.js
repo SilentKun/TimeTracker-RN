@@ -1,5 +1,5 @@
 import {apiRequest} from './Base';
-import {updateUserPage, updateUserUrl, usersUrl, currentUserUrl, statsUrl, userInfoUrl} from '../Constants';
+import {updateUserPage, updateUserUrl, usersUrl, currentUserUrl, reportsUrl, userInfoUrl} from '../Constants';
 
 const updateUserData = (parameters, block) => {
     return apiRequest(updateUserPage, 'POST', parameters, block);
@@ -19,7 +19,7 @@ const loadCurrentUser = (block) => {
 };
 
 const loadUserStats = (parameters, block) => {
-    return apiRequest(statsUrl, 'POST', parameters, block);
+    return apiRequest(reportsUrl, 'POST', parameters, block);
 };
 
 const loadUserInfo = (block) => {

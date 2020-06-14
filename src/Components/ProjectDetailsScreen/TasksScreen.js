@@ -107,7 +107,6 @@ class TasksScreen extends Component {
     };
 
     _renderItem = ({item}) => {
-        const {project} = this.props.navigation.state?.params;
         return (
             <CommonCell
                 key={item.id}
@@ -118,7 +117,7 @@ class TasksScreen extends Component {
     };
 
     render() {
-        const {tasks, loading, isDialogVisible} = this.state;
+        const {loading, isDialogVisible} = this.state;
         if (loading) {
             return (
                 <View style={styles.loadingIndicator}>

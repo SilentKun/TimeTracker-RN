@@ -33,7 +33,8 @@ class MembersScreen extends Component {
                 this.setState({loading: false});
                 alert(error);
             } else {
-                this.setState({users: response.users, isAdmin: response.isAdmin, loading: false});
+                console.log('MEN', response.caller.right)
+                this.setState({users: response.users, isAdmin: response.caller.right.Id !== 1, loading: false});
             }
         });
     };
@@ -76,8 +77,14 @@ class MembersScreen extends Component {
 
     _changeUserRight = (index, user) => {
         const {project} = this.props.navigation.state?.params;
+        const body = {
+            userLogin: user.login,
+            rightId: index.toString(),
+            projectId: project.id.toString()
+        }
+        console.log(body)
         updateUser(
-            {userLogin: user.login, rightId: index.toString(), projectId: project.id.toString()},
+            body,
             (error, response) => {
                 if (error) {
                     this.setState({loading: false});

@@ -3,7 +3,7 @@ import {StyleSheet, View, FlatList, RefreshControl, ActivityIndicator} from 'rea
 import { NavigationEvents } from 'react-navigation';
 import {loadProjects} from '../../Networking';
 import {CommonCell} from '../UIKit';
-import {routes, colors} from '../../Constants';
+import {routes} from '../../Constants';
 
 class CurrentProjectsScreen extends Component {
     constructor(props) {
@@ -63,7 +63,7 @@ class CurrentProjectsScreen extends Component {
                 <FlatList
                     style={styles.container}
                     contentContainerStyle={styles.contentContainer}
-                    data={projectView?.SignedProjects}
+                    data={projectView?.acceptedProjects}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={this._renderItem}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadProjects} />}
@@ -80,8 +80,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         paddingBottom: 30,
     },
-
-
 });
 
 export default CurrentProjectsScreen;

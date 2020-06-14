@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
 import {NavigationEvents} from 'react-navigation';
-import {store} from '../../Redux';
-import {trackingOn, trackingOff} from '../../Redux/Actions';
 import moment from 'moment';
+import {store} from '../../Redux';
+import {trackingOn} from '../../Redux/Actions';
 import {AppNavigationBar, AppTouchableIcon, WorktrackCell} from '../UIKit';
 import {colors, routes} from '../../Constants';
 import TaskHeader from './TaskHeader';
@@ -32,12 +32,12 @@ class TaskDetailsScreen extends Component {
     }
 
     _renderItem = ({item}) => {
-        const startedTime = moment(item.StartedTime).add(offset, 'm').format('HH:mm:ss');
-        const stoppedTime = moment(item.StoppedTime).add(offset, 'm').format('HH:mm:ss');
+        const startedTime = moment(item.startedTime).add(offset, 'm').format('DD.MM.YYYY HH:mm:ss');
+        const stoppedTime = moment(item.stoppedTime).add(offset, 'm').format('DD.MM.YYYY HH:mm:ss');
         return (
             <WorktrackCell
-                startedTime={startedTime}
-                stoppedTime={stoppedTime}
+                start={startedTime}
+                stop={stoppedTime}
                 key={item.id}
                 {...item}
             />
@@ -59,7 +59,7 @@ class TaskDetailsScreen extends Component {
     };
 
     _renderHeader = () => {
-        const {worktask, taskLoading} = this.state
+        const {worktask} = this.state
         const createdDate = moment(worktask.CreatedDate).add(offset, 'm').format('L');
 
         return (
@@ -211,13 +211,11 @@ const styles = StyleSheet.create({
     container: {
     },
     listHeaderComponent: {
-        // height: '20%',
         marginHorizontal: 10,
         marginTop: 10,
     },
     contentContainer: {
         paddingBottom: 30,
-
     },
     flexSpacing: {
         flex: 1,

@@ -39,7 +39,7 @@ class StatisticScreen extends Component {
             if (error) {
                 alert(error);
             } else {
-                const projects = response.SignedProjects.map((item) => {
+                const projects = response.acceptedProjects.map((item) => {
                     return {
                         value: item.Id,
                         label: item.Title,
@@ -114,7 +114,7 @@ class StatisticScreen extends Component {
                 this.setState({
                     projectId: value,
                     tasks,
-                    isAdmin: response.isAdmin,
+                    isAdmin: response.caller.right.Id === 1,
                 }, () => { this._loadUsers(); });
             }
         });
@@ -146,12 +146,12 @@ class StatisticScreen extends Component {
 
     _renderItem = ({item}) => {
         const offset = moment().utcOffset();
-        const startedTime = moment(item.StartedTime).add(offset, 'm').format('HH:mm:ss');
-        const stoppedTime = moment(item.StoppedTime).add(offset, 'm').format('HH:mm:ss');
+        const startedTime = moment(item.startedTime).add(offset, 'm').format('DD.MM.YYYY HH:mm:ss');
+        const stoppedTime = moment(item.stoppedTime).add(offset, 'm').format('DD.MM.YYYY HH:mm:ss');
         return (
             <WorktrackCell
-                startedTime={startedTime}
-                stoppedTime={stoppedTime}
+                start={startedTime}
+                stop={stoppedTime}
                 key={item.id}
                 {...item}
             />

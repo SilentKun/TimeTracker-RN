@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from '../../Constants';
 
-const WorktrackCell = ({style, User, onLongPress, startedTime, stoppedTime, TotalTime, Task}) => {
+const WorktrackCell = ({style, login, onLongPress, totalTime, task, start, stop}) => {
     return (
         <View
             style={{...styles.container, ...style}}
@@ -11,26 +11,26 @@ const WorktrackCell = ({style, User, onLongPress, startedTime, stoppedTime, Tota
             <View style={styles.userContainer}>
                 <View style={{flexDirection: 'column'}}>
                     <Text style={styles.userLabel}>Пользователь</Text>
-                    <Text style={styles.text}>{User}</Text>
+                    <Text style={styles.text}>{login}</Text>
                 </View>
-                {Task &&
+                {task &&
                 <View style={styles.taskContainer}>
                     <Text style={styles.userLabel}>Задача</Text>
-                    <Text style={styles.text}>{Task}</Text>
+                    <Text style={styles.text}>{task}</Text>
                 </View>}
             </View>
             <View style={styles.bottomContainer}>
                 <View>
                     <Text style={styles.timeLabel}>Время начала</Text>
-                    <Text style={styles.time}>{startedTime}</Text>
+                    <Text style={styles.time}>{start}</Text>
                 </View>
                 <View style={{...styles.timeContainer, ...styles.timeStyle}}>
                     <Text style={styles.timeLabel}>Время конца</Text>
-                    <Text style={styles.time}>{stoppedTime}</Text>
+                    <Text style={styles.time}>{stop}</Text>
                 </View>
                 <View style={{...styles.timeContainer, ...styles.timeStyle}}>
                     <Text style={styles.timeLabel}>Затраченное время</Text>
-                    <Text style={styles.time}>{TotalTime}</Text>
+                    <Text style={styles.time}>{totalTime}</Text>
                 </View>
 
             </View>
@@ -82,6 +82,8 @@ const styles = StyleSheet.create({
     time: {
         fontSize: 16,
         marginBottom: 5,
+        flexGrow: 1,
+        width: 100,
     },
     icon: {
         position: 'absolute',

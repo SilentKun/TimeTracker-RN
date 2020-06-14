@@ -1,8 +1,9 @@
-const baseUrl = 'http://silentkunz-001-site1.dtempurl.com';
+const baseUrl = 'http://truthofway-001-site1.itempurl.com';
 const signInUrl = `${baseUrl}/api/account/signin`;
 const signUpUrl = `${baseUrl}/api/account/signup`;
 const projectsUrl = `${baseUrl}/api/project/getall`;
 const acceptInviteUrl = `${baseUrl}/api/project/accept`;
+const declineInviteUrl = (id) => `${baseUrl}/api/project/reject?id=${id}`;
 const addProjectUrl = `${baseUrl}/api/project/add`;
 const signedProjectsUrl = `${projectsUrl}/1/signedProjects`;
 const projectDetails = (id) => `${baseUrl}/api/project/get?id=${id}`;
@@ -21,7 +22,7 @@ const deleteTaskUrl = (id) => `${baseUrl}/api/task/delete?Id=${id}`;
 const updateTaskUrl = `${baseUrl}/api/task/update`;
 const usersUrl = (id) => `${baseUrl}/api/project/GetUsers?id=${id}`;
 const currentUserUrl = `${baseUrl}/api/account/GetCurrentUser`;
-const statsUrl = `${baseUrl}/api/worktrack/GetStat`;
+const reportsUrl = `${baseUrl}/api/worktrack/GetReport`;
 const userInfoUrl = `${baseUrl}/api/mypage/get`;
 const updateMembersUrl = (projectId, memberId) => `${signedProjectsUrl}/${projectId}/members/${memberId}`;
 // const worktracksUrl = (projectId, taskId) => `${signedProjectsUrl}/${projectId}/tasks/${taskId}/worktracks`;
@@ -51,6 +52,7 @@ export {
     updateTaskUrl,
     usersUrl,
     currentUserUrl,
-    statsUrl,
+    reportsUrl,
     userInfoUrl,
+    declineInviteUrl,
 };

@@ -3,23 +3,23 @@ import {View, StyleSheet, Text} from 'react-native';
 import {colors} from '../../Constants';
 import AppButton from '../UIKit/AppButton';
 
-const MembersCell = ({style, login, right, onPress, onValueChange, selectedValue, onPressDelete, onPressRight, isAdmin, currentUser}) => {
+const MembersCell = ({style, login, right, onPress, onPressDelete, onPressRight, isAdmin, currentUser}) => {
     return (
         <View
             style={{...styles.container, ...style}}
             onPress={onPress}
         >
-            <View style={{...styles.mainContainer, width: isAdmin && currentUser.login !== login ? '50%' : '100%'}}>
+            <View style={{...styles.mainContainer, width: isAdmin && right.Id !== 3 && currentUser.login !== login ? '50%' : '100%'}}>
                 <View style={styles.nameContainer}>
                     <Text style={styles.namelabel}>Имя пользователя</Text>
                     <Text style={styles.name}>{login}</Text>
                 </View>
                 <View style={styles.rightContainer}>
                     <Text style={styles.rightlabel}>Роль</Text>
-                    <Text style={styles.right}>{right.Name}</Text>
+                    <Text style={styles.right}>{right.Title}</Text>
                 </View>
             </View>
-            {(isAdmin && currentUser.login !== login) &&
+            {(isAdmin && right.Id !== 3 && currentUser.login !== login) &&
             <View style={styles.buttonContainer}>
                 <AppButton
                     textStyle={{marginVertical: 10, marginHorizontal: 10}}

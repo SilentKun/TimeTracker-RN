@@ -32,7 +32,7 @@ class ProjectDetailsScreen extends Component {
             if (error) {
                 alert(error);
             } else {
-                this.setState({isAdmin: response.isAdmin, project: response.project});
+                this.setState({isAdmin: response.caller.right.Id !== 1, project: response.project});
             }
         });
     };

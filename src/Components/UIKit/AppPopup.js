@@ -53,8 +53,8 @@ const AppPopup = ({
                     value={rightValue}
                     onValueChange={onChangeRight}
                     items={[
-                        { label: 'Администратор', value: 'Администратор' },
                         { label: 'Пользователь', value: 'Пользователь' },
+                        { label: 'Администратор', value: 'Администратор' },
                     ]}
                 />
                 }

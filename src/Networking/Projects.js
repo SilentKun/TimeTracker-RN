@@ -7,6 +7,7 @@ import {
     acceptInviteUrl,
     addProjectUrl,
     deleteUser,
+    declineInviteUrl,
 } from '../Constants';
 
 const loadProjects = (block) => {
@@ -43,6 +44,11 @@ const acceptInvite = (parameters, block) => {
     return apiRequest(acceptInviteUrl, 'POST', parameters, block);
 };
 
+const declineInvite = (id, block) => {
+    const url = declineInviteUrl(id);
+    return apiRequest(url, 'POST', null, block);
+};
+
 export {
     loadProjects,
     addProject,
@@ -52,4 +58,5 @@ export {
     addProjectMember,
     deleteProjectMember,
     acceptInvite,
+    declineInvite,
 };
