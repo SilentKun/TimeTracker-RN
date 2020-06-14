@@ -41,7 +41,15 @@ class SignUpScreen extends Component {
     }
 
     _signUp = () => {
-        const {password, repeatPassword} = this.state;
+        const {login, password, repeatPassword} = this.state;
+        if (login.length < 4) {
+            alert('Минимальная длина логина 4 символа!');
+            return;
+        }
+        if (password.length < 5) {
+            alert('Минимальная длина пароля 5 символов!');
+            return;
+        }
         if (password !== repeatPassword) {
             alert('Пароли не совпадают!');
             return;

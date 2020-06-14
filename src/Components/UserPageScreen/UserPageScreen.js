@@ -79,6 +79,10 @@ class UserPageScreen extends Component {
             city,
             currentPass,
         } = this.state;
+        if (password.length < 5) {
+            alert('Минимальная длина пароля 5 символов!');
+            return;
+        }
         if (password !== repeatPassword) {
             alert('Пароли не совпадают!');
             return;
