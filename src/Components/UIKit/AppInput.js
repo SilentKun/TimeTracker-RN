@@ -13,10 +13,12 @@ const AppInput = ({
     secureTextEntry,
     autoFocus,
     editable,
+    keyboardType,
 }) => {
     return (
         <View style={{...styles.container, ...style}}>
             <TextInput
+                keyboardType={keyboardType}
                 autoCapitalize={autoCapitalize}
                 value={value}
                 onChangeText={onChangeText}

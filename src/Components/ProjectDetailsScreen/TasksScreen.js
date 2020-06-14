@@ -61,7 +61,7 @@ class TasksScreen extends Component {
     _addTask = () => {
         const {project} = this.props.navigation.state?.params;
         const {title, description, duration} = this.state;
-        if ((!title || !title.trim()) && (!duration || !duration.trim())) {
+        if ((!title || !title.trim()) || (!duration || !duration.trim())) {
             alert('Заполните название и продолжительность задачи!');
             return;
         }

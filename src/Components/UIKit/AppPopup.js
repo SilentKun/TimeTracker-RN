@@ -45,6 +45,7 @@ const AppPopup = ({
                     placeholder={thirdHintInput}
                     onChangeText={onChangeThirdText}
                     style={styles.input}
+                    keyboardType='number-pad'
                 />
                 }
                 {onChangeRight &&
