@@ -79,8 +79,8 @@ class UserPageScreen extends Component {
             city,
             currentPass,
         } = this.state;
-        if (password.length < 5) {
-            alert('Минимальная длина пароля 5 символов!');
+        if (currentPass.length === 0) {
+            alert('Введите текущий пароль!');
             return;
         }
         if (password !== repeatPassword) {
@@ -101,6 +101,7 @@ class UserPageScreen extends Component {
             if (error) {
                 alert(error);
             } else {
+                alert('Данные изменены!');
                 console.log(response);
             }
         });
