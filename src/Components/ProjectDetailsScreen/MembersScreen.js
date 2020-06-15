@@ -77,10 +77,6 @@ class MembersScreen extends Component {
 
     _changeUserRight = (index, user) => {
         const {project} = this.props.navigation.state?.params;
-        if (!this.state.rightId) {
-            alert('Выберите роль');
-            return;
-        };
         const body = {
             userLogin: user.login,
             rightId: index.toString(),
