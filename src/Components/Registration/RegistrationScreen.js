@@ -41,7 +41,8 @@ class SignUpScreen extends Component {
     }
 
     _signUp = () => {
-        const {login, password, repeatPassword} = this.state;
+        const {login, password, repeatPassword, email} = this.state;
+        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (login.length < 4) {
             alert('Минимальная длина логина 4 символа!');
             return;
@@ -52,6 +53,10 @@ class SignUpScreen extends Component {
         }
         if (password !== repeatPassword) {
             alert('Пароли не совпадают!');
+            return;
+        }
+        if (reg.test(email) === false) {
+            alert('Введите email в правильном формате!');
             return;
         }
         this.loginHelper.signUp();
