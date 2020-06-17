@@ -79,7 +79,7 @@ class UserPageScreen extends Component {
             city,
             currentPass,
         } = this.state;
-        if (currentPass.length === 0) {
+        if (!currentPass) {
             alert('Введите текущий пароль!');
             return;
         }
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     datePicker: {
         marginTop: 8,
         marginLeft: 80,
-        width: 235,
+        width: 250,
     },
 });
 

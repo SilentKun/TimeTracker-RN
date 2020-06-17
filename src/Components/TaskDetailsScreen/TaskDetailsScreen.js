@@ -102,7 +102,7 @@ class TaskDetailsScreen extends Component {
                 this.setState({
                     worktask: response.worktask,
                     project: response.project,
-                    isAdmin: response.isAdmin,
+                    isAdmin: response.isAdmin !== 1,
                     loading: false,
                     value: response.worktask.StateId,
                 });
@@ -143,7 +143,7 @@ class TaskDetailsScreen extends Component {
                             Задача: {worktask.Title}
                         </Text>
                         <View style={styles.flexSpacing} />
-                        {isAdmin === 1 &&
+                        {isAdmin !== 1 &&
                         <AppTouchableIcon
                             style={{paddingRight:  10}}
                             fontSize={28}
@@ -178,7 +178,7 @@ class TaskDetailsScreen extends Component {
                         Задача: {worktask.Title}
                     </Text>
                     <View style={styles.flexSpacing} />
-                    {isAdmin === 1 &&
+                    {isAdmin !== 1 &&
                     <AppTouchableIcon
                         style={{paddingRight:  10}}
                         fontSize={28}

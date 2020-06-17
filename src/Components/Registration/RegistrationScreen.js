@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     datePicker: {
         marginTop: 8,
         marginLeft: 80,
-        width: 230,
+        width: 250,
     },
 });
 
