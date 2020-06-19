@@ -48,6 +48,13 @@ const styles = StyleSheet.create({
         // paddingBottom: 10,
         borderRadius: 5,
         flexDirection: 'row',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
     },
     mainContainer: {
         flexDirection: 'column',

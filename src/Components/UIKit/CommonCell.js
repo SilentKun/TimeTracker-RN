@@ -24,7 +24,7 @@ const CommonCell = ({
             <View style={styles.containerText}>
                 <Text style={styles.text}>{Title}</Text>
             </View>
-            <View style={styles.bottomContainer}>
+            <View style={{...styles.bottomContainer, width: isPending ? '40%' : '100%'}}>
                 <View style={{...styles.descriptionContainer, width: State ? '50%' : '100%'}}>
                     <Text style={styles.descriptionLabel}>Описание</Text>
                     <Text style={styles.description}>{Description || '-'}</Text>
@@ -87,6 +87,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderRadius: 5,
         flexDirection: 'column',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
     },
     text: {
         fontSize: 18,

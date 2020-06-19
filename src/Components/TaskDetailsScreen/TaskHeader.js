@@ -35,6 +35,7 @@ const TaskHeader = ({worktask, project, states, valueTask, onValueChange, create
                 value={valueTask}
                 onValueChange={onValueChange}
                 items={states}
+                textInputProps={{marginBottom: 5, fontSize: 16}}
             />
         </View>
     );
@@ -49,6 +50,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderRadius: 5,
         flexDirection: 'column',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
     },
     rowContainer: {
         borderBottomWidth: 1,

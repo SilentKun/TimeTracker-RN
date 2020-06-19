@@ -56,12 +56,14 @@ const StatisticPopup = ({
                         value={projectValue}
                         onValueChange={onChangeProject}
                         items={projects}
+                        textInputProps={{marginBottom: 10, fontSize: 16}}
                     />
                     <RNPickerSelect
                         placeholder={{label: 'Выберите пользователя', value: null}}
                         value={userValue}
                         onValueChange={onChangeUser}
                         items={users}
+                        textInputProps={{marginBottom: 10, fontSize: 16}}
                     />
                     <RNPickerSelect
                         style={styles.picker}
@@ -69,6 +71,7 @@ const StatisticPopup = ({
                         value={taskValue}
                         onValueChange={onChangeTask}
                         items={tasks}
+                        textInputProps={{marginBottom: 10, fontSize: 16}}
                     />
                 </View>
                 <DatePicker

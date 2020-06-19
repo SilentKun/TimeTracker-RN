@@ -15,7 +15,7 @@ import {
     ProjectDetailsScreen,
 } from '../Components';
 import SideMenu from './SideMenu';
-import {routes} from '../Constants';
+import {colors, routes} from '../Constants';
 import {AppSafeAreaView} from '../Components/UIKit';
 import BaseScreen from '../Components/BaseScreen';
 import AddProjectScreen from '../Components/ProjectsScreen/AddProjectScreen';
@@ -89,7 +89,7 @@ class MainNavigatorWithCustomView extends React.Component {
     render() {
         const {isTracking, task} = this.props;
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: colors.feedBackground}}>
                 <MainNavigator {...this.props} />
                 {isTracking &&
                 <TaskTrackingScreen task={task} />}
