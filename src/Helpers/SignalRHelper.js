@@ -1,7 +1,7 @@
 import { HubConnectionBuilder, LogLevel, HttpTransportType } from '@microsoft/signalr';
 
 class SignalRHelper {
-    static url = 'http://truthofway-001-site1.itempurl.com/trackingHub';
+    static url = 'http://silentkunz-001-site1.dtempurl.com/trackingHub';
 
     static logLevel = LogLevel.Information;
 

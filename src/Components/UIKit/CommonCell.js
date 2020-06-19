@@ -32,7 +32,9 @@ const CommonCell = ({
                 {State &&
                 <View style={styles.stateContainer}>
                     <Text style={{...styles.descriptionLabel, marginLeft: 5}}>Состояние</Text>
-                    <Text style={{...styles.description, marginLeft: 5}}>{State.Title}</Text>
+                    <View style={styles.tagView}>
+                        <Text style={{...styles.description, color: '#fff'}}>{State.Title}</Text>
+                    </View>
                 </View>}
             </View>
             {isPending &&
@@ -64,6 +66,15 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         flexDirection: 'column',
         justifyContent: 'center',
+    },
+    tagView: {
+        marginLeft: 5,
+        marginTop: 5,
+        paddingHorizontal: 5,
+        width: '100%',
+        backgroundColor: '#03bafc',
+        borderRadius: 6,
+        alignItems: 'center',
     },
     descriptionLabel: {
         color: colors.brownGrey,

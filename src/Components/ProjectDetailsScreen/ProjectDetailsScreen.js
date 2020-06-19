@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Dimensions} from 'react-native';
+import {StyleSheet, View, Text, Dimensions, KeyboardAvoidingView} from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {NavigationEvents} from 'react-navigation';

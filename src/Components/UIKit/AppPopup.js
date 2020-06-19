@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, TextInput, Text} from 'react-native';
+import {StyleSheet, View, Text, KeyboardAvoidingView, Platform} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import Modal from 'react-native-modal';
 import AppButton from './AppButton';
@@ -25,45 +25,52 @@ const AppPopup = ({
         <Modal
             isVisible={isDialogVisible}
         >
-            <View style={styles.background}>
-                {title && <Text style={styles.title}>{title}</Text>}
-                {message && <Text style={styles.message}>{message}</Text>}
-                {onChangeFirstText &&
+            <KeyboardAvoidingView
+                enabled={true}
+                behavior={Platform.OS === 'android' ? undefined : 'padding'}
+                keyboardVerticalOffset={100}
+            >
+                <View style={styles.background}>
+                    {title && <Text style={styles.title}>{title}</Text>}
+                    {message && <Text style={styles.message}>{message}</Text>}
+                    {onChangeFirstText &&
                     <AppInput
                         placeholder={firstHintInput}
                         onChangeText={onChangeFirstText}
                         style={styles.input}
                     />}
-                {onChangeSecondText &&
-                <AppInput
-                    placeholder={secondHintInput}
-                    onChangeText={onChangeSecondText}
-                    style={styles.input}
-                />}
-                {onChangeThirdText &&
-                <AppInput
-                    placeholder={thirdHintInput}
-                    onChangeText={onChangeThirdText}
-                    style={styles.input}
-                    keyboardType='number-pad'
-                />
-                }
-                {onChangeRight &&
-                <RNPickerSelect
-                    placeholder={{label: 'Выберите роль', value: null}}
-                    value={rightValue}
-                    onValueChange={onChangeRight}
-                    items={[
-                        { label: 'Пользователь', value: 'Пользователь' },
-                        { label: 'Администратор', value: 'Администратор' },
-                    ]}
-                />
-                }
-                <View style={styles.buttonsContainer}>
-                    <AppButton style={styles.button} text="OK" onPress={submit} />
-                    <AppButton style={styles.button} text="ОТМЕНА" onPress={closeDialog} />
+                    {onChangeSecondText &&
+                    <AppInput
+                        placeholder={secondHintInput}
+                        onChangeText={onChangeSecondText}
+                        style={styles.input}
+                    />}
+                    {onChangeThirdText &&
+                    <AppInput
+                        placeholder={thirdHintInput}
+                        onChangeText={onChangeThirdText}
+                        style={styles.input}
+                        keyboardType="number-pad"
+                    />
+                    }
+                    {onChangeRight &&
+                    <RNPickerSelect
+                        placeholder={{label: 'Выберите роль', value: null}}
+                        value={rightValue}
+                        onValueChange={onChangeRight}
+                        items={[
+                            { label: 'Пользователь', value: 'Пользователь' },
+                            { label: 'Администратор', value: 'Администратор' },
+                        ]}
+                        textInputProps={{marginLeft: 10, marginTop: 10, fontSize: 16}}
+                    />
+                    }
+                    <View style={styles.buttonsContainer}>
+                        <AppButton style={styles.button} text="OK" onPress={submit} />
+                        <AppButton style={styles.button} text="ОТМЕНА" onPress={closeDialog} />
+                    </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         </Modal>
     );
 };

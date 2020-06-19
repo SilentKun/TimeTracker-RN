@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, TextInput, Text, ScrollView} from 'react-native';
+import {StyleSheet, View, TextInput, Text, ScrollView, KeyboardAvoidingView, Platform} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import Modal from 'react-native-modal';
 import DatePicker from 'react-native-datepicker';
@@ -48,62 +48,68 @@ const StatisticPopup = ({
             isVisible={isPopupStatVisible}
             style={styles.container}
         >
-            <View style={styles.background}>
-                <Text style={styles.title}>Заполните поля</Text>
-                <View style={{marginLeft: 20, marginVertical: 10}}>
-                    <RNPickerSelect
-                        placeholder={{label: 'Выберите проект', value: null}}
-                        value={projectValue}
-                        onValueChange={onChangeProject}
-                        items={projects}
-                        textInputProps={{marginBottom: 10, fontSize: 16}}
+            <KeyboardAvoidingView
+                enabled={true}
+                behavior={Platform.OS === 'android' ? undefined : 'padding'}
+                keyboardVerticalOffset={100}
+            >
+                <View style={styles.background}>
+                    <Text style={styles.title}>Заполните поля</Text>
+                    <View style={{marginLeft: 20, marginVertical: 10}}>
+                        <RNPickerSelect
+                            placeholder={{label: 'Выберите проект', value: null}}
+                            value={projectValue}
+                            onValueChange={onChangeProject}
+                            items={projects}
+                            textInputProps={{marginBottom: 10, fontSize: 16}}
+                        />
+                        <RNPickerSelect
+                            placeholder={{label: 'Выберите пользователя', value: null}}
+                            value={userValue}
+                            onValueChange={onChangeUser}
+                            items={users}
+                            textInputProps={{marginBottom: 10, fontSize: 16}}
+                        />
+                        <RNPickerSelect
+                            style={styles.picker}
+                            placeholder={{label: 'Выберите задачу', value: null}}
+                            value={taskValue}
+                            onValueChange={onChangeTask}
+                            items={tasks}
+                            textInputProps={{marginBottom: 10, fontSize: 16}}
+                        />
+                    </View>
+                    <DatePicker
+                        style={styles.datePicker}
+                        date={fromDate}
+                        mode="date"
+                        placeholder="С"
+                        format="YYYY-MM-DD"
+                        confirmBtnText="Подтвердить"
+                        cancelBtnText="Отменить"
+                        showIcon={false}
+                        customStyles={datePickerStyle}
+                        onDateChange={onFromDateChange}
                     />
-                    <RNPickerSelect
-                        placeholder={{label: 'Выберите пользователя', value: null}}
-                        value={userValue}
-                        onValueChange={onChangeUser}
-                        items={users}
-                        textInputProps={{marginBottom: 10, fontSize: 16}}
-                    />
-                    <RNPickerSelect
-                        style={styles.picker}
-                        placeholder={{label: 'Выберите задачу', value: null}}
-                        value={taskValue}
-                        onValueChange={onChangeTask}
-                        items={tasks}
-                        textInputProps={{marginBottom: 10, fontSize: 16}}
-                    />
-                </View>
-                <DatePicker
-                    style={styles.datePicker}
-                    date={fromDate}
-                    mode="date"
-                    placeholder="С"
-                    format="YYYY-MM-DD"
-                    confirmBtnText="Подтвердить"
-                    cancelBtnText="Отменить"
-                    showIcon={false}
-                    customStyles={datePickerStyle}
-                    onDateChange={onFromDateChange}
-                />
 
-                <DatePicker
-                    style={styles.datePicker}
-                    date={endDate}
-                    mode="date"
-                    placeholder="По"
-                    format="YYYY-MM-DD"
-                    confirmBtnText="Подтвердить"
-                    cancelBtnText="Отменить"
-                    showIcon={false}
-                    customStyles={datePickerStyle}
-                    onDateChange={onEndDateChange}
-                />
-                <View style={styles.buttonsContainer}>
-                    <AppButton style={styles.button} text="OK" onPress={submit} disabled={disabled} />
-                    <AppButton style={styles.button} text="ОТМЕНА" onPress={closeDialog} />
+                    <DatePicker
+                        style={styles.datePicker}
+                        date={endDate}
+                        mode="date"
+                        placeholder="По"
+                        format="YYYY-MM-DD"
+                        confirmBtnText="Подтвердить"
+                        cancelBtnText="Отменить"
+                        showIcon={false}
+                        customStyles={datePickerStyle}
+                        onDateChange={onEndDateChange}
+                    />
+                    <View style={styles.buttonsContainer}>
+                        <AppButton style={styles.button} text="OK" onPress={submit} disabled={disabled} />
+                        <AppButton style={styles.button} text="ОТМЕНА" onPress={closeDialog} />
+                    </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         </Modal>
     );
 };

@@ -1,4 +1,4 @@
-const baseUrl = 'http://truthofway-001-site1.itempurl.com';
+const baseUrl = 'http://silentkunz-001-site1.dtempurl.com';
 const signInUrl = `${baseUrl}/api/account/signin`;
 const signUpUrl = `${baseUrl}/api/account/signup`;
 const projectsUrl = `${baseUrl}/api/project/getall`;

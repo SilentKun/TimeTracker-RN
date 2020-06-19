@@ -5,30 +5,7 @@ import { FloatingAction } from 'react-native-floating-action';
 import {CommonCell, AppPopup} from '../UIKit';
 import {addTask, loadTasks} from '../../Networking';
 import routes from '../../Constants/routes';
-
-const actions = [
-    {
-        color: '#03bafc',
-        text: 'Отсортировать задачи по состоянию',
-        name: 'bt_sort_by_state',
-        icon: require('./img/sortIcon.png'),
-        position: 2,
-    },
-    {
-        color: '#03bafc',
-        text: 'Сортировка по умолчанию',
-        icon: require('./img/defaultSortIcon.png'),
-        name: 'bt_default_sort',
-        position: 3,
-    },
-    {
-        color: '#03bafc',
-        text: 'Добавить задачу',
-        name: 'bt_add_task',
-        icon: require('./img/addIcon.png'),
-        position: 1,
-    },
-];
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class TasksScreen extends Component {
     constructor(props) {
@@ -91,21 +68,6 @@ class TasksScreen extends Component {
         });
     };
 
-    _handleOptions = (button) => {
-        switch (button) {
-        case 'bt_add_task':
-            this.setState({isDialogVisible: true});
-            break;
-        case 'bt_sort_by_state':
-            this.setState({ orderTasksFunc: (tasks) => tasks.sort((a, b) => (a.StateId >= b.StateId ? 1 : -1)) });
-            break;
-        case 'bt_default_sort':
-            this.setState({ orderTasksFunc: (tasks) => tasks });
-            break;
-        default:
-        }
-    };
-
     _renderItem = ({item}) => {
         return (
             <CommonCell
@@ -156,10 +118,11 @@ class TasksScreen extends Component {
                 />
                 <FloatingAction
                     color="#03bafc"
-                    actions={actions}
-                    onPressItem={(btn) => {
-                        this._handleOptions(btn);
+                    floatingIcon={<Icon name="ios-add" size={35} color="#FFF" />}
+                    onPressMain={() => {
+                        this.setState({isDialogVisible: true});
                     }}
+                    showBackground={false}
                 />
             </View>
         );
