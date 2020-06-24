@@ -114,7 +114,7 @@ class StatisticScreen extends Component {
                 this.setState({
                     projectId: value,
                     tasks,
-                    isAdmin: response.caller.right.Id === 1,
+                    isAdmin: response.caller.right.Id !== 1,
                 }, () => { this._loadUsers(); });
             }
         });
