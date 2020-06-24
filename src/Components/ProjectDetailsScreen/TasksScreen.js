@@ -15,7 +15,6 @@ class TasksScreen extends Component {
             loading: true,
             isDialogVisible: false,
             duration: '',
-            orderTasksFunc: (tasks) => tasks,
         };
     }
 
@@ -97,7 +96,7 @@ class TasksScreen extends Component {
                 <FlatList
                     style={styles.container}
                     contentContainerStyle={styles.contentContainer}
-                    data={this.state.orderTasksFunc(this.state.tasks.slice())}
+                    data={this.state.tasks}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={this._renderItem}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadTasks} />}

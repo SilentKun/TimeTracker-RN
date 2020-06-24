@@ -43,8 +43,8 @@ class SignUpScreen extends Component {
     _signUp = () => {
         const {login, password, repeatPassword, email} = this.state;
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (login.length < 4) {
-            alert('Минимальная длина логина 4 символа!');
+        if (login.length < 5) {
+            alert('Минимальная длина логина 5 символов!');
             return;
         }
         if (password.length < 5) {

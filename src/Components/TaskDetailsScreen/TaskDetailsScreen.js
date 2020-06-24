@@ -143,7 +143,7 @@ class TaskDetailsScreen extends Component {
                             Задача: {worktask.Title}
                         </Text>
                         <View style={styles.flexSpacing} />
-                        {isAdmin !== 1 &&
+                        {isAdmin &&
                         <AppTouchableIcon
                             style={{paddingRight:  10}}
                             fontSize={28}
@@ -178,7 +178,7 @@ class TaskDetailsScreen extends Component {
                         Задача: {worktask.Title}
                     </Text>
                     <View style={styles.flexSpacing} />
-                    {isAdmin !== 1 &&
+                    {isAdmin &&
                     <AppTouchableIcon
                         style={{paddingRight:  10}}
                         fontSize={28}

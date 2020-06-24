@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, ActivityIndicator, FlatList, RefreshControl} from 'react-native';
 import { FloatingAction } from 'react-native-floating-action';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {addProjectMember, deleteProjectMember, loadProjectMembers} from '../../Networking/Projects';
+import {addProjectMember, deleteProjectMember} from '../../Networking/Projects';
 import {AppPopup} from '../UIKit';
 import {loadTasks, updateUser} from '../../Networking';
 import MembersCell from './MembersCell';
