@@ -115,7 +115,13 @@ class TaskTrackingScreen extends Component {
                 <View style={{flexDirection: 'column', marginLeft: 25}}>
                     <View style={{flexDirection: 'row'}}>
                         <Text style={{fontSize: 16}}>Задача: </Text>
-                        <Text style={{fontSize: 16, fontWeight: 'bold'}}>{task?.Title}</Text>
+                        <Text
+                            numberOfLines={1}
+                            ellipsizeMode="tail"
+                            style={{fontSize: 16, fontWeight: 'bold', width: '40%'}}
+                        >
+                            {task?.Title}
+                        </Text>
                     </View>
                     {this.state.isTracked ?
                         <Timer

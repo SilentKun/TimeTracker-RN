@@ -139,7 +139,7 @@ class TaskDetailsScreen extends Component {
                             icon="ios-arrow-back"
                             onPress={() => this.props.navigation.navigate(routes.ProjectDetailsScreen)}
                         />
-                        <Text style={styles.title}>
+                        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.title}>
                             Задача: {worktask.Title}
                         </Text>
                         <View style={styles.flexSpacing} />
@@ -174,7 +174,7 @@ class TaskDetailsScreen extends Component {
                         icon="ios-arrow-back"
                         onPress={() => this.props.navigation.navigate(routes.ProjectDetailsScreen)}
                     />
-                    <Text style={styles.title}>
+                    <Text numberOfLines={1} ellipsizeMode="tail" style={styles.title}>
                         Задача: {worktask.Title}
                     </Text>
                     <View style={styles.flexSpacing} />
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
         letterSpacing: 0.15,
         color: '#FFF',
-        // width: '70%',
+        width: '60%',
     },
 });
 
