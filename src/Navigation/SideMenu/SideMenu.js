@@ -23,7 +23,7 @@ const menuItems = [
     {
         title: 'Отчёты',
         iconName: 'md-journal',
-        route: routes.StatisticScreen,
+        route: routes.ReportsScreen,
     },
 ];
 

@@ -24,7 +24,7 @@ const datePickerStyle = {
     },
 };
 
-const StatisticPopup = ({
+const ReportsPopup = ({
     isPopupStatVisible,
     submit,
     closeDialog,
@@ -159,4 +159,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default StatisticPopup;
+export default ReportsPopup;

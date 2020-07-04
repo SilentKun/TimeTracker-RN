@@ -6,9 +6,9 @@ import {NavigationEvents} from 'react-navigation';
 import {loadProjects, loadUsers, loadCurrentUser, loadUserStats, loadTasks} from '../../Networking';
 import {colors} from '../../Constants';
 import {AppNavigationBar, AppTouchableIcon, WorktrackCell} from '../UIKit';
-import StatisticPopup from './StatisticPopup';
+import ReportsPopup from './ReportsPopup';
 
-class StatisticScreen extends Component {
+class ReportsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -198,7 +198,7 @@ class StatisticScreen extends Component {
                     renderItem={this._renderItem}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={this._loadProjects} />}
                 />
-                <StatisticPopup
+                <ReportsPopup
                     disabled={this.state.startDate === '' && this.state.endDate === ''}
                     tasks={this.state.tasks}
                     projects={this.state.projects}
@@ -249,4 +249,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default StatisticScreen;
+export default ReportsScreen;
