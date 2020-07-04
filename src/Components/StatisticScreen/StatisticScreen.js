@@ -93,7 +93,7 @@ class StatisticScreen extends Component {
         loadUserStats(body, (error, response) => {
             if (error) {
                 this.setState({loading: false});
-                alert(error);
+                alert(error.message);
             } else {
                 this.setState({ worktracks: response, loading: false });
             }

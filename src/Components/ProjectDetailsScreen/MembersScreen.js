@@ -48,7 +48,7 @@ class MembersScreen extends Component {
         }
         addProjectMember({ProjectId: project.id.toString(), UserName: login}, (error, response) => {
             if (error) {
-                alert(error);
+                alert(error.message);
             } else {
                 this._loadMembers();
                 this.setState((prevState) => {

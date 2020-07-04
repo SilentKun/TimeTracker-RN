@@ -24,7 +24,7 @@ class LoginHelper {
         LoginManager.shared().signIn(currentUser, (error, response) => {
             if (error) {
                 this.setState({inProgress: false});
-                alert(error);
+                alert(error.message);
             } else {
                 this.setState({inProgress: false});
                 this.navigate({
@@ -51,7 +51,7 @@ class LoginHelper {
         LoginManager.shared().signUp(currentUser, (error, response) => {
             if (error) {
                 this.setState({inProgress: false});
-                alert(error);
+                alert(error.message);
             } else {
                 alert(response.message)
                 this.setState({inProgress: false});

@@ -115,8 +115,8 @@ const handleResponseError = (response) => {
             })
             .then((jsonData) => {
                 console.log('JSON error from response', jsonData);
-                if (jsonData.error) {
-                    return reject(jsonData.error, response.status);
+                if (jsonData) {
+                    return reject(jsonData, response.status);
                 }
                 return reject(new Error(statusText));
             });

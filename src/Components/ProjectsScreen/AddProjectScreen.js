@@ -23,7 +23,7 @@ class AddProjectScreen extends Component {
         const {title, description} = this.state;
         addProject({Title: title, Description: description}, (error, response) => {
             if (error) {
-                alert(error);
+                alert(error.message);
             } else {
                 // TODO: Refactoring
                 this.props.navigation.goBack();
